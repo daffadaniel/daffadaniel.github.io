@@ -2,10 +2,13 @@
 
 ### Education
  **University of Indonesia**
+ 
 Bachelor Degree in Mathematics
+
 Overall GPA: 3.21/4.00
 
 **SMA Negeri 1 Tangerang**
+
 Mathematics and Natural Sciences
 
 ### Projects
