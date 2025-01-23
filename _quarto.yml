@@ -3,24 +3,29 @@ project:
   output-dir: docs
   
 website:
-  title: "Portofolio Website"
-
+  title: "Daffa Daniel Rivaldi"
 
   navbar:
     background: primary
     search: true
     left:
-      - text: Home
+      - text: "About"
         href: index.qmd 
-      - about.qmd
+      - text: "Portofolio"
+        href: portofolio.qmd
+      - text: "CV"
+        href: cv.qmd
+      - text: "About"
+        href: about.qmd
 
 
   sidebar:
-    style: "floating"
-    search: true
-    contents:
-      - section: "Projects"
-        contents:
+    - title: "Portofolio"
+      style: "floating"
+      background: light
+      contents:
+        - text: portofolio
+          href: portofolio.qmd 
         - project 1.qmd
         - hello.qmd
         - text: "Mentoring 3"
@@ -29,14 +34,14 @@ website:
   
 format:
   html:
-    theme: cosmo
+    theme:
+      light: flatly
+      dark: darkly
     css: styles.css
     toc: true
 
 execute:
   freeze: true
-
-
 
 publish:
   - gh-pages: true
