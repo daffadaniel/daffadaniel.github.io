@@ -23,18 +23,36 @@ Currently focused on improving data analysis skill, mastering machine learning, 
 ## Education
 
 #### Universitas Indonesia 
-Bachelor's degree, Mathematics | Aug 2021 - June 2025
+Bachelor's degree, Mathematics | Aug 2021 -- June 2025
 
-#### SMAN 1 Tangerang 
-Mathematics and Natural Science | July 2020 - May 2020
+#### SMA Negeri 1 Tangerang 
+Mathematics and Natural Science | July 2017 -- May 2020
+
 
 ## Certifications & Training
+##### **SQL & Relational Database**
+Pacmann | Issued Nov 2024  
+<a href="https://sertifikat.pacmann.ai/3Ug0yzxDi4ckMRc" style="text-decoration: none;">
+ Credential <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; vertical-align: middle;"></i> 
+</a>
 
-#### Pacmann Academy (May 2024 - May 2025)
+##### **Data Visualization & Wrangling**
+Pacmann | Issued Sep 2024  
+<a href="https://sertifikat.pacmann.ai/YodhlXoXm9u06zc" style="text-decoration: none;">
+ Credential <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; vertical-align: middle;"></i> 
+</a>
 
+##### **Basic Python Programming & Python for Software Engineering**
+Pacmann | Issued Jul 2024  
+<a href="https://sertifikat.pacmann.ai/Bvcu7xU41qZHd0x" style="text-decoration: none;">
+ Credential <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; vertical-align: middle;"></i> 
+</a>
 
-#### Duolingo English Test -- Duolingo ()
-
+##### **English Proficiency Certificate**
+Duolingo English Test | Issued Jan 2024 -- Expires Jan 2026  
+<a href="https://certs.duolingo.com/d6b44791c6555007900d2d951368ab5e" style="text-decoration: none;">
+ Credential <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; vertical-align: middle;"></i> 
+</a>
 :::
 
 
