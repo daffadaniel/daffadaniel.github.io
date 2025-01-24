@@ -149,20 +149,34 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-anchor-id="education">Education</h2>
 <section id="universitas-indonesia" class="level4">
 <h4 data-anchor-id="universitas-indonesia">Universitas Indonesia</h4>
-<p>Bachelor’s degree, Mathematics | Aug 2021 - June 2025</p>
+<p>Bachelor’s degree, Mathematics | Aug 2021 – June 2025</p>
 </section>
-<section id="sman-1-tangerang" class="level4">
-<h4 data-anchor-id="sman-1-tangerang">SMAN 1 Tangerang</h4>
-<p>Mathematics and Natural Science | July 2020 - May 2020</p>
+<section id="sma-negeri-1-tangerang" class="level4">
+<h4 data-anchor-id="sma-negeri-1-tangerang">SMA Negeri 1 Tangerang</h4>
+<p>Mathematics and Natural Science | July 2017 – May 2020</p>
 </section>
 </section>
 <section id="certifications-training" class="level2">
 <h2 data-anchor-id="certifications-training">Certifications &amp; Training</h2>
-<section id="pacmann-academy-may-2024---may-2025" class="level4">
-<h4 data-anchor-id="pacmann-academy-may-2024---may-2025">Pacmann Academy (May 2024 - May 2025)</h4>
+<section id="sql-relational-database" class="level5">
+<h5 data-anchor-id="sql-relational-database"><strong>SQL &amp; Relational Database</strong></h5>
+<p>Pacmann | Issued Nov 2024<br>
+<a href="https://sertifikat.pacmann.ai/3Ug0yzxDi4ckMRc" style="text-decoration: none;"> Credential <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; vertical-align: middle;"></i> </a></p>
 </section>
-<section id="duolingo-english-test-duolingo" class="level4">
-<h4 data-anchor-id="duolingo-english-test-duolingo">Duolingo English Test – Duolingo ()</h4>
+<section id="data-visualization-wrangling" class="level5">
+<h5 data-anchor-id="data-visualization-wrangling"><strong>Data Visualization &amp; Wrangling</strong></h5>
+<p>Pacmann | Issued Sep 2024<br>
+<a href="https://sertifikat.pacmann.ai/YodhlXoXm9u06zc" style="text-decoration: none;"> Credential <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; vertical-align: middle;"></i> </a></p>
+</section>
+<section id="basic-python-programming-python-for-software-engineering" class="level5">
+<h5 data-anchor-id="basic-python-programming-python-for-software-engineering"><strong>Basic Python Programming &amp; Python for Software Engineering</strong></h5>
+<p>Pacmann | Issued Jul 2024<br>
+<a href="https://sertifikat.pacmann.ai/Bvcu7xU41qZHd0x" style="text-decoration: none;"> Credential <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; vertical-align: middle;"></i> </a></p>
+</section>
+<section id="english-proficiency-certificate" class="level5">
+<h5 data-anchor-id="english-proficiency-certificate"><strong>English Proficiency Certificate</strong></h5>
+<p>Duolingo English Test | Issued Jan 2024 – Expires Jan 2026<br>
+<a href="https://certs.duolingo.com/d6b44791c6555007900d2d951368ab5e" style="text-decoration: none;"> Credential <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; vertical-align: middle;"></i> </a></p>
 </section>
 </section>
 </div></div>
@@ -404,7 +418,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/daffadaniel\.github\.io\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
