@@ -1,6 +1,6 @@
 project:
   type: website
-  # output-dir: docs #comment bagian ini sebelum melakukan preview 
+  output-dir: docs #comment bagian ini sebelum melakukan preview 
   
 website:
   title: "Daffa Daniel Rivaldi"
