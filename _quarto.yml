@@ -1,37 +1,38 @@
 project:
   type: website
-  output-dir: docs
+  # output-dir: docs #comment bagian ini sebelum melakukan preview 
   
 website:
   title: "Daffa Daniel Rivaldi"
+  site-url: https://daffadanielr.github.io/
+
+
+  # open-graph: true
 
   navbar:
     background: primary
     search: true
     left:
       - text: "About"
-        href: index.qmd 
+        href: about.qmd 
+
       - text: "Portofolio"
         href: portofolio.qmd
-      - text: "CV"
-        href: cv.qmd
-      - text: "About"
-        href: about.qmd
-
 
   sidebar:
     - title: "Portofolio"
       style: "floating"
       background: light
       contents:
-        - text: portofolio
+        - text: Portofolio
           href: portofolio.qmd 
-        - project 1.qmd
-        - hello.qmd
-        - text: "Mentoring 3"
-          href: notebooks/DaffaDanielR_Mentoring_3_Introduction_to_Machine_Learning.ipynb
 
-  
+        - text: "Project 2: Mentoring 3"
+          href: posts\project-2\index.qmd
+
+
+page-footer:
+    right: "This blog is built with [Quarto](https://quarto.org/)."
 format:
   html:
     theme:
@@ -41,6 +42,7 @@ format:
     toc: true
 
 execute:
+  eval: false
   freeze: true
 
 publish:

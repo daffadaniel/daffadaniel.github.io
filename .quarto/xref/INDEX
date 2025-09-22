@@ -1,57 +1,41 @@
 {
   "about.qmd": {
-    "about.html": "a55fed28"
-  },
-  "index.qmd": {
-    "index.html": "71279174"
-  },
-  "myblog.qmd": {
-    "myblog.html": "aff9fc38"
-  },
-  "project 1.qmd": {
-    "project 1.html": "0cb753c9"
-  },
-  "hello.qmd": {
-    "hello.html": "0a950889"
-  },
-  "Mentoring_02.qmd": {
-    "Mentoring_02.html": "1f92c9a3"
-  },
-  "Daffa_Mentoring_02.qmd": {
-    "Daffa_Mentoring_02.html": "709b670b"
-  },
-  "testing123.qmd": {
-    "testing123.html": "1e4de0fc"
-  },
-  "DaffaDanielRivaldi_Mentoring_02_Introduction_to_Machine_Learning_Sekolah_Data.ipynb": {
-    "DaffaDanielRivaldi_Mentoring_02_Introduction_to_Machine_Learning_Sekolah_Data.html": "4a457fbc",
-    "DaffaDanielRivaldi_Mentoring_02_Introduction_to_Machine_Learning_Sekolah_Data.out.ipynb": "02b72a6c",
-    "DaffaDanielRivaldi_Mentoring_02_Introduction_to_Machine_Learning_Sekolah_Data-preview.html": "d9a101ec"
-  },
-  "mentoring2.qmd": {
-    "mentoring2.html": "478e207b"
-  },
-  "DaffaDanielRivaldi_Mentoring_02_Introduction_to_Machine_Learning_Sekolah_Data.out.ipynb": {
-    "DaffaDanielRivaldi_Mentoring_02_Introduction_to_Machine_Learning_Sekolah_Data.out.html": "28fd680e"
-  },
-  "notebooks/DaffaDanielRivaldi_Mentoring_02_Introduction_to_Machine_Learning_Sekolah_Data.ipynb": {
-    "DaffaDanielRivaldi_Mentoring_02_Introduction_to_Machine_Learning_Sekolah_Data.html": "35270821",
-    "DaffaDanielRivaldi_Mentoring_02_Introduction_to_Machine_Learning_Sekolah_Data.out.ipynb": "e69ac0a2",
-    "DaffaDanielRivaldi_Mentoring_02_Introduction_to_Machine_Learning_Sekolah_Data-preview.html": "166d8dd6"
-  },
-  "notebooks/DaffaDanielRivaldi_Mentoring_02_Introduction_to_Machine_Learning_Sekolah_Data.out.ipynb": {
-    "DaffaDanielRivaldi_Mentoring_02_Introduction_to_Machine_Learning_Sekolah_Data.out.html": "b1e1c5b8"
-  },
-  "notebooks/DaffaDanielRivaldi_Mentoring_01_Introduction_to_Machine_Learning_Sekolah_Data.ipynb": {
-    "DaffaDanielRivaldi_Mentoring_01_Introduction_to_Machine_Learning_Sekolah_Data.html": "581e758b"
-  },
-  "notebooks/DaffaDanielR_Mentoring_3_Introduction_to_Machine_Learning.ipynb": {
-    "DaffaDanielR_Mentoring_3_Introduction_to_Machine_Learning.html": "9bc2209f"
+    "about.html": "4386dc1a"
   },
   "cv.qmd": {
-    "cv.html": "578fce5b"
+    "cv.html": "917874f8"
+  },
+  "index.qmd": {
+    "index.html": "3dd03756"
   },
   "portofolio.qmd": {
-    "portofolio.html": "ec5fbf86"
+    "portofolio.html": "274f2d5c"
+  },
+  "posts/project-1/index.qmd": {
+    "index.html": "b63a23d9"
+  },
+  "posts/project-1/project 1.qmd": {
+    "project 1.html": "4cb5ac96"
+  },
+  "posts/project-2/index.qmd": {
+    "index.html": "7a643c5c"
+  },
+  "posts/project-3/hello.qmd": {
+    "hello.html": "d6271267"
+  },
+  "posts/project-3/index.qmd": {
+    "index.html": "6e829ab3"
+  },
+  "posts/project-4/index.qmd": {
+    "index.html": "1fc27a4b"
+  },
+  "posts/project-1/project1.qmd": {
+    "project1.html": "3da48719"
+  },
+  "posts/project-2/DaffaDanielR_Mentoring_3_Introduction_to_Machine_Learning.qmd": {
+    "DaffaDanielR_Mentoring_3_Introduction_to_Machine_Learning.html": "ff8d8445"
+  },
+  "posts/project-2/DaffaDanielR_Mentoring_3_Introduction_to_Machine_Learning.ipynb": {
+    "DaffaDanielR_Mentoring_3_Introduction_to_Machine_Learning.html": "f6caabc3"
   }
 }
