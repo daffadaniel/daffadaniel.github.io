@@ -1,0 +1,82 @@
+---
+title: "Churn Prediction: Sliding Window with 1-Week Gap using Logistic Regression"
+date: "2025-11-26"
+categories: [Machine Learning, Portofolio]
+description: " Built a customer churn prediction model using logistic regression on 12-week sliding windows with a 1-week gap to eliminate data leakage. Achieved realistic AUC of 0.665 and 75.2% F1-score on time-based test set."
+format:
+  html:
+    echo: fenced  
+    code-fold: false
+    notebook-links: false
+---
+
+
+## Project Overview
+
+This project predicts whether a customer will churn (stop transacting) in the next 6 weeks based on their past behavior. I used a 1-week gap between observation and prediction windows to avoid data leakage.
+
+The model is intentionally designed to simulate real production conditions — no future information is ever used during training.
+
+### Key Design Decisions
+
+| Component                  | Implementation                                      |
+|----------------------------|------------------------------------------------------|
+| Observation window         | 12 weeks of transaction history                     |
+| Gap / Buffer period        | 1 week (strictly excluded from features and labels)|
+| Prediction window          | Next 6 weeks after the gap                          |
+| Label definition           | Churn = 1 if zero transactions in the 6-week window |
+| Data generation            | Sliding window across the entire timeline           |
+| Train-test split           | Strict time-based (latest period held out as test)  |
+
+### Features Used (RFM-based)
+- Recency (weeks since last transaction)  
+- Frequency (number of transactions in 12 weeks)  
+- Monetary value  
+- Average Order Value (AOV)  
+- Customer tenure (weeks since first transaction)
+
+### Model
+- Logistic Regression
+
+### Threshold Selection
+- The optimal threshold was selected by maximizing the F1-score on the **training/validation period** (earliest 80% of the timeline)  
+- Final chosen threshold: **0.358**  
+- This threshold was then fixed and evaluated on a **time-based test set** (the most recent period, no overlap with training data)
+
+### Final Performance (Time-Based Test Set)
+
+| Metric         | Value  | Interpretation                   |
+|----------------|--------|---------------------------------------|
+| ROC AUC        | 0.588  |   Model ranks churners higher than non-churners 58.8 % of the time   |
+| F1-Score       | 0.752  |   Harmonic mean of precision & recall        |
+| Recall         | 0.973  | 97.3% of actual churners identified   |
+| Precision      | 0.614  | 61.4% of customer predicted as churn did actually churn  |
+
+**Why AUC “only” 0.588?**  
+When the same pipeline is run **without** the 1-week gap, AUC jumps to **0.91+**.  
+The ~0.33 drop is **entirely** due to eliminating future leakage — proving the gap works.  
+0.58 represents the model’s true predictive power using only information available on decision day.
+
+
+
+### Tech Stack
+- Python  
+- Pandas  
+- Scikit-learn  
+- Matplotlib / Seaborn  
+- Quarto (for documentation)
+
+## Full Code & Details
+Complete notebook below (code is collapsible for cleaner reading).
+
+### Data Cleaning & EDA Notebook
+
+::: {#notebook}
+{{< embed "EDA-Data Cleaning.ipynb" echo=true code-fold=false >}}
+:::
+
+### Feature Engineering & Modelling Notebook
+
+::: {#notebook}
+{{< embed churn-prediction.ipynb echo=true code-fold=false  >}}
+:::

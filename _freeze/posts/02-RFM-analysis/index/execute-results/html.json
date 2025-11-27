@@ -1,0 +1,12 @@
+{
+  "hash": "409207e689b90ee408cdf8b94d9fa21f",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"RFM Clustering Analysis\"\ndate: \"2025-10-15\"\ncategories: [Machine Learning, Portofolio]\nimage: sil-plot.png\ndescription: \"Customer Segmentation with RFM\"\njupyter: .venv\nformat:\n  html:\n    theme: flatly\n    code-fold: true\n---\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

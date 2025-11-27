@@ -1,16 +1,15 @@
 project:
   type: website
-  output-dir: docs #comment bagian ini sebelum melakukan preview 
+  output-dir: docs 
+  resources:
+    - images/
   
 website:
   title: "Daffa Daniel Rivaldi"
   site-url: https://daffadanielr.github.io/
-
-
-  # open-graph: true
-
+ 
   navbar:
-    background: primary
+    background: dark
     search: true
     left:
       - text: "About"
@@ -18,32 +17,51 @@ website:
 
       - text: "Portofolio"
         href: portofolio.qmd
+    
+    sidebar:
+      style: "docked"
+      search: true
 
-  sidebar:
-    - title: "Portofolio"
-      style: "floating"
-      background: light
-      contents:
-        - text: Portofolio
-          href: portofolio.qmd 
+  # sidebar:
+  #   - title: "Portofolio"
+  #     style: "floating"
+  #     background: light
+  #     contents:
+  #       - text: Projects Overview
+  #         href: portofolio.qmd 
 
-        - text: "Project 2: Mentoring 3"
-          href: posts\project-2\index.qmd
+  #       # - text: "contoh project"
+  #       #   href: posts\00-contoh-project\index.qmd
+
+  #       - text: "Used Car Price Prediction"
+  #         href: posts\01-used-car-price\index.qmd
+
+  #       - text: "RFM Analysis"
+  #         href: posts/02-RFM-analysis/index.qmd
+
+  #       - text: "database"
+  #         href: posts/03-database/index.qmd
+
+  #       - text: "BGNBD Model"
+  #         href: posts/04-bgnbd-model/index.qmd
+
+  #       - text: "Cohort Analysis"
+  #         href: posts/05-cohort-analysis/index.qmd
+        
+  #       - text: "Recommender System"
+  #         href: posts/06-recomender-system/index.qmd
+        
 
 
 page-footer:
     right: "This blog is built with [Quarto](https://quarto.org/)."
 format:
   html:
-    theme:
-      light: flatly
-      dark: darkly
+    theme: darkly
     css: styles.css
     toc: true
+
 
 execute:
   eval: false
   freeze: true
-
-publish:
-  - gh-pages: true

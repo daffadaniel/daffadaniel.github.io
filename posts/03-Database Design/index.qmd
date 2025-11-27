@@ -1,0 +1,23 @@
+---
+title: "Doctor-Patient Appointment System – PostgreSQL Database Design"
+format: html
+toc: true
+---
+
+## Objective
+Design a robust, normalized, and production-ready database for a clinic/hospital appointment system.
+
+## Core Requirements
+- Prevent double booking  
+- Support cancellation & rescheduling  
+- Full audit trail  
+- Fast queries for doctor availability
+
+## Final ERD
+![ER Diagram](images/appointment_erd.png)
+
+## Key Tables (3NF)
+```sql
+patients, doctors, specialties, schedules, 
+appointments (status: booked, completed, cancelled, no-show),
+appointment_history (audit log)

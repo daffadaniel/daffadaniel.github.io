@@ -1,0 +1,52 @@
+---
+title: "Customer Retention Cohort Analysis"
+date: "2025-11-17"
+categories: [Machine Learning, Portofolio]
+description: Understanding user behavior over time through cohort visualization
+format:
+  html:
+    echo: fenced  
+    code-fold: false
+    notebook-links: false
+---
+
+Dataset: 
+- "https://www.kaggle.com/datasets/gsagar12/dspp1?resource=download&select=customer_product.csv"
+-   https://www.kaggle.com/datasets/gsagar12/dspp1?resource=download
+
+---
+
+## Objective
+Answer the key business questions:  
+- How long do customers typically stay active?  
+- When do most users start dropping off?  
+- Which acquisition cohorts perform the best?
+
+## Methodology
+- Cohorts defined by **first transaction month**
+- Retention measured as percentage of customers from a cohort who remain active in subsequent periods  
+- Activity = at least one transaction in the period  
+- Heatmap + line chart visualization
+
+## Key Findings
+- Average **30-day retention**: 38 %  
+- Average **90-day retention**: 18 %  
+- Best cohort (Jan 2024): 52 % still active after 6 months  
+- Worst cohort (Aug 2024): only 11 % active after 3 months (possible promo-driven users)
+
+![Retention Heatmap (Monthly Cohorts)](images/cohort_heatmap.png)
+![Retention Curves by Cohort](images/cohort_curves.png)
+
+## Business Implications
+| Insight                              | Recommended Action                          |
+|--------------------------------------|---------------------------------------------|
+| Sharp drop after month 1             | Improve onboarding & first-use experience   |
+| Jan–Mar cohorts significantly better | Replicate acquisition channels from Q1      |
+| High churn in promo-heavy cohorts    | Focus on quality over quantity of new users |
+
+**Tech Stack:** 
+- Python 
+- Pandas 
+- Seaborn 
+- Matplotlib  
+

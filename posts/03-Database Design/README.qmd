@@ -1,0 +1,42 @@
+---
+title: "Designing and Creating Relational Database for Hospital App"
+date: "2025-11-12"
+categories: [Database, PostgreSQL]
+description: "In this post, I will design a simple database system for hospital app to manage patient medical records and doctor appointments using postgresql. Through this project, I intend to demonstrate practical database design principles, data normalization, and SQL query implementation."
+---
+## Mission Statement
+Design and implement a well-structured relational database system for a healthcare environment that covers patient registration, doctor specialization, and appointment management.
+
+## Creating Table Structures
+
+From the mission stated above, let's breakdown the tables needed for the databases. <br>
+
+Clearly, we need `patients`,`doctors`, `specializations` and `appointments` as tables. We can also add `hospitals` to accomodate more than one hospital. 
+<br>
+
+Each doctor will have it's own schedule then we can add `doctor_schedule` as a table. 
+<br>
+
+Since appointments need to be set at specific time slots for better management, an `appointment_slots` table is also required.
+
+<br> 
+
+Additionally, We can include `medical records` to store the diagnosis and treatment of each patient after an appointment.
+
+
+|Table | Description|
+|------|----------|
+|patients| stores each patient detailed information|
+|doctors| stores each doctor detailed information|
+|appointments| stores each appointment detailed information|
+|specializations| stores each specialization detailed information|
+|hospitals| stores hospital detailed information|
+|doctor_schedule|stores each doctors schedule|
+|appointment_slots| stores appointment slot according to the schedule|
+|medical records| stores each patient diagnosis and treatment after an appointment|
+
+## Hospital Appointment System Database ERD
+![hospital appointment system erd](ERD-hospital_app.png)
+
+## Data Generation
+All data in this project were synthetically generated using `Faker` and `random` library in Python.

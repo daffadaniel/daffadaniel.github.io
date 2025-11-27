@@ -37,5 +37,102 @@
   },
   "posts/project-2/DaffaDanielR_Mentoring_3_Introduction_to_Machine_Learning.ipynb": {
     "DaffaDanielR_Mentoring_3_Introduction_to_Machine_Learning.html": "f6caabc3"
+  },
+  "posts/00-contoh-project/DaffaDanielR_Mentoring_3_Introduction_to_Machine_Learning.ipynb": {
+    "DaffaDanielR_Mentoring_3_Introduction_to_Machine_Learning.html": "19bedf6a"
+  },
+  "posts/00-contoh-project/index.qmd": {
+    "index.html": "3992254d"
+  },
+  "posts/01-used-car-price/index.qmd": {
+    "index.html": "bb9ffb21"
+  },
+  "docs/posts/00-contoh-project/index.qmd": {
+    "index.html": "c328ebc1"
+  },
+  "docs/posts/01-used-car-price/index.qmd": {
+    "index.html": "9c766a7a"
+  },
+  "posts/02-RFM-analysis/index.qmd": {
+    "index.html": "38cc385b"
+  },
+  "posts/03-database/index.qmd": {
+    "index.html": "f02bc02f"
+  },
+  "posts/04-bgnbd-model/index.qmd": {
+    "index.html": "60154680"
+  },
+  "posts/05-cohort-analysis/index.qmd": {
+    "index.html": "aebece57"
+  },
+  "posts/06-recomender-system/index.qmd": {
+    "index.html": "bb53183d"
+  },
+  "posts/03-database/Populating_the_Database.qmd": {
+    "Populating_the_Database.html": "92508b2a"
+  },
+  "posts/03-database/index_1.qmd": {
+    "index_1.html": "574681b6"
+  },
+  "posts/03-database/Populating_the_Database.ipynb": {
+    "Populating_the_Database.html": "1a9f7e0c"
+  },
+  "posts/03-database/index_2.qmd": {
+    "index_2.html": "e4979817"
+  },
+  "posts/03-database/create-data.ipynb": {
+    "create-data.html": "1ef805d1"
+  },
+  "posts/03-database/inde.ipynb": {
+    "inde.html": "e77a619b"
+  },
+  "posts/03-database/index.ipynb": {
+    "index.html": "806e27a4"
+  },
+  "posts/03-Database Design/index.ipynb": {
+    "index.html": "a55f7588"
+  },
+  "posts/04-Customer Lifetime Value/index.qmd": {
+    "index.html": "24c6ae09"
+  },
+  "posts/04-Cohort Analysis/index.qmd": {
+    "index.html": "2160562c"
+  },
+  "posts/05-Churn Modelling/index.qmd": {
+    "index.html": "8f0b9f1b"
+  },
+  "posts/03-Database Design/index.qmd": {
+    "index.html": "d12d77e7"
+  },
+  "posts/04-Cohort Analysis/cohort-analysis.ipynb": {
+    "cohort-analysis.html": "5444e173"
+  },
+  "posts/04-Cohort Analysis/EDA-Data Cleaning.ipynb": {
+    "EDA-Data Cleaning.html": "33a3a674"
+  },
+  "posts/05-Churn Modelling/churn-prediction.ipynb": {
+    "churn-prediction.html": "5296cecc",
+    "churn-prediction.out.ipynb": "a7792451",
+    "churn-prediction-preview.html": "39141b37"
+  },
+  "posts/05-Churn Modelling/EDA-Data Cleaning.ipynb": {
+    "EDA-Data Cleaning.html": "29472f7f",
+    "EDA-Data Cleaning.out.ipynb": "f30a70fb",
+    "EDA-Data Cleaning-preview.html": "bc4bbf46"
+  },
+  "posts/03-Database Design/populating-database.ipynb": {
+    "populating-database.html": "c370ac48"
+  },
+  "docs/posts/05-Churn Modelling/churn-prediction.ipynb": {
+    "churn-prediction.html": "e609b719"
+  },
+  "docs/posts/05-Churn Modelling/churn-prediction.out.ipynb": {
+    "churn-prediction.out.html": "1e453ac9"
+  },
+  "docs/posts/05-Churn Modelling/EDA-Data Cleaning.ipynb": {
+    "EDA-Data Cleaning.html": "eff2d066"
+  },
+  "docs/posts/05-Churn Modelling/EDA-Data Cleaning.out.ipynb": {
+    "EDA-Data Cleaning.out.html": "5dfa6b17"
   }
 }

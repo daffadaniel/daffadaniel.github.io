@@ -1,23 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://daffadanielr.github.io/posts/project-2/index.html</loc>
-    <lastmod>2025-08-04T07:01:14.080Z</lastmod>
+    <loc>https://daffadanielr.github.io/posts/06-recomender-system/index.html</loc>
+    <lastmod>2025-10-15T07:52:35.535Z</lastmod>
   </url>
   <url>
-    <loc>https://daffadanielr.github.io/portofolio.html</loc>
-    <lastmod>2025-08-04T03:28:26.679Z</lastmod>
+    <loc>https://daffadanielr.github.io/posts/05-Churn Modelling/EDA-Data Cleaning.html</loc>
+    <lastmod>2025-11-26T08:58:53.703Z</lastmod>
   </url>
   <url>
-    <loc>https://daffadanielr.github.io/cv.html</loc>
-    <lastmod>2025-01-24T09:27:32.512Z</lastmod>
+    <loc>https://daffadanielr.github.io/posts/04-Cohort Analysis/index.html</loc>
+    <lastmod>2025-11-26T18:27:21.013Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/posts/04-Cohort Analysis/cohort-analysis.html</loc>
+    <lastmod>2025-11-26T09:00:38.067Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/posts/03-Database Design/index.html</loc>
+    <lastmod>2025-11-26T12:16:55.978Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/posts/01-used-car-price/index.html</loc>
+    <lastmod>2025-11-26T17:04:45.379Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/index.html</loc>
+    <lastmod>2025-11-15T15:06:15.678Z</lastmod>
   </url>
   <url>
     <loc>https://daffadanielr.github.io/about.html</loc>
     <lastmod>2025-08-04T02:59:14.817Z</lastmod>
   </url>
   <url>
-    <loc>https://daffadanielr.github.io/posts/project-2/DaffaDanielR_Mentoring_3_Introduction_to_Machine_Learning.html</loc>
-    <lastmod>2025-01-24T09:27:32.519Z</lastmod>
+    <loc>https://daffadanielr.github.io/cv.html</loc>
+    <lastmod>2025-01-24T09:27:32.512Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/portofolio.html</loc>
+    <lastmod>2025-11-13T11:04:05.308Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/posts/02-RFM-analysis/index.html</loc>
+    <lastmod>2025-11-26T17:23:13.153Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/posts/03-Database Design/populating-database.html</loc>
+    <lastmod>2025-11-14T11:54:11.658Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/posts/04-Cohort Analysis/EDA-Data Cleaning.html</loc>
+    <lastmod>2025-11-26T08:58:53.703Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/posts/05-Churn Modelling/churn-prediction.html</loc>
+    <lastmod>2025-11-26T18:01:02.229Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/posts/05-Churn Modelling/index.html</loc>
+    <lastmod>2025-11-26T18:25:58.913Z</lastmod>
   </url>
 </urlset>

@@ -1,0 +1,39 @@
+
+---
+title: "Used Car Price Prediction – Model Comparison"
+date: "2025-10-1"
+categories: [Regression]
+image: "row-new-cars-port.jpg"
+image-alt: "image of used cars"
+description: "Using sklearn to build car price predictors"
+---
+
+
+## Objective
+Build an accurate pricing model for second-hand cars to support dealers and marketplaces.
+
+## Dataset
+~25,000 used car listings with features:  
+brand, model, year, mileage, fuel type, transmission, engine size, location, etc.
+
+## Model Comparison (Test Set)
+
+| Model               | R²     | RMSE (million IDR) | Training Time |
+|---------------------|--------|--------------------|---------------|
+| Linear Regression   | 0.72   | 28.4               | <1 s          |
+| Random Forest       | 0.91   | 15.1               | 8 s           |
+| XGBoost             | **0.94** | **12.8**         | 12 s          |
+| LightGBM            | 0.93   | 13.5               | 3 s           |
+
+**Winner: XGBoost** – best accuracy while remaining interpretable.
+
+![Feature Importance (XGBoost)](images/car_price_importance.png)
+![Actual vs Predicted Prices](images/car_price_actual_vs_pred.png)
+
+**Tech Stack:** Python • Pandas • Scikit-learn • XGBoost 
+
+::: {.iframe-container}
+<iframe src="https://usedcarpredapp-bhwgx6h2tvu5cf48ue4pu3.streamlit.app//?embed=true" 
+        width="100%" height="700" frameborder="0">
+</iframe>
+:::
