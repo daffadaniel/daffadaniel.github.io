@@ -3,6 +3,7 @@ title: "Churn Prediction: 12-week Observation window with 1-Week Gap"
 date: "2025-11-26"
 categories: [Machine Learning, Portofolio]
 description: " Built a customer churn prediction model using RFM-T feature as predictors that is extracted from the past 12-week observation windows with a 1-week gap. Achieved realistic AUC of 0.623 and 75.9% F1-score on time-based test set."
+image: "cm.png"
 format:
   html:
     max-width: 1700px

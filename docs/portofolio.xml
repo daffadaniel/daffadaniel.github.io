@@ -3565,28 +3565,42 @@ font-style: inherit;">=</span> create_weekly_spending_log(groupby_invoice)</span
 </div>
 </div>
 </div>
+<div id="6d2c072a" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb49" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Save the Data</span></span>
+<span id="cb49-2">joblib.dump(weekly_log,<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"../data/processed/weekly_transaction_log.pkl"</span>)</span>
+<span id="cb49-3">joblib.dump(spending_log,<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"../data/processed/weekly_spending_log.pkl"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>['../data/processed/weekly_spending_log.pkl']</code></pre>
+</div>
+</div>
 <ul>
 <li>Generate RFM+T features from the past 12-week to predict the following 6-week</li>
 <li>Churn label: not doing any transaction in the 6-week performance window.</li>
 </ul>
-<div id="50cd9a99" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb49" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><span class="kw" style="color: #003B4F;
+<div id="50cd9a99" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb51" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> recency(row):</span>
-<span id="cb49-2">    <span class="co" style="color: #5E5E5E;
+<span id="cb51-2">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">"""</span></span>
-<span id="cb49-3"><span class="co" style="color: #5E5E5E;
+<span id="cb51-3"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    Weeks since last purchase in observation window.</span></span>
-<span id="cb49-4"><span class="co" style="color: #5E5E5E;
+<span id="cb51-4"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    If no purchase → Recency = full OW length</span></span>
-<span id="cb49-5"><span class="co" style="color: #5E5E5E;
+<span id="cb51-5"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    """</span></span>
-<span id="cb49-6">    <span class="cf" style="color: #003B4F;
+<span id="cb51-6">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> row.<span class="bu" style="color: null;
@@ -3596,13 +3610,13 @@ background-color: null;
 font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>:</span>
-<span id="cb49-7">        <span class="cf" style="color: #003B4F;
+<span id="cb51-7">        <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">len</span>(row)</span>
-<span id="cb49-8">    last_active_idx <span class="op" style="color: #5E5E5E;
+<span id="cb51-8">    last_active_idx <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (row <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -3617,7 +3631,7 @@ background-color: null;
 font-style: inherit;">1</span>]    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># getting latest purchase week</span></span>
-<span id="cb49-9">    <span class="cf" style="color: #003B4F;
+<span id="cb51-9">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> <span class="bu" style="color: null;
@@ -3631,13 +3645,13 @@ background-color: null;
 font-style: inherit;">1</span>              <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># -1 because the index start from 0</span></span>
-<span id="cb49-10"></span>
-<span id="cb49-11"></span>
-<span id="cb49-12"><span class="kw" style="color: #003B4F;
+<span id="cb51-10"></span>
+<span id="cb51-11"></span>
+<span id="cb51-12"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> frequency(subset):</span>
-<span id="cb49-13">    <span class="cf" style="color: #003B4F;
+<span id="cb51-13">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> subset.<span class="bu" style="color: null;
@@ -3647,25 +3661,25 @@ background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>)</span>
-<span id="cb49-14"></span>
-<span id="cb49-15"></span>
-<span id="cb49-16"><span class="kw" style="color: #003B4F;
+<span id="cb51-14"></span>
+<span id="cb51-15"></span>
+<span id="cb51-16"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> tenure(first_purchase_week_series, ow_end_week):</span>
-<span id="cb49-17">    <span class="co" style="color: #5E5E5E;
+<span id="cb51-17">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">"""</span></span>
-<span id="cb49-18"><span class="co" style="color: #5E5E5E;
+<span id="cb51-18"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    Tenure = How long customer has been "alive" until OW_End</span></span>
-<span id="cb49-19"><span class="co" style="color: #5E5E5E;
+<span id="cb51-19"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    if customer havent done any transaction → Tenure = 0 </span></span>
-<span id="cb49-20"><span class="co" style="color: #5E5E5E;
+<span id="cb51-20"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    """</span></span>
-<span id="cb49-21">    tenure_val <span class="op" style="color: #5E5E5E;
+<span id="cb51-21">    tenure_val <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ow_end_week <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -3674,7 +3688,7 @@ background-color: null;
 font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span></span>
-<span id="cb49-22">    <span class="cf" style="color: #003B4F;
+<span id="cb51-22">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> tenure_val.clip(lower<span class="op" style="color: #5E5E5E;
@@ -3682,20 +3696,20 @@ background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>)   </span>
-<span id="cb49-23"></span>
-<span id="cb49-24"></span>
-<span id="cb49-25"><span class="kw" style="color: #003B4F;
+<span id="cb51-23"></span>
+<span id="cb51-24"></span>
+<span id="cb51-25"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> churn_label(log, pw_start_idx, pw_end_idx):</span>
-<span id="cb49-26">    pw_subset <span class="op" style="color: #5E5E5E;
+<span id="cb51-26">    pw_subset <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> log.iloc[:, pw_start_idx:pw_end_idx <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>]</span>
-<span id="cb49-27">    <span class="cf" style="color: #003B4F;
+<span id="cb51-27">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> (pw_subset.<span class="bu" style="color: null;
@@ -3711,47 +3725,47 @@ background-color: null;
 font-style: inherit;">0</span>).astype(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">int</span>)</span>
-<span id="cb49-28"></span>
-<span id="cb49-29"></span>
-<span id="cb49-30"><span class="kw" style="color: #003B4F;
+<span id="cb51-28"></span>
+<span id="cb51-29"></span>
+<span id="cb51-30"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> compute_window(log, spending_log, ow_start_idx, ow_end_idx, pw_start_idx, pw_end_idx,</span>
-<span id="cb49-31">                   ow_start_week, ow_end_week, pw_start_week, pw_end_week):</span>
-<span id="cb49-32">    <span class="co" style="color: #5E5E5E;
+<span id="cb51-31">                   ow_start_week, ow_end_week, pw_start_week, pw_end_week):</span>
+<span id="cb51-32">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">"""</span></span>
-<span id="cb49-33"><span class="co" style="color: #5E5E5E;
+<span id="cb51-33"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    Hitung semua fitur untuk satu window</span></span>
-<span id="cb49-34"><span class="co" style="color: #5E5E5E;
+<span id="cb51-34"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    """</span></span>
-<span id="cb49-35">    <span class="co" style="color: #5E5E5E;
+<span id="cb51-35">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Observation Window</span></span>
-<span id="cb49-36">    log_ow <span class="op" style="color: #5E5E5E;
+<span id="cb51-36">    log_ow <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> log.iloc[:, ow_start_idx:ow_end_idx <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>]</span>
-<span id="cb49-37">    spending_ow <span class="op" style="color: #5E5E5E;
+<span id="cb51-37">    spending_ow <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> spending_log.iloc[:, ow_start_idx:ow_end_idx <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>]</span>
-<span id="cb49-38"></span>
-<span id="cb49-39">    <span class="co" style="color: #5E5E5E;
+<span id="cb51-38"></span>
+<span id="cb51-39">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># RFM</span></span>
-<span id="cb49-40">    freq <span class="op" style="color: #5E5E5E;
+<span id="cb51-40">    freq <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> frequency(log_ow)</span>
-<span id="cb49-41">    rec <span class="op" style="color: #5E5E5E;
+<span id="cb51-41">    rec <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> log_ow.<span class="bu" style="color: null;
 background-color: null;
@@ -3760,7 +3774,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>)</span>
-<span id="cb49-42">    monetary <span class="op" style="color: #5E5E5E;
+<span id="cb51-42">    monetary <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> spending_ow.<span class="bu" style="color: null;
 background-color: null;
@@ -3769,23 +3783,23 @@ background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>)</span>
-<span id="cb49-43">    aov <span class="op" style="color: #5E5E5E;
+<span id="cb51-43">    aov <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> monetary <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">/</span> freq.replace(<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>, np.nan)</span>
-<span id="cb49-44">    aov <span class="op" style="color: #5E5E5E;
+<span id="cb51-44">    aov <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> aov.fillna(<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>)</span>
-<span id="cb49-45"></span>
-<span id="cb49-46">    <span class="co" style="color: #5E5E5E;
+<span id="cb51-45"></span>
+<span id="cb51-46">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># First purchase week </span></span>
-<span id="cb49-47">    first_purchase_week <span class="op" style="color: #5E5E5E;
+<span id="cb51-47">    first_purchase_week <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (log <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -3798,113 +3812,113 @@ background-color: null;
 font-style: inherit;">1</span>).astype(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">int</span>)</span>
-<span id="cb49-48"></span>
-<span id="cb49-49">    <span class="co" style="color: #5E5E5E;
+<span id="cb51-48"></span>
+<span id="cb51-49">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Tenure </span></span>
-<span id="cb49-50">    tenure_val <span class="op" style="color: #5E5E5E;
+<span id="cb51-50">    tenure_val <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> tenure(first_purchase_week, ow_end_week)</span>
-<span id="cb49-51"></span>
-<span id="cb49-52">    <span class="co" style="color: #5E5E5E;
+<span id="cb51-51"></span>
+<span id="cb51-52">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Churn label</span></span>
-<span id="cb49-53">    churn <span class="op" style="color: #5E5E5E;
+<span id="cb51-53">    churn <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> churn_label(log, pw_start_idx, pw_end_idx)</span>
-<span id="cb49-54"></span>
-<span id="cb49-55">    <span class="co" style="color: #5E5E5E;
+<span id="cb51-54"></span>
+<span id="cb51-55">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Build DataFrame</span></span>
-<span id="cb49-56">    df <span class="op" style="color: #5E5E5E;
+<span id="cb51-56">    df <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pd.DataFrame({</span>
-<span id="cb49-57">        <span class="st" style="color: #20794D;
+<span id="cb51-57">        <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Customer'</span>       : log.index,</span>
-<span id="cb49-58">        <span class="st" style="color: #20794D;
+<span id="cb51-58">        <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Window_End'</span>     : ow_end_week,</span>
-<span id="cb49-59">        <span class="st" style="color: #20794D;
+<span id="cb51-59">        <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'OW_Start_Week'</span>  : ow_start_week,</span>
-<span id="cb49-60">        <span class="st" style="color: #20794D;
+<span id="cb51-60">        <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'OW_End_Week'</span>    : ow_end_week,</span>
-<span id="cb49-61">        <span class="st" style="color: #20794D;
+<span id="cb51-61">        <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'PW_Start_Week'</span>  : pw_start_week,</span>
-<span id="cb49-62">        <span class="st" style="color: #20794D;
+<span id="cb51-62">        <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'PW_End_Week'</span>    : pw_end_week,</span>
-<span id="cb49-63">        <span class="st" style="color: #20794D;
+<span id="cb51-63">        <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Recency'</span>        : rec.values,</span>
-<span id="cb49-64">        <span class="st" style="color: #20794D;
+<span id="cb51-64">        <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Frequency'</span>      : freq.values,</span>
-<span id="cb49-65">        <span class="st" style="color: #20794D;
+<span id="cb51-65">        <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Monetary'</span>       : monetary.values,</span>
-<span id="cb49-66">        <span class="st" style="color: #20794D;
+<span id="cb51-66">        <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'AOV'</span>            : aov.values,</span>
-<span id="cb49-67">        <span class="st" style="color: #20794D;
+<span id="cb51-67">        <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Tenure'</span>         : tenure_val.values,</span>
-<span id="cb49-68">        <span class="st" style="color: #20794D;
+<span id="cb51-68">        <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Churn'</span>          : churn.values</span>
-<span id="cb49-69">    })</span>
-<span id="cb49-70">    <span class="cf" style="color: #003B4F;
+<span id="cb51-69">    })</span>
+<span id="cb51-70">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> df</span>
-<span id="cb49-71"></span>
-<span id="cb49-72"></span>
-<span id="cb49-73"><span class="kw" style="color: #003B4F;
+<span id="cb51-71"></span>
+<span id="cb51-72"></span>
+<span id="cb51-73"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> sliding_rfm_churn(log, spending_log,</span>
-<span id="cb49-74">                      ow_weeks<span class="op" style="color: #5E5E5E;
+<span id="cb51-74">                      ow_weeks<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">12</span>,</span>
-<span id="cb49-75">                      pw_weeks<span class="op" style="color: #5E5E5E;
+<span id="cb51-75">                      pw_weeks<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">6</span>,</span>
-<span id="cb49-76">                      gap_weeks<span class="op" style="color: #5E5E5E;
+<span id="cb51-76">                      gap_weeks<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>):</span>
-<span id="cb49-77"></span>
-<span id="cb49-78">    total_weeks <span class="op" style="color: #5E5E5E;
+<span id="cb51-77"></span>
+<span id="cb51-78">    total_weeks <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> log.shape[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>]      <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># 53</span></span>
-<span id="cb49-79">    records <span class="op" style="color: #5E5E5E;
+<span id="cb51-79">    records <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> []</span>
-<span id="cb49-80"></span>
-<span id="cb49-81">    <span class="co" style="color: #5E5E5E;
+<span id="cb51-80"></span>
+<span id="cb51-81">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># 53 - 1 - 6  = 46</span></span>
-<span id="cb49-82">    max_ow_end_week <span class="op" style="color: #5E5E5E;
+<span id="cb51-82">    max_ow_end_week <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> total_weeks <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span> gap_weeks <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span> pw_weeks</span>
-<span id="cb49-83"></span>
-<span id="cb49-84">    <span class="cf" style="color: #003B4F;
+<span id="cb51-83"></span>
+<span id="cb51-84">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">for</span> ow_end_week <span class="kw" style="color: #003B4F;
@@ -3919,7 +3933,7 @@ background-color: null;
 font-style: inherit;">1</span>):   <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># [12 to 46 +1) </span></span>
-<span id="cb49-85">        ow_start_week <span class="op" style="color: #5E5E5E;
+<span id="cb51-85">        ow_start_week <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ow_end_week <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -3930,29 +3944,29 @@ background-color: null;
 font-style: inherit;">1</span>             <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># week 1, 2, ...</span></span>
-<span id="cb49-86"></span>
-<span id="cb49-87">        <span class="co" style="color: #5E5E5E;
+<span id="cb51-86"></span>
+<span id="cb51-87">        <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># (index 0 = week 1)</span></span>
-<span id="cb49-88">        ow_start_idx <span class="op" style="color: #5E5E5E;
+<span id="cb51-88">        ow_start_idx <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ow_start_week <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span></span>
-<span id="cb49-89">        ow_end_idx   <span class="op" style="color: #5E5E5E;
+<span id="cb51-89">        ow_end_idx   <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ow_end_week <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span></span>
-<span id="cb49-90"></span>
-<span id="cb49-91">        <span class="co" style="color: #5E5E5E;
+<span id="cb51-90"></span>
+<span id="cb51-91">        <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Prediction Window </span></span>
-<span id="cb49-92">        pw_start_week <span class="op" style="color: #5E5E5E;
+<span id="cb51-92">        pw_start_week <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ow_end_week <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -3963,7 +3977,7 @@ background-color: null;
 font-style: inherit;">1</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># 12 + 1 + 1 = 14 (start)</span></span>
-<span id="cb49-93">        pw_end_week   <span class="op" style="color: #5E5E5E;
+<span id="cb51-93">        pw_end_week   <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pw_start_week <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -3974,80 +3988,80 @@ background-color: null;
 font-style: inherit;">1</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># 14 + 6 - 1 = 19 (end)</span></span>
-<span id="cb49-94"></span>
-<span id="cb49-95">        <span class="co" style="color: #5E5E5E;
+<span id="cb51-94"></span>
+<span id="cb51-95">        <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># (index 0 = week 1)</span></span>
-<span id="cb49-96">        pw_start_idx <span class="op" style="color: #5E5E5E;
+<span id="cb51-96">        pw_start_idx <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pw_start_week <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span></span>
-<span id="cb49-97">        pw_end_idx   <span class="op" style="color: #5E5E5E;
+<span id="cb51-97">        pw_end_idx   <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pw_end_week <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span></span>
-<span id="cb49-98"></span>
-<span id="cb49-99">        <span class="cf" style="color: #003B4F;
+<span id="cb51-98"></span>
+<span id="cb51-99">        <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> pw_end_idx <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&gt;=</span> total_weeks:</span>
-<span id="cb49-100">            <span class="cf" style="color: #003B4F;
+<span id="cb51-100">            <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">continue</span></span>
-<span id="cb49-101"></span>
-<span id="cb49-102">        window_df <span class="op" style="color: #5E5E5E;
+<span id="cb51-101"></span>
+<span id="cb51-102">        window_df <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> compute_window(</span>
-<span id="cb49-103">            log<span class="op" style="color: #5E5E5E;
+<span id="cb51-103">            log<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>log,</span>
-<span id="cb49-104">            spending_log<span class="op" style="color: #5E5E5E;
+<span id="cb51-104">            spending_log<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>spending_log,</span>
-<span id="cb49-105">            ow_start_idx<span class="op" style="color: #5E5E5E;
+<span id="cb51-105">            ow_start_idx<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>ow_start_idx,</span>
-<span id="cb49-106">            ow_end_idx<span class="op" style="color: #5E5E5E;
+<span id="cb51-106">            ow_end_idx<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>ow_end_idx,</span>
-<span id="cb49-107">            pw_start_idx<span class="op" style="color: #5E5E5E;
+<span id="cb51-107">            pw_start_idx<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>pw_start_idx,</span>
-<span id="cb49-108">            pw_end_idx<span class="op" style="color: #5E5E5E;
+<span id="cb51-108">            pw_end_idx<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>pw_end_idx,</span>
-<span id="cb49-109">            ow_start_week<span class="op" style="color: #5E5E5E;
+<span id="cb51-109">            ow_start_week<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>ow_start_week,</span>
-<span id="cb49-110">            ow_end_week<span class="op" style="color: #5E5E5E;
+<span id="cb51-110">            ow_end_week<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>ow_end_week,</span>
-<span id="cb49-111">            pw_start_week<span class="op" style="color: #5E5E5E;
+<span id="cb51-111">            pw_start_week<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>pw_start_week,</span>
-<span id="cb49-112">            pw_end_week<span class="op" style="color: #5E5E5E;
+<span id="cb51-112">            pw_end_week<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>pw_end_week</span>
-<span id="cb49-113">        )</span>
-<span id="cb49-114">        records.append(window_df)</span>
-<span id="cb49-115"></span>
-<span id="cb49-116">    <span class="cf" style="color: #003B4F;
+<span id="cb51-113">        )</span>
+<span id="cb51-114">        records.append(window_df)</span>
+<span id="cb51-115"></span>
+<span id="cb51-116">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">not</span> records:</span>
-<span id="cb49-117">        <span class="cf" style="color: #003B4F;
+<span id="cb51-117">        <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">raise</span> <span class="pp" style="color: #AD0000;
@@ -4055,8 +4069,8 @@ background-color: null;
 font-style: inherit;">ValueError</span>(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"No windows generated!"</span>)</span>
-<span id="cb49-118"></span>
-<span id="cb49-119">    <span class="cf" style="color: #003B4F;
+<span id="cb51-118"></span>
+<span id="cb51-119">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> pd.concat(records, ignore_index<span class="op" style="color: #5E5E5E;
@@ -4065,31 +4079,31 @@ font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>)</span></code></pre></div>
 </div>
-<div id="0dbb2bdb" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb50" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1">rfm_churn_all <span class="op" style="color: #5E5E5E;
+<div id="0dbb2bdb" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb52" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1">rfm_churn_all <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> sliding_rfm_churn(weekly_log, spending_log, ow_weeks<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">12</span>,</span>
-<span id="cb50-2">                      pw_weeks<span class="op" style="color: #5E5E5E;
+<span id="cb52-2">                      pw_weeks<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">6</span>,</span>
-<span id="cb50-3">                      gap_weeks<span class="op" style="color: #5E5E5E;
+<span id="cb52-3">                      gap_weeks<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>)</span>
-<span id="cb50-4"></span>
-<span id="cb50-5"></span>
-<span id="cb50-6"><span class="co" style="color: #5E5E5E;
+<span id="cb52-4"></span>
+<span id="cb52-5"></span>
+<span id="cb52-6"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Validation</span></span>
-<span id="cb50-7">rfm_churn_all.head()</span></code></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<span id="cb52-7">rfm_churn_all.head()</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -4197,15 +4211,15 @@ font-style: inherit;"># Validation</span></span>
 <li>We can see from the first row that the features is extracted from week 1 to 12 and the label from week 14-19 with week 13 as the gap week.</li>
 <li>Now, let’s see the churn proportion of our data</li>
 </ul>
-<div id="67d03223" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb51" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1">rfm_churn_all[<span class="st" style="color: #20794D;
+<div id="67d03223" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb53" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1">rfm_churn_all[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Churn'</span>].value_counts(normalize<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>)</span></code></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>Churn
 1    0.674561
 0    0.325439
@@ -4217,8 +4231,8 @@ Name: proportion, dtype: float64</code></pre>
 <li>We need to split the data to test and train set.</li>
 <li>Since we need at least 19 weeks of data to create a set, then the training set should end on week 53 - 19 = 34 and test set start on week 35.</li>
 </ul>
-<div id="018c2e20" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb53" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1">rfm_churn_test <span class="op" style="color: #5E5E5E;
+<div id="018c2e20" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb55" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1">rfm_churn_test <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> rfm_churn_all[rfm_churn_all[<span class="st" style="color: #20794D;
 background-color: null;
@@ -4227,7 +4241,7 @@ background-color: null;
 font-style: inherit;">&gt;=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">35</span>]</span>
-<span id="cb53-2">rfm_churn_train <span class="op" style="color: #5E5E5E;
+<span id="cb55-2">rfm_churn_train <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> rfm_churn_all[<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -4245,8 +4259,8 @@ font-style: inherit;">35</span>)]</span></code></pre></div>
 <p>Let’s fit our training data to the classifier. We’ll start with logistic regression.</p>
 <section id="logistic-regression" class="level3">
 <h3 class="anchored" data-anchor-id="logistic-regression">Logistic Regression</h3>
-<div id="5843af97" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb54" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1">X_train <span class="op" style="color: #5E5E5E;
+<div id="5843af97" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb56" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1">X_train <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> rfm_churn_train[[<span class="st" style="color: #20794D;
 background-color: null;
@@ -4259,19 +4273,19 @@ background-color: null;
 font-style: inherit;">'Tenure'</span>]]  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># feature</span></span>
-<span id="cb54-2">y_train <span class="op" style="color: #5E5E5E;
+<span id="cb56-2">y_train <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> rfm_churn_train[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Churn'</span>]                           <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># target</span></span>
-<span id="cb54-3"></span>
-<span id="cb54-4">model <span class="op" style="color: #5E5E5E;
+<span id="cb56-3"></span>
+<span id="cb56-4">model_logreg <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> LogisticRegression()</span>
-<span id="cb54-5">model.fit(X_train, y_train)</span></code></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<span id="cb56-5">model_logreg.fit(X_train, y_train)</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
 <style>#sk-container-id-1 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: #000;
@@ -4884,60 +4898,60 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <ul>
 <li>to be able to fully assess the model’s performance, let’s create an evaluation function.</li>
 </ul>
-<div id="b75dbdbe" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb55" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><span class="kw" style="color: #003B4F;
+<div id="b75dbdbe" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb57" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> eval_metrics(y_true, y_pred, y_prob):</span>
-<span id="cb55-2">    acc <span class="op" style="color: #5E5E5E;
+<span id="cb57-2">    acc <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> accuracy_score(y_true, y_pred)</span>
-<span id="cb55-3">    prec <span class="op" style="color: #5E5E5E;
+<span id="cb57-3">    prec <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> precision_score(y_true, y_pred)</span>
-<span id="cb55-4">    rec <span class="op" style="color: #5E5E5E;
+<span id="cb57-4">    rec <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> recall_score(y_true, y_pred)</span>
-<span id="cb55-5">    f1 <span class="op" style="color: #5E5E5E;
+<span id="cb57-5">    f1 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> f1_score(y_true, y_pred)</span>
-<span id="cb55-6">    auc_score <span class="op" style="color: #5E5E5E;
+<span id="cb57-6">    auc_score <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> roc_auc_score(y_true, y_prob)</span>
-<span id="cb55-7">    cm <span class="op" style="color: #5E5E5E;
+<span id="cb57-7">    cm <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> confusion_matrix(y_true, y_pred)</span>
-<span id="cb55-8">        </span>
-<span id="cb55-9">    <span class="bu" style="color: null;
+<span id="cb57-8">        </span>
+<span id="cb57-9">    <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Accuracy      :"</span>, acc)</span>
-<span id="cb55-10">    <span class="bu" style="color: null;
+<span id="cb57-10">    <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Precision     :"</span>, prec)</span>
-<span id="cb55-11">    <span class="bu" style="color: null;
+<span id="cb57-11">    <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Recall        :"</span>, rec)</span>
-<span id="cb55-12">    <span class="bu" style="color: null;
+<span id="cb57-12">    <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"F1-score      :"</span>, f1)</span>
-<span id="cb55-13">    <span class="bu" style="color: null;
+<span id="cb57-13">    <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"ROC-AUC       :"</span>, auc_score)</span>
-<span id="cb55-14">    </span>
-<span id="cb55-15">    <span class="co" style="color: #5E5E5E;
+<span id="cb57-14">    </span>
+<span id="cb57-15">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># --- Confusion Matrix ---</span></span>
-<span id="cb55-16">    sns.heatmap(cm, annot<span class="op" style="color: #5E5E5E;
+<span id="cb57-16">    sns.heatmap(cm, annot<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
@@ -4950,38 +4964,38 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Blues"</span>)</span>
-<span id="cb55-17">    plt.title(<span class="st" style="color: #20794D;
+<span id="cb57-17">    plt.title(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Confusion Matrix"</span>)</span>
-<span id="cb55-18">    plt.xlabel(<span class="st" style="color: #20794D;
+<span id="cb57-18">    plt.xlabel(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Predicted Label"</span>)</span>
-<span id="cb55-19">    plt.ylabel(<span class="st" style="color: #20794D;
+<span id="cb57-19">    plt.ylabel(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"True Label"</span>)</span>
-<span id="cb55-20">    plt.gca().set_xticklabels([<span class="st" style="color: #20794D;
+<span id="cb57-20">    plt.gca().set_xticklabels([<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Not Churn (0)"</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Churn (1)"</span>])</span>
-<span id="cb55-21">    plt.gca().set_yticklabels([<span class="st" style="color: #20794D;
+<span id="cb57-21">    plt.gca().set_yticklabels([<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Not Churn (0)"</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Churn (1)"</span>])</span>
-<span id="cb55-22">    plt.show()</span></code></pre></div>
+<span id="cb57-22">    plt.show()</span></code></pre></div>
 </div>
-<div id="f27d13eb" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb56" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1">y_pred <span class="op" style="color: #5E5E5E;
+<div id="f27d13eb" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb58" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1">y_pred <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> model.predict(X_train)          </span>
-<span id="cb56-2">y_prob <span class="op" style="color: #5E5E5E;
+font-style: inherit;">=</span> model_logreg.predict(X_train)          </span>
+<span id="cb58-2">y_prob <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> model.predict_proba(X_train)[:,<span class="dv" style="color: #AD0000;
+font-style: inherit;">=</span> model_logreg.predict_proba(X_train)[:,<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>]  </span>
-<span id="cb56-3"></span>
-<span id="cb56-4">eval_metrics(y_train, y_pred, y_prob)</span></code></pre></div>
+<span id="cb58-3"></span>
+<span id="cb58-4">eval_metrics(y_train, y_pred, y_prob)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.7528773860635746
 Precision     : 0.7544055515422167
@@ -4992,7 +5006,7 @@ ROC-AUC       : 0.6679770526047065</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-21-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-22-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -5005,8 +5019,8 @@ ROC-AUC       : 0.6679770526047065</code></pre>
 <li>threshold that closest to (0, 1).</li>
 </ul></li>
 </ul>
-<div id="414aedfa" class="cell" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb58" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><span class="kw" style="color: #003B4F;
+<div id="414aedfa" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb60" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> optimal_threshold(y_true, y_prob, show_plot<span class="op" style="color: #5E5E5E;
@@ -5014,30 +5028,30 @@ background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>):</span>
-<span id="cb58-2">    y_true <span class="op" style="color: #5E5E5E;
+<span id="cb60-2">    y_true <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> np.array(y_true)</span>
-<span id="cb58-3">    y_prob <span class="op" style="color: #5E5E5E;
+<span id="cb60-3">    y_prob <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> np.array(y_prob)</span>
-<span id="cb58-4">    </span>
-<span id="cb58-5">    <span class="co" style="color: #5E5E5E;
+<span id="cb60-4">    </span>
+<span id="cb60-5">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">#  ROC Curve</span></span>
-<span id="cb58-6">    fpr, tpr, roc_thresh <span class="op" style="color: #5E5E5E;
+<span id="cb60-6">    fpr, tpr, roc_thresh <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> roc_curve(y_true, y_prob)</span>
-<span id="cb58-7">    auc <span class="op" style="color: #5E5E5E;
+<span id="cb60-7">    auc <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> roc_auc_score(y_true, y_prob)</span>
-<span id="cb58-8">    </span>
-<span id="cb58-9">    <span class="co" style="color: #5E5E5E;
+<span id="cb60-8">    </span>
+<span id="cb60-9">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">#  Precision-Recall Curve + Max F1</span></span>
-<span id="cb58-10">    precision, recall, pr_thresh <span class="op" style="color: #5E5E5E;
+<span id="cb60-10">    precision, recall, pr_thresh <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> precision_recall_curve(y_true, y_prob)</span>
-<span id="cb58-11">    f1_scores <span class="op" style="color: #5E5E5E;
+<span id="cb60-11">    f1_scores <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
@@ -5054,21 +5068,21 @@ background-color: null;
 font-style: inherit;">+</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1e-12</span>)</span>
-<span id="cb58-12">    best_f1_idx <span class="op" style="color: #5E5E5E;
+<span id="cb60-12">    best_f1_idx <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> np.argmax(f1_scores)</span>
-<span id="cb58-13">    thresh_f1 <span class="op" style="color: #5E5E5E;
+<span id="cb60-13">    thresh_f1 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pr_thresh[best_f1_idx]</span>
-<span id="cb58-14">    best_f1 <span class="op" style="color: #5E5E5E;
+<span id="cb60-14">    best_f1 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> f1_scores[best_f1_idx]</span>
-<span id="cb58-15">    </span>
-<span id="cb58-16"></span>
-<span id="cb58-17">    <span class="co" style="color: #5E5E5E;
+<span id="cb60-15">    </span>
+<span id="cb60-16"></span>
+<span id="cb60-17">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">#  Closest to top-left corner (0,1) </span></span>
-<span id="cb58-18">    distance <span class="op" style="color: #5E5E5E;
+<span id="cb60-18">    distance <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> np.sqrt(fpr<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -5085,20 +5099,20 @@ background-color: null;
 font-style: inherit;">**</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">2</span>)</span>
-<span id="cb58-19">    best_corner_idx <span class="op" style="color: #5E5E5E;
+<span id="cb60-19">    best_corner_idx <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> np.argmin(distance)</span>
-<span id="cb58-20">    thresh_corner <span class="op" style="color: #5E5E5E;
+<span id="cb60-20">    thresh_corner <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> roc_thresh[best_corner_idx]</span>
-<span id="cb58-21">    dist_min <span class="op" style="color: #5E5E5E;
+<span id="cb60-21">    dist_min <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> distance[best_corner_idx]</span>
-<span id="cb58-22"></span>
-<span id="cb58-23">    <span class="co" style="color: #5E5E5E;
+<span id="cb60-22"></span>
+<span id="cb60-23">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Print all the result</span></span>
-<span id="cb58-24">    <span class="bu" style="color: null;
+<span id="cb60-24">    <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
 background-color: null;
@@ -5109,8 +5123,8 @@ background-color: null;
 font-style: inherit;">}</span><span class="ss" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"</span>)</span>
-<span id="cb58-25"></span>
-<span id="cb58-26">    <span class="bu" style="color: null;
+<span id="cb60-25"></span>
+<span id="cb60-26">    <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
 background-color: null;
@@ -5121,7 +5135,7 @@ background-color: null;
 font-style: inherit;">}</span><span class="ss" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"</span>)</span>
-<span id="cb58-27">    <span class="bu" style="color: null;
+<span id="cb60-27">    <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
 background-color: null;
@@ -5132,11 +5146,11 @@ background-color: null;
 font-style: inherit;">}</span><span class="ss" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"</span>)</span>
-<span id="cb58-28"></span>
-<span id="cb58-29">    <span class="co" style="color: #5E5E5E;
+<span id="cb60-28"></span>
+<span id="cb60-29">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Plotting</span></span>
-<span id="cb58-30">    fig, ax <span class="op" style="color: #5E5E5E;
+<span id="cb60-30">    fig, ax <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.subplots(<span class="dv" style="color: #AD0000;
 background-color: null;
@@ -5149,8 +5163,8 @@ background-color: null;
 font-style: inherit;">9</span>, <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">7</span>))</span>
-<span id="cb58-31"></span>
-<span id="cb58-32">    ax.plot(fpr, tpr, label<span class="op" style="color: #5E5E5E;
+<span id="cb60-31"></span>
+<span id="cb60-32">    ax.plot(fpr, tpr, label<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="ss" style="color: #20794D;
 background-color: null;
@@ -5169,7 +5183,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'darkorange'</span>)</span>
-<span id="cb58-33">    ax.plot([<span class="dv" style="color: #AD0000;
+<span id="cb60-33">    ax.plot([<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
 background-color: null;
@@ -5188,13 +5202,13 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Random Classifier'</span>)</span>
-<span id="cb58-34"></span>
-<span id="cb58-35"></span>
-<span id="cb58-36">    <span class="co" style="color: #5E5E5E;
+<span id="cb60-34"></span>
+<span id="cb60-35"></span>
+<span id="cb60-36">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Closest to (0,1) </span></span>
-<span id="cb58-37">    ax.scatter(fpr[best_corner_idx], tpr[best_corner_idx], </span>
-<span id="cb58-38">               color<span class="op" style="color: #5E5E5E;
+<span id="cb60-37">    ax.scatter(fpr[best_corner_idx], tpr[best_corner_idx], </span>
+<span id="cb60-38">               color<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
@@ -5219,7 +5233,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">2</span>,</span>
-<span id="cb58-39">               label<span class="op" style="color: #5E5E5E;
+<span id="cb60-39">               label<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="ss" style="color: #20794D;
 background-color: null;
@@ -5234,19 +5248,19 @@ background-color: null;
 font-style: inherit;">:.4f}</span><span class="ss" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'</span>)</span>
-<span id="cb58-40"></span>
-<span id="cb58-41">    <span class="co" style="color: #5E5E5E;
+<span id="cb60-40"></span>
+<span id="cb60-41">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Max F1 point </span></span>
-<span id="cb58-42">    idx_f1_roc <span class="op" style="color: #5E5E5E;
+<span id="cb60-42">    idx_f1_roc <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> np.argmin(np.<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">abs</span>(roc_thresh <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span> thresh_f1))</span>
-<span id="cb58-43">    ax.scatter(fpr[idx_f1_roc], tpr[idx_f1_roc], </span>
-<span id="cb58-44">               color<span class="op" style="color: #5E5E5E;
+<span id="cb60-43">    ax.scatter(fpr[idx_f1_roc], tpr[idx_f1_roc], </span>
+<span id="cb60-44">               color<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
@@ -5263,7 +5277,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'D'</span>,</span>
-<span id="cb58-45">               label<span class="op" style="color: #5E5E5E;
+<span id="cb60-45">               label<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="ss" style="color: #20794D;
 background-color: null;
@@ -5278,15 +5292,15 @@ background-color: null;
 font-style: inherit;">:.4f}</span><span class="ss" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'</span>)</span>
-<span id="cb58-46"></span>
-<span id="cb58-47"></span>
-<span id="cb58-48">    ax.set_xlabel(<span class="st" style="color: #20794D;
+<span id="cb60-46"></span>
+<span id="cb60-47"></span>
+<span id="cb60-48">    ax.set_xlabel(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'False Positive Rate'</span>)</span>
-<span id="cb58-49">    ax.set_ylabel(<span class="st" style="color: #20794D;
+<span id="cb60-49">    ax.set_ylabel(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'True Positive Rate'</span>)</span>
-<span id="cb58-50">    ax.set_title(<span class="st" style="color: #20794D;
+<span id="cb60-50">    ax.set_title(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'ROC Curve'</span>, fontsize<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -5297,39 +5311,39 @@ background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">20</span>)</span>
-<span id="cb58-51">    ax.legend()</span>
-<span id="cb58-52">    ax.grid(<span class="va" style="color: #111111;
+<span id="cb60-51">    ax.legend()</span>
+<span id="cb60-52">    ax.grid(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>, alpha<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.3</span>)</span>
-<span id="cb58-53">    ax.set_xlim(<span class="op" style="color: #5E5E5E;
+<span id="cb60-53">    ax.set_xlim(<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span><span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.02</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1.02</span>)</span>
-<span id="cb58-54">    ax.set_ylim(<span class="op" style="color: #5E5E5E;
+<span id="cb60-54">    ax.set_ylim(<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span><span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.02</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1.02</span>)</span>
-<span id="cb58-55"></span>
-<span id="cb58-56">    plt.tight_layout()</span>
-<span id="cb58-57">    plt.show()</span>
-<span id="cb58-58"></span>
-<span id="cb58-59">    <span class="cf" style="color: #003B4F;
+<span id="cb60-55"></span>
+<span id="cb60-56">    plt.tight_layout()</span>
+<span id="cb60-57">    plt.show()</span>
+<span id="cb60-58"></span>
+<span id="cb60-59">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> thresh_f1, thresh_corner</span></code></pre></div>
 </div>
-<div id="6949d245" class="cell" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb59" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1">thresh_f1, thresh_corner <span class="op" style="color: #5E5E5E;
+<div id="6949d245" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb61" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1">thresh_f1, thresh_corner <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> optimal_threshold(y_train, y_prob)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -5340,7 +5354,7 @@ Best Threshold (Closest to (0,1)): 0.7169313717896574</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-23-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-24-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -5348,16 +5362,16 @@ Best Threshold (Closest to (0,1)): 0.7169313717896574</code></pre>
 <ul>
 <li>Let’s see how each threshold perform on the training data</li>
 </ul>
-<div id="0bb70848" class="cell" data-execution_count="47">
-<div class="sourceCode cell-code" id="cb61" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1">y_pred_f1 <span class="op" style="color: #5E5E5E;
+<div id="0bb70848" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb63" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1">y_pred_f1 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (y_prob <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&gt;=</span> thresh_f1).astype(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">int</span>)</span>
-<span id="cb61-2"></span>
-<span id="cb61-3">eval_metrics(y_train, y_pred_f1, y_prob)</span></code></pre></div>
+<span id="cb63-2"></span>
+<span id="cb63-3">eval_metrics(y_train, y_pred_f1, y_prob)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.751788917780331
 Precision     : 0.7494674785377714
@@ -5368,21 +5382,21 @@ ROC-AUC       : 0.6679770526047065</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-24-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-25-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="34762d06" class="cell" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb63" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1">y_pred_corner <span class="op" style="color: #5E5E5E;
+<div id="34762d06" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb65" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1">y_pred_corner <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (y_prob <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&gt;=</span> thresh_corner).astype(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">int</span>)</span>
-<span id="cb63-2"></span>
-<span id="cb63-3">eval_metrics(y_train, y_pred_corner, y_prob)</span></code></pre></div>
+<span id="cb65-2"></span>
+<span id="cb65-3">eval_metrics(y_train, y_pred_corner, y_prob)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.6519320312027574
 Precision     : 0.8035220879523286
@@ -5393,7 +5407,7 @@ ROC-AUC       : 0.6679770526047065</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-25-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-26-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -5402,14 +5416,14 @@ ROC-AUC       : 0.6679770526047065</code></pre>
 <li>The threshold obtained by maximizing F1 yields a noticeably higher recall compared to the threshold from the closest-to-(0,1) method.</li>
 <li>Given that catching churned customers are more important than keeping the prediction list perfectly clean (precision), we should go with the Max F1 threshold</li>
 </ul>
-<div id="d5574666" class="cell" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb65" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><span class="co" style="color: #5E5E5E;
+<div id="d5574666" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb67" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Testing it on the test set</span></span>
-<span id="cb65-2">best_threshold <span class="op" style="color: #5E5E5E;
+<span id="cb67-2">best_threshold <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> thresh_f1</span>
-<span id="cb65-3">X_test <span class="op" style="color: #5E5E5E;
+<span id="cb67-3">X_test <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> rfm_churn_test[[<span class="st" style="color: #20794D;
 background-color: null;
@@ -5420,26 +5434,26 @@ background-color: null;
 font-style: inherit;">'Monetary'</span>,<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Tenure'</span>]]</span>
-<span id="cb65-4">y_test <span class="op" style="color: #5E5E5E;
+<span id="cb67-4">y_test <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> rfm_churn_test[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Churn'</span>] </span>
-<span id="cb65-5">        </span>
-<span id="cb65-6">y_prob_test <span class="op" style="color: #5E5E5E;
+<span id="cb67-5">        </span>
+<span id="cb67-6">y_prob_test <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> model.predict_proba(X_test)[:,<span class="dv" style="color: #AD0000;
+font-style: inherit;">=</span> model_logreg.predict_proba(X_test)[:,<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>] </span>
-<span id="cb65-7">y_pred_test <span class="op" style="color: #5E5E5E;
+<span id="cb67-7">y_pred_test <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (y_prob_test <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&gt;=</span> best_threshold).astype(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">int</span>)</span>
-<span id="cb65-8"></span>
-<span id="cb65-9">eval_metrics(y_test, y_pred_test, y_prob_test)</span></code></pre></div>
+<span id="cb67-8"></span>
+<span id="cb67-9">eval_metrics(y_test, y_pred_test, y_prob_test)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.6356243239066605
 Precision     : 0.6247008137865007
@@ -5450,9 +5464,24 @@ ROC-AUC       : 0.565838093017762</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-26-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-27-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
+</div>
+</div>
+<div id="4ef325e8" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb69" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1">joblib.dump(</span>
+<span id="cb69-2">    {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"model"</span>: model_logreg, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"threshold"</span>: best_threshold}, </span>
+<span id="cb69-3">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'../models/logreg_and_threshold.pkl'</span></span>
+<span id="cb69-4">)</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>['../models/logreg_and_threshold.pkl']</code></pre>
 </div>
 </div>
 <ul>
@@ -5462,13 +5491,13 @@ ROC-AUC       : 0.565838093017762</code></pre>
 </section>
 <section id="xgboost" class="level2">
 <h2 class="anchored" data-anchor-id="xgboost">XGBOOST</h2>
-<div id="875bfe45" class="cell" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb67" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1">model_xgb <span class="op" style="color: #5E5E5E;
+<div id="875bfe45" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb71" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1">model_xgb <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> XGBClassifier()</span>
-<span id="cb67-2">model_xgb.fit(X_train, y_train)</span></code></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="50">
-<style>#sk-container-id-4 {
+<span id="cb71-2">model_xgb.fit(X_train, y_train)</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<style>#sk-container-id-2 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: #000;
   --sklearn-color-text-muted: #666;
@@ -5499,15 +5528,15 @@ font-style: inherit;">=</span> XGBClassifier()</span>
   }
 }
 
-#sk-container-id-4 {
+#sk-container-id-2 {
   color: var(--sklearn-color-text);
 }
 
-#sk-container-id-4 pre {
+#sk-container-id-2 pre {
   padding: 0;
 }
 
-#sk-container-id-4 input.sk-hidden--visually {
+#sk-container-id-2 input.sk-hidden--visually {
   border: 0;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
@@ -5519,7 +5548,7 @@ font-style: inherit;">=</span> XGBClassifier()</span>
   width: 1px;
 }
 
-#sk-container-id-4 div.sk-dashed-wrapped {
+#sk-container-id-2 div.sk-dashed-wrapped {
   border: 1px dashed var(--sklearn-color-line);
   margin: 0 0.4em 0.5em 0.4em;
   box-sizing: border-box;
@@ -5527,7 +5556,7 @@ font-style: inherit;">=</span> XGBClassifier()</span>
   background-color: var(--sklearn-color-background);
 }
 
-#sk-container-id-4 div.sk-container {
+#sk-container-id-2 div.sk-container {
   /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
      but bootstrap.min.css set `[hidden] { display: none !important; }`
      so we also need the `!important` here to be able to override the
@@ -5537,7 +5566,7 @@ font-style: inherit;">=</span> XGBClassifier()</span>
   position: relative;
 }
 
-#sk-container-id-4 div.sk-text-repr-fallback {
+#sk-container-id-2 div.sk-text-repr-fallback {
   display: none;
 }
 
@@ -5553,14 +5582,14 @@ div.sk-item {
 
 /* Parallel-specific style estimator block */
 
-#sk-container-id-4 div.sk-parallel-item::after {
+#sk-container-id-2 div.sk-parallel-item::after {
   content: "";
   width: 100%;
   border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
   flex-grow: 1;
 }
 
-#sk-container-id-4 div.sk-parallel {
+#sk-container-id-2 div.sk-parallel {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -5568,28 +5597,28 @@ div.sk-item {
   position: relative;
 }
 
-#sk-container-id-4 div.sk-parallel-item {
+#sk-container-id-2 div.sk-parallel-item {
   display: flex;
   flex-direction: column;
 }
 
-#sk-container-id-4 div.sk-parallel-item:first-child::after {
+#sk-container-id-2 div.sk-parallel-item:first-child::after {
   align-self: flex-end;
   width: 50%;
 }
 
-#sk-container-id-4 div.sk-parallel-item:last-child::after {
+#sk-container-id-2 div.sk-parallel-item:last-child::after {
   align-self: flex-start;
   width: 50%;
 }
 
-#sk-container-id-4 div.sk-parallel-item:only-child::after {
+#sk-container-id-2 div.sk-parallel-item:only-child::after {
   width: 0;
 }
 
 /* Serial-specific style estimator block */
 
-#sk-container-id-4 div.sk-serial {
+#sk-container-id-2 div.sk-serial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -5607,14 +5636,14 @@ clickable and can be expanded/collapsed.
 
 /* Pipeline and ColumnTransformer style (default) */
 
-#sk-container-id-4 div.sk-toggleable {
+#sk-container-id-2 div.sk-toggleable {
   /* Default theme specific background. It is overwritten whether we have a
   specific estimator or a Pipeline/ColumnTransformer */
   background-color: var(--sklearn-color-background);
 }
 
 /* Toggleable label */
-#sk-container-id-4 label.sk-toggleable__label {
+#sk-container-id-2 label.sk-toggleable__label {
   cursor: pointer;
   display: flex;
   width: 100%;
@@ -5627,13 +5656,13 @@ clickable and can be expanded/collapsed.
   gap: 0.5em;
 }
 
-#sk-container-id-4 label.sk-toggleable__label .caption {
+#sk-container-id-2 label.sk-toggleable__label .caption {
   font-size: 0.6rem;
   font-weight: lighter;
   color: var(--sklearn-color-text-muted);
 }
 
-#sk-container-id-4 label.sk-toggleable__label-arrow:before {
+#sk-container-id-2 label.sk-toggleable__label-arrow:before {
   /* Arrow on the left of the label */
   content: "▸";
   float: left;
@@ -5641,25 +5670,25 @@ clickable and can be expanded/collapsed.
   color: var(--sklearn-color-icon);
 }
 
-#sk-container-id-4 label.sk-toggleable__label-arrow:hover:before {
+#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {
   color: var(--sklearn-color-text);
 }
 
 /* Toggleable content - dropdown */
 
-#sk-container-id-4 div.sk-toggleable__content {
+#sk-container-id-2 div.sk-toggleable__content {
   display: none;
   text-align: left;
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-4 div.sk-toggleable__content.fitted {
+#sk-container-id-2 div.sk-toggleable__content.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-4 div.sk-toggleable__content pre {
+#sk-container-id-2 div.sk-toggleable__content pre {
   margin: 0.2em;
   border-radius: 0.25em;
   color: var(--sklearn-color-text);
@@ -5667,79 +5696,79 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-4 div.sk-toggleable__content.fitted pre {
+#sk-container-id-2 div.sk-toggleable__content.fitted pre {
   /* unfitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-4 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
   display: block;
   width: 100%;
   overflow: visible;
 }
 
-#sk-container-id-4 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
   content: "▾";
 }
 
 /* Pipeline/ColumnTransformer-specific style */
 
-#sk-container-id-4 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-4 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-2 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator-specific style */
 
 /* Colorize estimator box */
-#sk-container-id-4 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-4 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-2 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
-#sk-container-id-4 div.sk-label label.sk-toggleable__label,
-#sk-container-id-4 div.sk-label label {
+#sk-container-id-2 div.sk-label label.sk-toggleable__label,
+#sk-container-id-2 div.sk-label label {
   /* The background is the default theme color */
   color: var(--sklearn-color-text-on-default-background);
 }
 
 /* On hover, darken the color of the background */
-#sk-container-id-4 div.sk-label:hover label.sk-toggleable__label {
+#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
 /* Label box, darken color on hover, fitted */
-#sk-container-id-4 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+#sk-container-id-2 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator label */
 
-#sk-container-id-4 div.sk-label label {
+#sk-container-id-2 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
   display: inline-block;
   line-height: 1.2em;
 }
 
-#sk-container-id-4 div.sk-label-container {
+#sk-container-id-2 div.sk-label-container {
   text-align: center;
 }
 
 /* Estimator-specific */
-#sk-container-id-4 div.sk-estimator {
+#sk-container-id-2 div.sk-estimator {
   font-family: monospace;
   border: 1px dotted var(--sklearn-color-border-box);
   border-radius: 0.25em;
@@ -5749,18 +5778,18 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-4 div.sk-estimator.fitted {
+#sk-container-id-2 div.sk-estimator.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
 /* on hover */
-#sk-container-id-4 div.sk-estimator:hover {
+#sk-container-id-2 div.sk-estimator:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-4 div.sk-estimator.fitted:hover {
+#sk-container-id-2 div.sk-estimator.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
@@ -5848,7 +5877,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 /* "?"-specific style due to the `<a>` HTML tag */
 
-#sk-container-id-4 a.estimator_doc_link {
+#sk-container-id-2 a.estimator_doc_link {
   float: right;
   font-size: 1rem;
   line-height: 1em;
@@ -5863,21 +5892,21 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
 }
 
-#sk-container-id-4 a.estimator_doc_link.fitted {
+#sk-container-id-2 a.estimator_doc_link.fitted {
   /* fitted */
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
 
 /* On hover */
-#sk-container-id-4 a.estimator_doc_link:hover {
+#sk-container-id-2 a.estimator_doc_link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
   color: var(--sklearn-color-background);
   text-decoration: none;
 }
 
-#sk-container-id-4 a.estimator_doc_link.fitted:hover {
+#sk-container-id-2 a.estimator_doc_link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
@@ -5945,7 +5974,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
     height: 14px;
     cursor: pointer;
 }
-</style><div id="sk-container-id-4" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>XGBClassifier(base_score=None, booster=None, callbacks=None,
+</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>XGBClassifier(base_score=None, booster=None, callbacks=None,
               colsample_bylevel=None, colsample_bynode=None,
               colsample_bytree=None, device=None, early_stopping_rounds=None,
               enable_categorical=False, eval_metric=None, feature_types=None,
@@ -5955,7 +5984,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
               max_cat_to_onehot=None, max_delta_step=None, max_depth=None,
               max_leaves=None, min_child_weight=None, missing=nan,
               monotone_constraints=None, multi_strategy=None, n_estimators=None,
-              n_jobs=None, num_parallel_tree=None, ...)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" checked=""><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>XGBClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://xgboost.readthedocs.io/en/release_3.1.0/python/python_api.html#xgboost.XGBClassifier">?<span>Documentation for XGBClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+              n_jobs=None, num_parallel_tree=None, ...)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>XGBClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://xgboost.readthedocs.io/en/release_3.1.0/python/python_api.html#xgboost.XGBClassifier">?<span>Documentation for XGBClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
         <div class="estimator-table">
             <details>
                 <summary>Parameters</summary>
@@ -6212,21 +6241,21 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </script>
 </div>
 </div>
-<div id="8cfb291d" class="cell" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb68" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1">y_pred_xgb <span class="op" style="color: #5E5E5E;
+<div id="8cfb291d" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb72" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1">y_pred_xgb <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> model_xgb.predict(X_train)</span>
-<span id="cb68-2">prob_xgb <span class="op" style="color: #5E5E5E;
+<span id="cb72-2">prob_xgb <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> model_xgb.predict_proba(X_train)</span>
-<span id="cb68-3"></span>
-<span id="cb68-4">y_prob_xgb <span class="op" style="color: #5E5E5E;
+<span id="cb72-3"></span>
+<span id="cb72-4">y_prob_xgb <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> prob_xgb[:,<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>]</span>
-<span id="cb68-5"></span>
-<span id="cb68-6">eval_metrics(y_train, y_pred_xgb, y_prob_xgb)</span></code></pre></div>
+<span id="cb72-5"></span>
+<span id="cb72-6">eval_metrics(y_train, y_pred_xgb, y_prob_xgb)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.7744149482977566
 Precision     : 0.777931475998308
@@ -6237,13 +6266,13 @@ ROC-AUC       : 0.732851236246495</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-28-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-30-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="04b9cfa6" class="cell" data-execution_count="52">
-<div class="sourceCode cell-code" id="cb70" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1">thresh_f1_xgb, thresh_corner_xgb <span class="op" style="color: #5E5E5E;
+<div id="04b9cfa6" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb74" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1">thresh_f1_xgb, thresh_corner_xgb <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> optimal_threshold(y_train, y_prob_xgb)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -6254,21 +6283,21 @@ Best Threshold (Closest to (0,1)): 0.7627625465393066</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-30-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-32-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="e372ddd4" class="cell" data-execution_count="53">
-<div class="sourceCode cell-code" id="cb72" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1">y_pred_f1_xgb <span class="op" style="color: #5E5E5E;
+<div id="e372ddd4" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb76" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1">y_pred_f1_xgb <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (y_prob_xgb <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&gt;=</span> thresh_f1_xgb).astype(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">int</span>)</span>
-<span id="cb72-2"></span>
-<span id="cb72-3">eval_metrics(y_train, y_pred_f1_xgb, y_prob_xgb)</span></code></pre></div>
+<span id="cb76-2"></span>
+<span id="cb76-3">eval_metrics(y_train, y_pred_f1_xgb, y_prob_xgb)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.7733466368345729
 Precision     : 0.7737145565121238
@@ -6279,21 +6308,21 @@ ROC-AUC       : 0.732851236246495</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-31-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-33-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="1687cc69" class="cell" data-execution_count="54">
-<div class="sourceCode cell-code" id="cb74" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1">y_pred_corner_xgb <span class="op" style="color: #5E5E5E;
+<div id="1687cc69" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb78" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1">y_pred_corner_xgb <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (y_prob_xgb <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&gt;=</span> thresh_corner_xgb).astype(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">int</span>)</span>
-<span id="cb74-2"></span>
-<span id="cb74-3">eval_metrics(y_train, y_pred_corner_xgb, y_prob_xgb)</span></code></pre></div>
+<span id="cb78-2"></span>
+<span id="cb78-3">eval_metrics(y_train, y_pred_corner_xgb, y_prob_xgb)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.6896555199451735
 Precision     : 0.8254268835477867
@@ -6304,26 +6333,26 @@ ROC-AUC       : 0.732851236246495</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-32-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-34-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="e06b890d" class="cell" data-execution_count="55">
-<div class="sourceCode cell-code" id="cb76" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1">y_prob_test_xgb <span class="op" style="color: #5E5E5E;
+<div id="e06b890d" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb80" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1">y_prob_test_xgb <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> model_xgb.predict_proba(X_test)[:,<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>] </span>
-<span id="cb76-2">y_pred_test_xgb <span class="op" style="color: #5E5E5E;
+<span id="cb80-2">y_pred_test_xgb <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>  (y_prob_test_xgb <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&gt;=</span> thresh_f1_xgb).astype(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">int</span>)</span>
-<span id="cb76-3"></span>
-<span id="cb76-4">eval_metrics(y_test, y_pred_test_xgb, y_prob_test_xgb)</span></code></pre></div>
+<span id="cb80-3"></span>
+<span id="cb80-4">eval_metrics(y_test, y_pred_test_xgb, y_prob_test_xgb)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.6387343532684284
 Precision     : 0.6340634107568666
@@ -6334,22 +6363,37 @@ ROC-AUC       : 0.6143797975198997</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-33-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-35-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
+</div>
+</div>
+<div id="137059b6" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb82" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1">joblib.dump(</span>
+<span id="cb82-2">    {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"model"</span>: model_xgb, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"threshold"</span>: thresh_f1_xgb}, </span>
+<span id="cb82-3">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'../models/xgb_and_threshold.pkl'</span></span>
+<span id="cb82-4">)</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<pre><code>['../models/xgb_and_threshold.pkl']</code></pre>
 </div>
 </div>
 </section>
 <section id="lgbm" class="level2">
 <h2 class="anchored" data-anchor-id="lgbm">LGBM</h2>
-<div id="e49aec15" class="cell" data-execution_count="56">
-<div class="sourceCode cell-code" id="cb78" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1">model_lgbm <span class="op" style="color: #5E5E5E;
+<div id="e49aec15" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb84" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1">model_lgbm <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> LGBMClassifier()</span>
-<span id="cb78-2">model_lgbm.fit(X_train, y_train)</span></code></pre></div>
+<span id="cb84-2">model_lgbm.fit(X_train, y_train)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[LightGBM] [Info] Number of positive: 71006, number of negative: 28216
-[LightGBM] [Info] Auto-choosing row-wise multi-threading, the overhead of testing was 0.000903 seconds.
+[LightGBM] [Info] Auto-choosing row-wise multi-threading, the overhead of testing was 0.014242 seconds.
 You can set `force_row_wise=true` to remove the overhead.
 And if memory is not enough, you can set `force_col_wise=true`.
 [LightGBM] [Info] Total Bins 316
@@ -6357,8 +6401,8 @@ And if memory is not enough, you can set `force_col_wise=true`.
 [LightGBM] [Info] [binary:BoostFromScore]: pavg=0.715628 -&gt; initscore=0.922875
 [LightGBM] [Info] Start training from score 0.922875</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="56">
-<style>#sk-container-id-5 {
+<div class="cell-output cell-output-display" data-execution_count="35">
+<style>#sk-container-id-3 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: #000;
   --sklearn-color-text-muted: #666;
@@ -6389,15 +6433,15 @@ And if memory is not enough, you can set `force_col_wise=true`.
   }
 }
 
-#sk-container-id-5 {
+#sk-container-id-3 {
   color: var(--sklearn-color-text);
 }
 
-#sk-container-id-5 pre {
+#sk-container-id-3 pre {
   padding: 0;
 }
 
-#sk-container-id-5 input.sk-hidden--visually {
+#sk-container-id-3 input.sk-hidden--visually {
   border: 0;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
@@ -6409,7 +6453,7 @@ And if memory is not enough, you can set `force_col_wise=true`.
   width: 1px;
 }
 
-#sk-container-id-5 div.sk-dashed-wrapped {
+#sk-container-id-3 div.sk-dashed-wrapped {
   border: 1px dashed var(--sklearn-color-line);
   margin: 0 0.4em 0.5em 0.4em;
   box-sizing: border-box;
@@ -6417,7 +6461,7 @@ And if memory is not enough, you can set `force_col_wise=true`.
   background-color: var(--sklearn-color-background);
 }
 
-#sk-container-id-5 div.sk-container {
+#sk-container-id-3 div.sk-container {
   /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
      but bootstrap.min.css set `[hidden] { display: none !important; }`
      so we also need the `!important` here to be able to override the
@@ -6427,7 +6471,7 @@ And if memory is not enough, you can set `force_col_wise=true`.
   position: relative;
 }
 
-#sk-container-id-5 div.sk-text-repr-fallback {
+#sk-container-id-3 div.sk-text-repr-fallback {
   display: none;
 }
 
@@ -6443,14 +6487,14 @@ div.sk-item {
 
 /* Parallel-specific style estimator block */
 
-#sk-container-id-5 div.sk-parallel-item::after {
+#sk-container-id-3 div.sk-parallel-item::after {
   content: "";
   width: 100%;
   border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
   flex-grow: 1;
 }
 
-#sk-container-id-5 div.sk-parallel {
+#sk-container-id-3 div.sk-parallel {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -6458,28 +6502,28 @@ div.sk-item {
   position: relative;
 }
 
-#sk-container-id-5 div.sk-parallel-item {
+#sk-container-id-3 div.sk-parallel-item {
   display: flex;
   flex-direction: column;
 }
 
-#sk-container-id-5 div.sk-parallel-item:first-child::after {
+#sk-container-id-3 div.sk-parallel-item:first-child::after {
   align-self: flex-end;
   width: 50%;
 }
 
-#sk-container-id-5 div.sk-parallel-item:last-child::after {
+#sk-container-id-3 div.sk-parallel-item:last-child::after {
   align-self: flex-start;
   width: 50%;
 }
 
-#sk-container-id-5 div.sk-parallel-item:only-child::after {
+#sk-container-id-3 div.sk-parallel-item:only-child::after {
   width: 0;
 }
 
 /* Serial-specific style estimator block */
 
-#sk-container-id-5 div.sk-serial {
+#sk-container-id-3 div.sk-serial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6497,14 +6541,14 @@ clickable and can be expanded/collapsed.
 
 /* Pipeline and ColumnTransformer style (default) */
 
-#sk-container-id-5 div.sk-toggleable {
+#sk-container-id-3 div.sk-toggleable {
   /* Default theme specific background. It is overwritten whether we have a
   specific estimator or a Pipeline/ColumnTransformer */
   background-color: var(--sklearn-color-background);
 }
 
 /* Toggleable label */
-#sk-container-id-5 label.sk-toggleable__label {
+#sk-container-id-3 label.sk-toggleable__label {
   cursor: pointer;
   display: flex;
   width: 100%;
@@ -6517,13 +6561,13 @@ clickable and can be expanded/collapsed.
   gap: 0.5em;
 }
 
-#sk-container-id-5 label.sk-toggleable__label .caption {
+#sk-container-id-3 label.sk-toggleable__label .caption {
   font-size: 0.6rem;
   font-weight: lighter;
   color: var(--sklearn-color-text-muted);
 }
 
-#sk-container-id-5 label.sk-toggleable__label-arrow:before {
+#sk-container-id-3 label.sk-toggleable__label-arrow:before {
   /* Arrow on the left of the label */
   content: "▸";
   float: left;
@@ -6531,25 +6575,25 @@ clickable and can be expanded/collapsed.
   color: var(--sklearn-color-icon);
 }
 
-#sk-container-id-5 label.sk-toggleable__label-arrow:hover:before {
+#sk-container-id-3 label.sk-toggleable__label-arrow:hover:before {
   color: var(--sklearn-color-text);
 }
 
 /* Toggleable content - dropdown */
 
-#sk-container-id-5 div.sk-toggleable__content {
+#sk-container-id-3 div.sk-toggleable__content {
   display: none;
   text-align: left;
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-5 div.sk-toggleable__content.fitted {
+#sk-container-id-3 div.sk-toggleable__content.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-5 div.sk-toggleable__content pre {
+#sk-container-id-3 div.sk-toggleable__content pre {
   margin: 0.2em;
   border-radius: 0.25em;
   color: var(--sklearn-color-text);
@@ -6557,79 +6601,79 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-5 div.sk-toggleable__content.fitted pre {
+#sk-container-id-3 div.sk-toggleable__content.fitted pre {
   /* unfitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-5 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+#sk-container-id-3 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
   display: block;
   width: 100%;
   overflow: visible;
 }
 
-#sk-container-id-5 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+#sk-container-id-3 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
   content: "▾";
 }
 
 /* Pipeline/ColumnTransformer-specific style */
 
-#sk-container-id-5 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-3 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-5 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-3 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator-specific style */
 
 /* Colorize estimator box */
-#sk-container-id-5 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-3 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-5 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-3 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
-#sk-container-id-5 div.sk-label label.sk-toggleable__label,
-#sk-container-id-5 div.sk-label label {
+#sk-container-id-3 div.sk-label label.sk-toggleable__label,
+#sk-container-id-3 div.sk-label label {
   /* The background is the default theme color */
   color: var(--sklearn-color-text-on-default-background);
 }
 
 /* On hover, darken the color of the background */
-#sk-container-id-5 div.sk-label:hover label.sk-toggleable__label {
+#sk-container-id-3 div.sk-label:hover label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
 /* Label box, darken color on hover, fitted */
-#sk-container-id-5 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+#sk-container-id-3 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator label */
 
-#sk-container-id-5 div.sk-label label {
+#sk-container-id-3 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
   display: inline-block;
   line-height: 1.2em;
 }
 
-#sk-container-id-5 div.sk-label-container {
+#sk-container-id-3 div.sk-label-container {
   text-align: center;
 }
 
 /* Estimator-specific */
-#sk-container-id-5 div.sk-estimator {
+#sk-container-id-3 div.sk-estimator {
   font-family: monospace;
   border: 1px dotted var(--sklearn-color-border-box);
   border-radius: 0.25em;
@@ -6639,18 +6683,18 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-5 div.sk-estimator.fitted {
+#sk-container-id-3 div.sk-estimator.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
 /* on hover */
-#sk-container-id-5 div.sk-estimator:hover {
+#sk-container-id-3 div.sk-estimator:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-5 div.sk-estimator.fitted:hover {
+#sk-container-id-3 div.sk-estimator.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
@@ -6738,7 +6782,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 /* "?"-specific style due to the `<a>` HTML tag */
 
-#sk-container-id-5 a.estimator_doc_link {
+#sk-container-id-3 a.estimator_doc_link {
   float: right;
   font-size: 1rem;
   line-height: 1em;
@@ -6753,21 +6797,21 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
 }
 
-#sk-container-id-5 a.estimator_doc_link.fitted {
+#sk-container-id-3 a.estimator_doc_link.fitted {
   /* fitted */
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
 
 /* On hover */
-#sk-container-id-5 a.estimator_doc_link:hover {
+#sk-container-id-3 a.estimator_doc_link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
   color: var(--sklearn-color-background);
   text-decoration: none;
 }
 
-#sk-container-id-5 a.estimator_doc_link.fitted:hover {
+#sk-container-id-3 a.estimator_doc_link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
@@ -6835,7 +6879,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
     height: 14px;
     cursor: pointer;
 }
-</style><div id="sk-container-id-5" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LGBMClassifier()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" checked=""><label for="sk-estimator-id-5" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LGBMClassifier</div></div><div><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+</style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LGBMClassifier()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked=""><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LGBMClassifier</div></div><div><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
         <div class="estimator-table">
             <details>
                 <summary>Parameters</summary>
@@ -6987,32 +7031,32 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </script>
 </div>
 </div>
-<div id="ec335647" class="cell" data-execution_count="57">
-<div class="sourceCode cell-code" id="cb80" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><span class="co" style="color: #5E5E5E;
+<div id="ec335647" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb86" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Predictions</span></span>
-<span id="cb80-2">y_pred_lgbm <span class="op" style="color: #5E5E5E;
+<span id="cb86-2">y_pred_lgbm <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> model_lgbm.predict(X_train)</span>
-<span id="cb80-3"></span>
-<span id="cb80-4"><span class="co" style="color: #5E5E5E;
+<span id="cb86-3"></span>
+<span id="cb86-4"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Churn Probabilty</span></span>
-<span id="cb80-5">prob_lgbm <span class="op" style="color: #5E5E5E;
+<span id="cb86-5">prob_lgbm <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> model_lgbm.predict_proba(X_train) <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Output : array([0.xxx, 0.xxx])</span></span>
-<span id="cb80-6">y_prob_lgbm <span class="op" style="color: #5E5E5E;
+<span id="cb86-6">y_prob_lgbm <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> prob_lgbm[:,<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>] </span>
-<span id="cb80-7"></span>
-<span id="cb80-8"><span class="co" style="color: #5E5E5E;
+<span id="cb86-7"></span>
+<span id="cb86-8"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Evaluation</span></span>
-<span id="cb80-9">eval_metrics(y_train, y_pred_lgbm, y_prob_lgbm)</span></code></pre></div>
+<span id="cb86-9">eval_metrics(y_train, y_pred_lgbm, y_prob_lgbm)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.7659994759226785
 Precision     : 0.7705695844185256
@@ -7023,13 +7067,13 @@ ROC-AUC       : 0.7096146687700096</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-35-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-38-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="d6bf4861" class="cell" data-execution_count="58">
-<div class="sourceCode cell-code" id="cb82" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1">thresh_f1_lgbm, thresh_corner_lgbm <span class="op" style="color: #5E5E5E;
+<div id="d6bf4861" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb88" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1">thresh_f1_lgbm, thresh_corner_lgbm <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> optimal_threshold(y_train, y_prob_lgbm)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -7040,21 +7084,21 @@ Best Threshold (Closest to (0,1)): 0.7733023483641149</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-36-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-39-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="3dc7498c" class="cell" data-execution_count="59">
-<div class="sourceCode cell-code" id="cb84" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1">y_pred_f1_lgbm <span class="op" style="color: #5E5E5E;
+<div id="3dc7498c" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb90" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1">y_pred_f1_lgbm <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (y_prob_lgbm <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&gt;=</span> thresh_f1_lgbm).astype(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">int</span>)</span>
-<span id="cb84-2"></span>
-<span id="cb84-3">eval_metrics(y_train, y_pred_f1_lgbm, y_prob_lgbm)</span></code></pre></div>
+<span id="cb90-2"></span>
+<span id="cb90-3">eval_metrics(y_train, y_pred_f1_lgbm, y_prob_lgbm)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.7653947713208764
 Precision     : 0.7680625449317038
@@ -7065,21 +7109,21 @@ ROC-AUC       : 0.7096146687700096</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-37-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-40-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="d4732f8f" class="cell" data-execution_count="60">
-<div class="sourceCode cell-code" id="cb86" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1">y_pred_corner_lgbm <span class="op" style="color: #5E5E5E;
+<div id="d4732f8f" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb92" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb92-1">y_pred_corner_lgbm <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (y_prob_lgbm <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&gt;=</span> thresh_corner_lgbm).astype(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">int</span>)</span>
-<span id="cb86-2"></span>
-<span id="cb86-3">eval_metrics(y_train, y_pred_corner_lgbm, y_prob_lgbm)</span></code></pre></div>
+<span id="cb92-2"></span>
+<span id="cb92-3">eval_metrics(y_train, y_pred_corner_lgbm, y_prob_lgbm)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.6671201951180182
 Precision     : 0.8177087690531564
@@ -7090,26 +7134,26 @@ ROC-AUC       : 0.7096146687700096</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-38-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-41-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="aed497ca" class="cell" data-execution_count="61">
-<div class="sourceCode cell-code" id="cb88" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1">y_prob_test_lgbm <span class="op" style="color: #5E5E5E;
+<div id="aed497ca" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb94" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1">y_prob_test_lgbm <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> model_lgbm.predict_proba(X_test)[:,<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>] </span>
-<span id="cb88-2">y_pred_test_lgbm <span class="op" style="color: #5E5E5E;
+<span id="cb94-2">y_pred_test_lgbm <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (y_prob_test_lgbm <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&gt;=</span> thresh_f1_lgbm).astype(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">int</span>)</span>
-<span id="cb88-3"></span>
-<span id="cb88-4">eval_metrics(y_test, y_pred_test_lgbm, y_prob_test_lgbm)</span></code></pre></div>
+<span id="cb94-3"></span>
+<span id="cb94-4">eval_metrics(y_test, y_pred_test_lgbm, y_prob_test_lgbm)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.6443749034152372
 Precision     : 0.6363118204138899
@@ -7120,53 +7164,68 @@ ROC-AUC       : 0.6230423655378263</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-39-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-42-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
+</div>
+</div>
+<div id="2831b8c2" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb96" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1">joblib.dump(</span>
+<span id="cb96-2">    {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"model"</span>: model_lgbm, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"threshold"</span>: thresh_f1_lgbm}, </span>
+<span id="cb96-3">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'../models/lgbm_and_threshold.pkl'</span></span>
+<span id="cb96-4">)</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="41">
+<pre><code>['../models/lgbm_and_threshold.pkl']</code></pre>
 </div>
 </div>
 </section>
 <section id="catboost" class="level2">
 <h2 class="anchored" data-anchor-id="catboost">Catboost</h2>
-<div id="8f958575" class="cell" data-execution_count="62">
-<div class="sourceCode cell-code" id="cb90" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1">model_cat <span class="op" style="color: #5E5E5E;
+<div id="8f958575" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb98" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1">model_cat <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> CatBoostClassifier(verbose<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">False</span>)</span>
-<span id="cb90-2">model_cat.fit(X_train, y_train)</span></code></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="62">
-<pre><code>&lt;catboost.core.CatBoostClassifier at 0x28d9a5abfd0&gt;</code></pre>
+<span id="cb98-2">model_cat.fit(X_train, y_train)</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<pre><code>&lt;catboost.core.CatBoostClassifier at 0x2233db1e2c0&gt;</code></pre>
 </div>
 </div>
-<div id="aa36398a" class="cell" data-execution_count="63">
-<div class="sourceCode cell-code" id="cb92" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb92-1"><span class="co" style="color: #5E5E5E;
+<div id="aa36398a" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb100" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb100-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Predictions</span></span>
-<span id="cb92-2">y_pred_cat <span class="op" style="color: #5E5E5E;
+<span id="cb100-2">y_pred_cat <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> model_cat.predict(X_train)</span>
-<span id="cb92-3"></span>
-<span id="cb92-4"><span class="co" style="color: #5E5E5E;
+<span id="cb100-3"></span>
+<span id="cb100-4"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Churn Probabilty</span></span>
-<span id="cb92-5">prob_cat <span class="op" style="color: #5E5E5E;
+<span id="cb100-5">prob_cat <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> model_cat.predict_proba(X_train) <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Output : array([0.xxx, 0.xxx])</span></span>
-<span id="cb92-6">y_prob_cat <span class="op" style="color: #5E5E5E;
+<span id="cb100-6">y_prob_cat <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> prob_cat[:,<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>] </span>
-<span id="cb92-7"></span>
-<span id="cb92-8"><span class="co" style="color: #5E5E5E;
+<span id="cb100-7"></span>
+<span id="cb100-8"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Evaluation</span></span>
-<span id="cb92-9">eval_metrics(y_train, y_pred_cat, y_prob_cat)</span></code></pre></div>
+<span id="cb100-9">eval_metrics(y_train, y_pred_cat, y_prob_cat)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.7726915401826208
 Precision     : 0.7758471488431409
@@ -7177,13 +7236,13 @@ ROC-AUC       : 0.7276839244751365</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-41-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-45-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="f06321b2" class="cell" data-execution_count="64">
-<div class="sourceCode cell-code" id="cb94" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1">thresh_f1_cat, thresh_corner_cat <span class="op" style="color: #5E5E5E;
+<div id="f06321b2" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb102" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1">thresh_f1_cat, thresh_corner_cat <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> optimal_threshold(y_train, y_prob_cat)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -7194,21 +7253,21 @@ Best Threshold (Closest to (0,1)): 0.7691265042480891</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-42-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-46-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="6a9e4e9b" class="cell" data-execution_count="65">
-<div class="sourceCode cell-code" id="cb96" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1">y_pred_f1_cat <span class="op" style="color: #5E5E5E;
+<div id="6a9e4e9b" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb104" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb104-1">y_pred_f1_cat <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (y_prob_cat <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&gt;=</span> thresh_f1_cat).astype(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">int</span>)</span>
-<span id="cb96-2"></span>
-<span id="cb96-3">eval_metrics(y_train, y_pred_f1_cat, y_prob_cat)</span></code></pre></div>
+<span id="cb104-2"></span>
+<span id="cb104-3">eval_metrics(y_train, y_pred_f1_cat, y_prob_cat)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.7710185241176352
 Precision     : 0.7702735984237865
@@ -7219,21 +7278,21 @@ ROC-AUC       : 0.7276839244751365</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-43-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-47-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="bb29db02" class="cell" data-execution_count="66">
-<div class="sourceCode cell-code" id="cb98" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1">y_pred_corner_cat <span class="op" style="color: #5E5E5E;
+<div id="bb29db02" class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb106" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb106-1">y_pred_corner_cat <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (y_prob_cat <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&gt;=</span> thresh_corner_cat).astype(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">int</span>)</span>
-<span id="cb98-2"></span>
-<span id="cb98-3">eval_metrics(y_train, y_pred_corner_cat, y_prob_cat)</span></code></pre></div>
+<span id="cb106-2"></span>
+<span id="cb106-3">eval_metrics(y_train, y_pred_corner_cat, y_prob_cat)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.6798391485759206
 Precision     : 0.8246917666528755
@@ -7244,26 +7303,26 @@ ROC-AUC       : 0.7276839244751365</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-44-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-48-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="f5ed503c" class="cell" data-execution_count="67">
-<div class="sourceCode cell-code" id="cb100" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb100-1">y_prob_test_cat <span class="op" style="color: #5E5E5E;
+<div id="f5ed503c" class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb108" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb108-1">y_prob_test_cat <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> model_cat.predict_proba(X_test)[:,<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>] </span>
-<span id="cb100-2">y_pred_test_cat <span class="op" style="color: #5E5E5E;
+<span id="cb108-2">y_pred_test_cat <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (y_prob_test_cat<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&gt;=</span> thresh_f1_cat).astype(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">int</span>)</span>
-<span id="cb100-3"></span>
-<span id="cb100-4">eval_metrics(y_test, y_pred_test_cat, y_prob_test_cat)</span></code></pre></div>
+<span id="cb108-3"></span>
+<span id="cb108-4">eval_metrics(y_test, y_pred_test_cat, y_prob_test_cat)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy      : 0.6397388348014217
 Precision     : 0.6334704955349326
@@ -7274,27 +7333,42 @@ ROC-AUC       : 0.6200174508178236</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-45-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://daffadanielr.github.io/posts/05-Churn Modelling/index_files/figure-html/..-..-Project-Folders-05-Churn-Modelling-Notebooks-churn-prediction-cell-49-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
+</div>
+</div>
+<div id="255552ab" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb110" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb110-1">joblib.dump(</span>
+<span id="cb110-2">    {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"model"</span>: model_cat, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"threshold"</span>: thresh_f1_cat}, </span>
+<span id="cb110-3">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'../models/cat_and_threshold.pkl'</span></span>
+<span id="cb110-4">)</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
+<pre><code>['../models/cat_and_threshold.pkl']</code></pre>
 </div>
 </div>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<div id="648c8059" class="cell" data-execution_count="69">
-<div class="sourceCode cell-code" id="cb102" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1">y_pred_all <span class="op" style="color: #5E5E5E;
+<div id="648c8059" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb112" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb112-1">y_pred_all <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [y_pred_test, y_pred_test_xgb, y_pred_test_lgbm, y_pred_test_cat]</span>
-<span id="cb102-2">y_prob_all <span class="op" style="color: #5E5E5E;
+<span id="cb112-2">y_prob_all <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [y_prob_test, y_prob_test_xgb, y_prob_test_lgbm, y_prob_test_cat]</span>
-<span id="cb102-3"></span>
-<span id="cb102-4"></span>
-<span id="cb102-5">summary <span class="op" style="color: #5E5E5E;
+<span id="cb112-3"></span>
+<span id="cb112-4"></span>
+<span id="cb112-5">summary <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> {</span>
-<span id="cb102-6">    <span class="st" style="color: #20794D;
+<span id="cb112-6">    <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Model"</span>: [<span class="st" style="color: #20794D;
 background-color: null;
@@ -7305,7 +7379,7 @@ background-color: null;
 font-style: inherit;">"LGBMClassifier"</span>,<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"CatBoostClassifier"</span>],</span>
-<span id="cb102-7">    <span class="st" style="color: #20794D;
+<span id="cb112-7">    <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"ROC-AUC"</span>: [roc_auc_score(y_test, y_prob) <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -7314,7 +7388,7 @@ font-style: inherit;">for</span> y_prob <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">in</span> y_prob_all],</span>
-<span id="cb102-8">    <span class="st" style="color: #20794D;
+<span id="cb112-8">    <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"F1-Score"</span>: [f1_score(y_test, y_pred) <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -7323,7 +7397,7 @@ font-style: inherit;">for</span> y_pred <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">in</span> y_pred_all],</span>
-<span id="cb102-9">    <span class="st" style="color: #20794D;
+<span id="cb112-9">    <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Recall"</span>: [recall_score(y_test, y_pred) <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -7332,7 +7406,7 @@ font-style: inherit;">for</span> y_pred <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">in</span> y_pred_all],</span>
-<span id="cb102-10">    <span class="st" style="color: #20794D;
+<span id="cb112-10">    <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Precision"</span>:[precision_score(y_test, y_pred) <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -7341,7 +7415,7 @@ font-style: inherit;">for</span> y_pred <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">in</span> y_pred_all],</span>
-<span id="cb102-11">    <span class="st" style="color: #20794D;
+<span id="cb112-11">    <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Accuracy"</span>: [accuracy_score(y_test, y_pred) <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -7350,19 +7424,19 @@ font-style: inherit;">for</span> y_pred <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">in</span> y_pred_all]</span>
-<span id="cb102-12">        }</span>
-<span id="cb102-13">summary <span class="op" style="color: #5E5E5E;
+<span id="cb112-12">        }</span>
+<span id="cb112-13">summary <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pd.DataFrame(summary)</span>
-<span id="cb102-14">summary.set_index(<span class="st" style="color: #20794D;
+<span id="cb112-14">summary.set_index(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Model"</span>, inplace<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>)</span>
-<span id="cb102-15">summary</span></code></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="69">
+<span id="cb112-15">summary</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="49">
 <div>
 
 
@@ -7438,6 +7512,7 @@ font-style: inherit;">True</span>)</span>
   <category>Portofolio</category>
   <guid>https://daffadanielr.github.io/posts/05-Churn Modelling/</guid>
   <pubDate>Tue, 25 Nov 2025 17:00:00 GMT</pubDate>
+  <media:content url="https://daffadanielr.github.io/posts/05-Churn Modelling/cm.png" medium="image" type="image/png" height="117" width="144"/>
 </item>
 <item>
   <title>Customer Retention Cohort Analysis</title>
