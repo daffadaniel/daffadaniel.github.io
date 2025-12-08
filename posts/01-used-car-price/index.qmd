@@ -18,7 +18,7 @@ brand, model, year, mileage, fuel type, transmission, engine size, location, etc
 
 ## Model Comparison (Test Set)
 
-| Model               | R²     | RMSE (million IDR) | Training Time |
+| Model               | R²     | RMSE | Training Time |
 |---------------------|--------|--------------------|---------------|
 | Linear Regression   | 0.72   | 28.4               | <1 s          |
 | Random Forest       | 0.91   | 15.1               | 8 s           |
@@ -30,7 +30,11 @@ brand, model, year, mileage, fuel type, transmission, engine size, location, etc
 ![Feature Importance (XGBoost)](images/car_price_importance.png)
 ![Actual vs Predicted Prices](images/car_price_actual_vs_pred.png)
 
-**Tech Stack:** Python • Pandas • Scikit-learn • XGBoost 
+**Tech Stack:** 
+- Python 
+- Pandas 
+- Scikit-learn
+- XGBoost 
 
 ::: {.iframe-container}
 <iframe src="https://usedcarpredapp-bhwgx6h2tvu5cf48ue4pu3.streamlit.app//?embed=true" 

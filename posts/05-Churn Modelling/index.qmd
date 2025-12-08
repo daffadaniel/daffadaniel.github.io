@@ -1,10 +1,11 @@
 ---
-title: "Churn Prediction: Sliding Window with 1-Week Gap using Logistic Regression"
+title: "Churn Prediction: 12-week Observation window with 1-Week Gap"
 date: "2025-11-26"
 categories: [Machine Learning, Portofolio]
-description: " Built a customer churn prediction model using logistic regression on 12-week sliding windows with a 1-week gap to eliminate data leakage. Achieved realistic AUC of 0.665 and 75.2% F1-score on time-based test set."
+description: " Built a customer churn prediction model using RFM-T feature as predictors that is extracted from the past 12-week observation windows with a 1-week gap. Achieved realistic AUC of 0.623 and 75.9% F1-score on time-based test set."
 format:
   html:
+    max-width: 1700px
     echo: fenced  
     code-fold: false
     notebook-links: false
@@ -13,20 +14,24 @@ format:
 
 ## Project Overview
 
-This project predicts whether a customer will churn (stop transacting) in the next 6 weeks based on their past behavior. I used a 1-week gap between observation and prediction windows to avoid data leakage.
+This project predicts whether a customer will churn (stop transacting) in the next 6 weeks based on their past behavior. I used the past 12-week as the observation window and a 1-week gap between observation and prediction windows.
 
-The model is intentionally designed to simulate real production conditions — no future information is ever used during training.
+The model is designed to simulate real production conditions — no future information is ever used during training.
+
+Dataset: [Online Retail II](https://archive.ics.uci.edu/dataset/502/online+retail+ii)  
+This Project Github: [link]()
 
 ### Key Design Decisions
 
-| Component                  | Implementation                                      |
-|----------------------------|------------------------------------------------------|
-| Observation window         | 12 weeks of transaction history                     |
-| Gap / Buffer period        | 1 week (strictly excluded from features and labels)|
-| Prediction window          | Next 6 weeks after the gap                          |
-| Label definition           | Churn = 1 if zero transactions in the 6-week window |
-| Data generation            | Sliding window across the entire timeline           |
-| Train-test split           | Strict time-based (latest period held out as test)  |
+
+| Component               | Choice                                 | Reason                                      |
+|-------------------------|----------------------------------------|-----------------------------------------------------------|
+| Data generation         | Sliding window across the entire timeline         |  |
+| Observation Window      | 12 weeks                               | ~2 median purchase cycles                                |
+| Gap                     | 1 full week (strictly excluded)       | Current week is incomplete → cannot be used in features   |
+| Prediction Window       | Next 6 weeks after gap                 |          median purchase cycles              |
+| Label                   | 0 transactions in PW → churn = 1      | Business definition                                       |
+| Train-test split           | Strict time-based (latest period held out as test) | No Overlapping period|
 
 ### Features Used (RFM-based)
 - Recency (weeks since last transaction)  
@@ -37,25 +42,27 @@ The model is intentionally designed to simulate real production conditions — n
 
 ### Model
 - Logistic Regression
+- Xgboost
+- LightGBM
+- Catboost
 
 ### Threshold Selection
-- The optimal threshold was selected by maximizing the F1-score on the **training/validation period** (earliest 80% of the timeline)  
-- Final chosen threshold: **0.358**  
-- This threshold was then fixed and evaluated on a **time-based test set** (the most recent period, no overlap with training data)
+To determine the threshold, I evaluate multiple criteria:
 
-### Final Performance (Time-Based Test Set)
+- **F1-maximizing threshold** — balances precision and recall (most commonly used in retention campaigns)  
+- **Closest point to (0,1)** on the ROC curve — geometrically nearest to perfect classification 
+- The optimal threshold selected by prioritizing catching more churners (recall) rather than how clean the predictions (precision).
 
-| Metric         | Value  | Interpretation                   |
-|----------------|--------|---------------------------------------|
-| ROC AUC        | 0.588  |   Model ranks churners higher than non-churners 58.8 % of the time   |
-| F1-Score       | 0.752  |   Harmonic mean of precision & recall        |
-| Recall         | 0.973  | 97.3% of actual churners identified   |
-| Precision      | 0.614  | 61.4% of customer predicted as churn did actually churn  |
+Most of the model final threshold uses the F1-maximizing threshold. This threshold was then fixed and evaluated on a **time-based test set** (the most recent period, no overlap with training data)
 
-**Why AUC “only” 0.588?**  
-When the same pipeline is run **without** the 1-week gap, AUC jumps to **0.91+**.  
-The ~0.33 drop is **entirely** due to eliminating future leakage — proving the gap works.  
-0.58 represents the model’s true predictive power using only information available on decision day.
+### Model Comparison (Time-based Test Set)
+
+| Model               | AUC    | F1     | Recall | Precision | 
+|---------------------|--------|--------|--------|-----------|
+| Logistic Regression | 0.565  | 0.760 | 0.973  | 0.635    | 
+| XGBoost             | 0.614 | 0.754  | 0.931  |0.6338    |
+| CatBoost            | 0.620  | 0.756  | 0.938  | 0.633     | 
+| **LightGBM**        | **0.623** | **0.759** | **0.940** | **0.636** |
 
 
 
@@ -63,20 +70,24 @@ The ~0.33 drop is **entirely** due to eliminating future leakage — proving the
 - Python  
 - Pandas  
 - Scikit-learn  
-- Matplotlib / Seaborn  
+- Matplotlib / Seaborn 
+- LGBM
+- XGBoost
+- CatBoost 
 - Quarto (for documentation)
 
 ## Full Code & Details
-Complete notebook below (code is collapsible for cleaner reading).
+Complete notebook below.
 
 ### Data Cleaning & EDA Notebook
+I use the same data cleaning and EDA for this project and the [cohort analysis project](../04-Cohort%20Analysis/index.qmd) as it uses the same dataset. 
 
 ::: {#notebook}
-{{< embed "EDA-Data Cleaning.ipynb" echo=true code-fold=false >}}
+{{< embed "../../Project-Folders/05-Churn Modelling/Notebooks/EDA-Data Cleaning.ipynb" echo=true code-fold=false >}}
 :::
 
 ### Feature Engineering & Modelling Notebook
 
 ::: {#notebook}
-{{< embed churn-prediction.ipynb echo=true code-fold=false  >}}
+{{< embed "../../Project-Folders/05-Churn Modelling/Notebooks/churn-prediction.ipynb" echo=true code-fold=false  >}}
 :::

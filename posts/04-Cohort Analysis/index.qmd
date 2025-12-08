@@ -1,52 +1,124 @@
 ---
 title: "Customer Retention Cohort Analysis"
 date: "2025-11-17"
-categories: [Machine Learning, Portofolio]
-description: Understanding user behavior over time through cohort visualization
+categories: [Data Analytics]
+description: "Analyzing Customer Cohorts to Improve Retention & Value"
+image: "images/retention_heatmap.png"
+image-alt: "image of retention heatmap"
 format:
   html:
+    css: "../../styles.css"
     echo: fenced  
     code-fold: false
     notebook-links: false
 ---
 
-Dataset: 
-- "https://www.kaggle.com/datasets/gsagar12/dspp1?resource=download&select=customer_product.csv"
--   https://www.kaggle.com/datasets/gsagar12/dspp1?resource=download
+## Project Overview
 
----
+This project analyzes customer behavior using cohort analysis, focusing on acquisition patterns, retention trends, and cumulative customer value over time. The goal is to understand how different cohorts perform and derive actionable business insights to improve acquisition quality, retention strategy, and customer lifetime value.
 
-## Objective
-Answer the key business questions:  
-- How long do customers typically stay active?  
-- When do most users start dropping off?  
-- Which acquisition cohorts perform the best?
+This project answers key business questions such as:
 
-## Methodology
-- Cohorts defined by **first transaction month**
-- Retention measured as percentage of customers from a cohort who remain active in subsequent periods  
-- Activity = at least one transaction in the period  
-- Heatmap + line chart visualization
+1. Which period brought the highest number of newly acquired customers?
 
-## Key Findings
-- Average **30-day retention**: 38 %  
-- Average **90-day retention**: 18 %  
-- Best cohort (Jan 2024): 52 % still active after 6 months  
-- Worst cohort (Aug 2024): only 11 % active after 3 months (possible promo-driven users)
+2. Are there specific months where customer acquisition significantly declined?
 
-![Retention Heatmap (Monthly Cohorts)](images/cohort_heatmap.png)
-![Retention Curves by Cohort](images/cohort_curves.png)
+3. How does customer retention trend over time across cohorts?
 
-## Business Implications
-| Insight                              | Recommended Action                          |
-|--------------------------------------|---------------------------------------------|
-| Sharp drop after month 1             | Improve onboarding & first-use experience   |
-| Jan–Mar cohorts significantly better | Replicate acquisition channels from Q1      |
-| High churn in promo-heavy cohorts    | Focus on quality over quantity of new users |
+4. Which cohorts contributed the highest customer value?
 
-**Tech Stack:** 
-- Python 
-- Pandas 
-- Seaborn 
-- Matplotlib  
+5. Are there cohorts that consistently bring lower value customers?
 
+6. Does the quality of acquired customers remain consistent across months?
+
+7. Is there alignment between acquisition volume and customer value/retention?
+
+**Github Repositories**: [Link]()
+
+**Dataset**: [Online Retail II](https://archive.ics.uci.edu/dataset/502/online+retail+ii)  
+
+**Reference**: [wunderdata - cohort analysis](https://wunderdata.com/4-must-have-cohort-analysis-ecommerce/)
+
+
+### Methodology
+- **Cohort Definition**:
+Customers are grouped based on the month of their first transaction.
+
+- **Retention Measurement**:
+Retention is calculated as the percentage of customers from each cohort who remain active in subsequent periods.
+
+- **Activity Definition**:
+A customer is considered active if they record at least one transaction in the given period.
+
+- **Cumulative Sales Analysis**:
+Computed average cumulative sales per customer for each cohort to evaluate long-term customer value and spending patterns.
+
+- **Visualization Techniques**:
+Insights presented using heatmaps, line charts, and cohort tables for retention and revenue behavior.
+
+### Key Insights
+
+- Dec-2009 acquired the largest number of customers.
+- There is a significant drop in customer acquisition from April to September.
+- Retention improves noticeably in September–November 2010.
+- Retention declines during June–August, indicating seasonal or engagement issues.
+- High-value customers were acquired in Dec-2009 and Sep-2010.
+- Customers acquired between April and August generate lower value than other cohorts.
+
+### Business Implications
+| Insight | Recommended Action |
+|:-------:|:------------------:|
+| December 2009 acquired the highest number of customers | Replicate the acquisition strategies used during this period. |
+| Significant drop in customer acquisition Apr–Sep | Investigate marketing activity and strengthen acquisition campaigns. |
+| Retention increases in Sep–Nov 2010 | Apply the successful retention tactics more consistently. |
+| Retention declines in Jun–Aug | Launch re-engagement initiatives and analyze seasonal/operational drivers. |
+| High-value customers acquired in Dec 2009 & Sep 2010 | Scale the channels that brought these valuable segments. |
+| Low-value customers acquired Apr–Aug | Improve onboarding, upselling, and cross-selling for these cohorts. |
+
+
+
+
+### Tools & Libraries
+
+- Python: pandas, numpy, matplotlib, seaborn
+
+- Jupyter Notebook / Quarto for analysis and reporting
+
+
+### Project Structure
+```tree
+├── data/
+│   └── 
+├── notebooks/
+│   └── cohort_analysis.ipynb
+│   └──
+├── reports/
+│   └── cohort_analysis.qmd
+├── src/
+│   └── data_processing.py
+│   └── cohort_functions.py
+└── README.md
+```
+
+
+
+## Full Code & Details
+
+This project consist of 2 Notebooks:
+
+1. Data Cleaning & EDA Notebook   
+  Here I perform some basic EDA and do a little cleaning.
+2. Cohort Analysis Notebook  
+  Here is where I do the actual analysis for the dataset.
+
+
+### Data Cleaning & EDA Notebook
+
+::: {#notebook}
+{{< embed "../../Project-Folders/04-Cohort Analysis/Notebooks/EDA-Data Cleaning.ipynb" echo=true code-fold=false >}}
+:::
+
+### Cohort Analysis Notebook
+::: {#notebook}
+{{< embed "../../Project-Folders/04-Cohort Analysis/notebooks/cohort-analysis.ipynb" echo=true code-fold=false >}}
+:::

@@ -1,0 +1,3688 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.39">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1. Exploratory Data Analysis – Daffa Daniel Rivaldi</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-d166b450ba5a8e9f7a0ab969bf6592c1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-25c3d4ad495f5ed93a6797e2ba5da747.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Daffa Daniel Rivaldi</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../portofolio.html"> 
+<span class="menu-text">Portofolio</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data-definition" id="toc-data-definition" class="nav-link active" data-scroll-target="#data-definition">Data Definition</a></li>
+  <li><a href="#descriptive-analysis" id="toc-descriptive-analysis" class="nav-link" data-scroll-target="#descriptive-analysis">Descriptive Analysis</a></li>
+  <li><a href="#checking-duplicated-data" id="toc-checking-duplicated-data" class="nav-link" data-scroll-target="#checking-duplicated-data">Checking Duplicated Data</a></li>
+  <li><a href="#checking-missing-value" id="toc-checking-missing-value" class="nav-link" data-scroll-target="#checking-missing-value">Checking Missing Value</a></li>
+  <li><a href="#univariate-analysis" id="toc-univariate-analysis" class="nav-link" data-scroll-target="#univariate-analysis">Univariate Analysis</a>
+  <ul class="collapse">
+  <li><a href="#model_year" id="toc-model_year" class="nav-link" data-scroll-target="#model_year">model_year</a></li>
+  <li><a href="#milage" id="toc-milage" class="nav-link" data-scroll-target="#milage">Milage</a></li>
+  <li><a href="#price" id="toc-price" class="nav-link" data-scroll-target="#price">Price</a></li>
+  <li><a href="#brand" id="toc-brand" class="nav-link" data-scroll-target="#brand">Brand</a></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model">Model</a></li>
+  <li><a href="#fuel-type" id="toc-fuel-type" class="nav-link" data-scroll-target="#fuel-type">Fuel Type</a></li>
+  <li><a href="#engine" id="toc-engine" class="nav-link" data-scroll-target="#engine">Engine</a></li>
+  <li><a href="#transmission" id="toc-transmission" class="nav-link" data-scroll-target="#transmission">Transmission</a></li>
+  <li><a href="#ext_col" id="toc-ext_col" class="nav-link" data-scroll-target="#ext_col">ext_col</a></li>
+  <li><a href="#int_col" id="toc-int_col" class="nav-link" data-scroll-target="#int_col">int_col</a></li>
+  <li><a href="#accident" id="toc-accident" class="nav-link" data-scroll-target="#accident">Accident</a></li>
+  <li><a href="#clean_title" id="toc-clean_title" class="nav-link" data-scroll-target="#clean_title">clean_title</a></li>
+  </ul></li>
+  <li><a href="#kesimpulan-eda" id="toc-kesimpulan-eda" class="nav-link" data-scroll-target="#kesimpulan-eda">Kesimpulan EDA</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">1. Exploratory Data Analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="cell-1" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys, os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sys.path.append(os.path.abspath(<span class="st">".."</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> src.utils <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>sns.set_theme()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-2" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_train <span class="op">=</span> load_data(<span class="st">"../data/raw/train.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df_test <span class="op">=</span> load_data(<span class="st">"../data/raw/test.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># df_sample_submission = pd.read_csv("/content/playground-series-s4e9/sample_submission.csv")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Data Shape:  (188533, 13)
+Data Shape:  (125690, 12)</code></pre>
+</div>
+</div>
+<div id="cell-4" class="cell" data-outputid="e84c4905-5511-4d9b-b001-28b4fc212d96" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">brand</th>
+<th data-quarto-table-cell-role="th">model</th>
+<th data-quarto-table-cell-role="th">model_year</th>
+<th data-quarto-table-cell-role="th">milage</th>
+<th data-quarto-table-cell-role="th">fuel_type</th>
+<th data-quarto-table-cell-role="th">engine</th>
+<th data-quarto-table-cell-role="th">transmission</th>
+<th data-quarto-table-cell-role="th">ext_col</th>
+<th data-quarto-table-cell-role="th">int_col</th>
+<th data-quarto-table-cell-role="th">accident</th>
+<th data-quarto-table-cell-role="th">clean_title</th>
+<th data-quarto-table-cell-role="th">price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>0</td>
+<td>MINI</td>
+<td>Cooper S Base</td>
+<td>2007</td>
+<td>213000</td>
+<td>Gasoline</td>
+<td>172.0HP 1.6L 4 Cylinder Engine Gasoline Fuel</td>
+<td>A/T</td>
+<td>Yellow</td>
+<td>Gray</td>
+<td>None reported</td>
+<td>Yes</td>
+<td>4200</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1</td>
+<td>Lincoln</td>
+<td>LS V8</td>
+<td>2002</td>
+<td>143250</td>
+<td>Gasoline</td>
+<td>252.0HP 3.9L 8 Cylinder Engine Gasoline Fuel</td>
+<td>A/T</td>
+<td>Silver</td>
+<td>Beige</td>
+<td>At least 1 accident or damage reported</td>
+<td>Yes</td>
+<td>4999</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2</td>
+<td>Chevrolet</td>
+<td>Silverado 2500 LT</td>
+<td>2002</td>
+<td>136731</td>
+<td>E85 Flex Fuel</td>
+<td>320.0HP 5.3L 8 Cylinder Engine Flex Fuel Capab...</td>
+<td>A/T</td>
+<td>Blue</td>
+<td>Gray</td>
+<td>None reported</td>
+<td>Yes</td>
+<td>13900</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>3</td>
+<td>Genesis</td>
+<td>G90 5.0 Ultimate</td>
+<td>2017</td>
+<td>19500</td>
+<td>Gasoline</td>
+<td>420.0HP 5.0L 8 Cylinder Engine Gasoline Fuel</td>
+<td>Transmission w/Dual Shift Mode</td>
+<td>Black</td>
+<td>Black</td>
+<td>None reported</td>
+<td>Yes</td>
+<td>45000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>4</td>
+<td>Mercedes-Benz</td>
+<td>Metris Base</td>
+<td>2021</td>
+<td>7388</td>
+<td>Gasoline</td>
+<td>208.0HP 2.0L 4 Cylinder Engine Gasoline Fuel</td>
+<td>7-Speed A/T</td>
+<td>Black</td>
+<td>Beige</td>
+<td>None reported</td>
+<td>Yes</td>
+<td>97500</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="data-definition" class="level2">
+<h2 class="anchored" data-anchor-id="data-definition">Data Definition</h2>
+<p>This dataset representing a unique vehicle listing, and includes nine distinct features providing valuable insights into the world of automobiles.</p>
+<ul>
+<li>Brand &amp; Model: Identify the brand or company name along with the specific model of each vehicle.</li>
+<li>Model Year: Discover the manufacturing year of the vehicles, crucial for assessing depreciation and technology advancements.</li>
+<li>Mileage: Obtain the mileage of each vehicle, a key indicator of wear and tear and potential maintenance requirements.</li>
+<li>Fuel Type: Learn about the type of fuel the vehicles run on, whether it’s gasoline, diesel, electric, or hybrid.</li>
+<li>Engine Type: Understand the engine specifications, shedding light on performance and efficiency.</li>
+<li>Transmission: Determine the transmission type, whether automatic, manual, or another variant.</li>
+<li>Exterior &amp; Interior Colors: Explore the aesthetic aspects of the vehicles, including exterior and interior color options. Accident History: Discover whether a vehicle has a prior history of accidents or damage, crucial for informed decision-making.</li>
+<li>Clean Title: Evaluate the availability of a clean title, which can impact the vehicle’s resale value and legal status.</li>
+<li>Price: Access the listed prices for each vehicle, aiding in price comparison and budgeting.</li>
+</ul>
+</section>
+<section id="descriptive-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="descriptive-analysis">Descriptive Analysis</h2>
+<div id="cell-7" class="cell" data-outputid="18e33535-5826-44ef-aa35-af5a1bd12132" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_train.set_index(<span class="st">'id'</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df_train.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>(188533, 12)</code></pre>
+</div>
+</div>
+<ul>
+<li>Dataset memiliki 188.533 baris dan 13 kolom (dengan kolom ‘id’).</li>
+</ul>
+<div id="cell-9" class="cell" data-outputid="ce4f012b-d4e7-400b-df66-649229b891f8" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_train.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Index: 188533 entries, 0 to 188532
+Data columns (total 12 columns):
+ #   Column        Non-Null Count   Dtype 
+---  ------        --------------   ----- 
+ 0   brand         188533 non-null  object
+ 1   model         188533 non-null  object
+ 2   model_year    188533 non-null  int64 
+ 3   milage        188533 non-null  int64 
+ 4   fuel_type     183450 non-null  object
+ 5   engine        188533 non-null  object
+ 6   transmission  188533 non-null  object
+ 7   ext_col       188533 non-null  object
+ 8   int_col       188533 non-null  object
+ 9   accident      186081 non-null  object
+ 10  clean_title   167114 non-null  object
+ 11  price         188533 non-null  int64 
+dtypes: int64(3), object(9)
+memory usage: 18.7+ MB</code></pre>
+</div>
+</div>
+<ul>
+<li>Dataset memiliki 3 variabel numerik, yaitu ‘price’, ‘model_year’, dan ‘milage’.</li>
+<li>Variabel lainnya bertipe kategorik.</li>
+</ul>
+<div id="cell-11" class="cell" data-outputid="14fe2644-8451-463d-e324-4ff2b1f2b7a9" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_train.describe() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">model_year</th>
+<th data-quarto-table-cell-role="th">milage</th>
+<th data-quarto-table-cell-role="th">price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">count</td>
+<td>188533.000000</td>
+<td>188533.000000</td>
+<td>1.885330e+05</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>2015.829998</td>
+<td>65705.295174</td>
+<td>4.387802e+04</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>5.660967</td>
+<td>49798.158076</td>
+<td>7.881952e+04</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>1974.000000</td>
+<td>100.000000</td>
+<td>2.000000e+03</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>2013.000000</td>
+<td>24115.000000</td>
+<td>1.700000e+04</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>2017.000000</td>
+<td>57785.000000</td>
+<td>3.082500e+04</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>2020.000000</td>
+<td>95400.000000</td>
+<td>4.990000e+04</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>2024.000000</td>
+<td>405000.000000</td>
+<td>2.954083e+06</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<ul>
+<li>Variabel ‘price’ dan ‘milage’ memiliki nilai maksimum yang sangat jauh dari kuartil ketiganya.</li>
+</ul>
+<div id="cell-13" class="cell" data-outputid="9501052f-96be-460a-c795-cfc23197d16e" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_train.describe(exclude<span class="op">=</span><span class="st">'int64'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">brand</th>
+<th data-quarto-table-cell-role="th">model</th>
+<th data-quarto-table-cell-role="th">fuel_type</th>
+<th data-quarto-table-cell-role="th">engine</th>
+<th data-quarto-table-cell-role="th">transmission</th>
+<th data-quarto-table-cell-role="th">ext_col</th>
+<th data-quarto-table-cell-role="th">int_col</th>
+<th data-quarto-table-cell-role="th">accident</th>
+<th data-quarto-table-cell-role="th">clean_title</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">count</td>
+<td>188533</td>
+<td>188533</td>
+<td>183450</td>
+<td>188533</td>
+<td>188533</td>
+<td>188533</td>
+<td>188533</td>
+<td>186081</td>
+<td>167114</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">unique</td>
+<td>57</td>
+<td>1897</td>
+<td>7</td>
+<td>1117</td>
+<td>52</td>
+<td>319</td>
+<td>156</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">top</td>
+<td>Ford</td>
+<td>F-150 XLT</td>
+<td>Gasoline</td>
+<td>355.0HP 5.3L 8 Cylinder Engine Gasoline Fuel</td>
+<td>A/T</td>
+<td>Black</td>
+<td>Black</td>
+<td>None reported</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">freq</td>
+<td>23088</td>
+<td>2945</td>
+<td>165940</td>
+<td>3462</td>
+<td>49904</td>
+<td>48658</td>
+<td>107674</td>
+<td>144514</td>
+<td>167114</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="checking-duplicated-data" class="level2">
+<h2 class="anchored" data-anchor-id="checking-duplicated-data">Checking Duplicated Data</h2>
+<div id="cell-15" class="cell" data-outputid="14525b6a-4df9-4156-f6b9-1560b1549fdd" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_train[df_train.duplicated(keep<span class="op">=</span><span class="va">False</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">brand</th>
+<th data-quarto-table-cell-role="th">model</th>
+<th data-quarto-table-cell-role="th">model_year</th>
+<th data-quarto-table-cell-role="th">milage</th>
+<th data-quarto-table-cell-role="th">fuel_type</th>
+<th data-quarto-table-cell-role="th">engine</th>
+<th data-quarto-table-cell-role="th">transmission</th>
+<th data-quarto-table-cell-role="th">ext_col</th>
+<th data-quarto-table-cell-role="th">int_col</th>
+<th data-quarto-table-cell-role="th">accident</th>
+<th data-quarto-table-cell-role="th">clean_title</th>
+<th data-quarto-table-cell-role="th">price</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<ul>
+<li>Tidak ada duplikasi data</li>
+</ul>
+</section>
+<section id="checking-missing-value" class="level2">
+<h2 class="anchored" data-anchor-id="checking-missing-value">Checking Missing Value</h2>
+<div id="cell-18" class="cell" data-outputid="1bfd06d4-9b1e-401f-8db3-066d63b2fb73" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_train.isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>brand               0
+model               0
+model_year          0
+milage              0
+fuel_type        5083
+engine              0
+transmission        0
+ext_col             0
+int_col             0
+accident         2452
+clean_title     21419
+price               0
+dtype: int64</code></pre>
+</div>
+</div>
+<ul>
+<li>Variabel <code>accident</code>, <code>clean_title</code>, dan <code>fuel_type</code> missing value yang harus ditangani.</li>
+</ul>
+</section>
+<section id="univariate-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="univariate-analysis">Univariate Analysis</h2>
+<section id="model_year" class="level3">
+<h3 class="anchored" data-anchor-id="model_year">model_year</h3>
+<div id="cell-22" class="cell" data-outputid="c9261bbd-857b-4728-a310-5a06a47e04a4" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">7</span>), gridspec_kw<span class="op">=</span>{<span class="st">'height_ratios'</span>: [<span class="dv">3</span>, <span class="dv">1</span>]})</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df_train, x<span class="op">=</span><span class="st">'model_year'</span>, kde<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span>df_train[<span class="st">'model_year'</span>], ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Sebagian besar mobil yang dijual adalah mobil keluaran tahun 2000 keatas.</li>
+<li>Variable <code>model_year</code> memiliki beberapa outlier yang perlu diselidiki lebih lanjut.</li>
+</ul>
+</section>
+<section id="milage" class="level3">
+<h3 class="anchored" data-anchor-id="milage">Milage</h3>
+<div id="cell-25" class="cell" data-outputid="ebb3a8b6-f390-422d-eb8a-444211b2449e" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">8</span>), gridspec_kw<span class="op">=</span>{<span class="st">'height_ratios'</span>: [<span class="dv">3</span>, <span class="dv">1</span>]})</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df_train, x<span class="op">=</span><span class="st">'milage'</span>, kde<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span>df_train[<span class="st">'milage'</span>], ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Variabel <code>milage</code> memiliki banyak outlier yang membuat distribusinya sangat skewed.</li>
+</ul>
+</section>
+<section id="price" class="level3">
+<h3 class="anchored" data-anchor-id="price">Price</h3>
+<div id="cell-28" class="cell" data-outputid="a2ff2806-821c-4813-ef98-0097526b9597" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">8</span>), gridspec_kw<span class="op">=</span>{<span class="st">'height_ratios'</span>: [<span class="dv">3</span>, <span class="dv">1</span>]})</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df_train, x<span class="op">=</span><span class="st">'price'</span>, kde<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span>df_train[<span class="st">'price'</span>], ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Variabel <code>price</code> memiliki banyak nilai outlier yang terlalu jauh dari upper whisker.</li>
+</ul>
+<div id="cell-30" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Q1 <span class="op">=</span> df_train[<span class="st">'price'</span>].quantile(<span class="fl">0.25</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>Q3 <span class="op">=</span> df_train[<span class="st">'price'</span>].quantile(<span class="fl">0.75</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>IQR <span class="op">=</span> Q3 <span class="op">-</span> Q1</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>upper_whisker <span class="op">=</span> Q3 <span class="op">+</span> <span class="fl">1.5</span><span class="op">*</span>IQR</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>outlier_id <span class="op">=</span> df_train[df_train[<span class="st">'price'</span>]<span class="op">&gt;</span> upper_whisker].index</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>df_outlier <span class="op">=</span>df_train.loc[outlier_id]</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>df_outlier_1 <span class="op">=</span> df_outlier[(df_outlier[<span class="st">'price'</span>] <span class="op">&gt;</span> upper_whisker) <span class="op">&amp;</span> (df_outlier[<span class="st">'price'</span>] <span class="op">&lt;</span> <span class="dv">500_000</span>)]</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>df_outlier_2 <span class="op">=</span> df_outlier[(df_outlier[<span class="st">'price'</span>] <span class="op">&gt;</span> <span class="dv">500_000</span>) <span class="op">&amp;</span> (df_outlier[<span class="st">'price'</span>] <span class="op">&lt;</span> <span class="dv">1_000_000</span>)]</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>df_outlier_3 <span class="op">=</span> df_outlier[(df_outlier[<span class="st">'price'</span>] <span class="op">&gt;</span> <span class="dv">1_500_000</span>) <span class="op">&amp;</span> (df_outlier[<span class="st">'price'</span>] <span class="op">&lt;</span> <span class="dv">2_000_000</span>)]</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>df_outlier_4 <span class="op">=</span> df_outlier[df_outlier[<span class="st">'price'</span>] <span class="op">&gt;</span> <span class="dv">2_500_000</span>]</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>df_non_outlier <span class="op">=</span> df_train.loc[<span class="op">~</span>df_train.index.isin(outlier_id)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-31" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># df_outlier_4.set_index(['brand','model','model_year']).sort_index()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-32" class="cell" data-outputid="96fc1835-5d3e-466a-d5da-cfe510cd9c7a" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df_outlier_4.groupby([<span class="st">'model'</span>,<span class="st">'model_year'</span>])[<span class="st">'price'</span>].agg([<span class="st">'count'</span>, <span class="st">'mean'</span>, <span class="st">'min'</span>, <span class="st">'max'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">min</th>
+<th data-quarto-table-cell-role="th">max</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">model</th>
+<th data-quarto-table-cell-role="th">model_year</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1500 Classic Warlock</td>
+<td data-quarto-table-cell-role="th">2019</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1500 Laramie</td>
+<td data-quarto-table-cell-role="th">2022</td>
+<td>3</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1500 Limited</td>
+<td data-quarto-table-cell-role="th">2018</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">300C Base</td>
+<td data-quarto-table-cell-role="th">2003</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">AMG GLE AMG GLE 63 S-Model 4MATIC</td>
+<td data-quarto-table-cell-role="th">2017</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">AMG GT 53 Base</td>
+<td data-quarto-table-cell-role="th">2023</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Bronco Raptor</td>
+<td data-quarto-table-cell-role="th">2023</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Continental GT V8</td>
+<td data-quarto-table-cell-role="th">2021</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">Corvette Base</td>
+<td data-quarto-table-cell-role="th">2005</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2007</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">DeVille Base</td>
+<td data-quarto-table-cell-role="th">1994</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">ES 350 Base</td>
+<td data-quarto-table-cell-role="th">2008</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Escalade ESV Platinum</td>
+<td data-quarto-table-cell-role="th">2015</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Escalade Premium Luxury Platinum</td>
+<td data-quarto-table-cell-role="th">2021</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Excursion Limited Ultimate</td>
+<td data-quarto-table-cell-role="th">2002</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Expedition Max King Ranch</td>
+<td data-quarto-table-cell-role="th">2021</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Expedition Max Limited</td>
+<td data-quarto-table-cell-role="th">2022</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Expedition Timberline</td>
+<td data-quarto-table-cell-role="th">2021</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">F-150 XL</td>
+<td data-quarto-table-cell-role="th">2022</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">F-150 XLT</td>
+<td data-quarto-table-cell-role="th">2021</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Firebird Trans Am</td>
+<td data-quarto-table-cell-role="th">2001</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Highlander SE</td>
+<td data-quarto-table-cell-role="th">2014</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Highlander XLE</td>
+<td data-quarto-table-cell-role="th">2022</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">LS 430 Base</td>
+<td data-quarto-table-cell-role="th">2002</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2004</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Martin DB7 Vantage Volante</td>
+<td data-quarto-table-cell-role="th">2005</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Metris Base</td>
+<td data-quarto-table-cell-role="th">2020</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Model 3 Long Range</td>
+<td data-quarto-table-cell-role="th">2021</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Mustang GT</td>
+<td data-quarto-table-cell-role="th">2005</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Pilot Elite</td>
+<td data-quarto-table-cell-role="th">2021</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">QX60 Base</td>
+<td data-quarto-table-cell-role="th">2017</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Ram 2500 Laramie Quad Cab</td>
+<td data-quarto-table-cell-role="th">2005</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Rover LR4 Lux</td>
+<td data-quarto-table-cell-role="th">2010</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Rover Range Rover 3.0L V6 Supercharged HSE</td>
+<td data-quarto-table-cell-role="th">2021</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Rover Range Rover 5.0L Supercharged Autobiography LWB</td>
+<td data-quarto-table-cell-role="th">2017</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Rover Range Rover P525 HSE SWB</td>
+<td data-quarto-table-cell-role="th">2020</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Rover Range Rover Sport HST MHEV</td>
+<td data-quarto-table-cell-role="th">2022</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">S4 Base</td>
+<td data-quarto-table-cell-role="th">2004</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">SC 430 Base</td>
+<td data-quarto-table-cell-role="th">2004</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">SL-Class SL500 Roadster</td>
+<td data-quarto-table-cell-role="th">2005</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">SL-Class SL550 Roadster</td>
+<td data-quarto-table-cell-role="th">2001</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">SL-Class SL600 Roadster</td>
+<td data-quarto-table-cell-role="th">2005</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Santa Fe SEL</td>
+<td data-quarto-table-cell-role="th">2022</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Sierra 1500 SLE1 Extended Cab</td>
+<td data-quarto-table-cell-role="th">2020</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Silverado 1500 Custom Trail Boss</td>
+<td data-quarto-table-cell-role="th">2022</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Tahoe LT</td>
+<td data-quarto-table-cell-role="th">2018</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Thunderbird Deluxe</td>
+<td data-quarto-table-cell-role="th">2008</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">XT5 Luxury</td>
+<td data-quarto-table-cell-role="th">2021</td>
+<td>1</td>
+<td>2954083.0</td>
+<td>2954083</td>
+<td>2954083</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-33" class="cell" data-outputid="40f2fe39-fea7-4a40-d00c-1f756485ac8c" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># df_outlier_3.groupby(['brand','model','model_year']).apply(lambda x: x)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-34" class="cell" data-outputid="cad9cef8-3683-4323-ca4c-6362ab82f865" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_outlier = df_outlier_4.groupby(['model', 'model_year'])['price'].agg(['mean', 'count'])</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_outlier = avg_price_outlier.reset_index().rename(columns={'mean': 'outlier_avg_price', 'count': 'outlier_count'})</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_non_outlier = df_non_outlier.groupby(['model', 'model_year'])['price'].agg(['mean','median', 'count'])</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_non_outlier = avg_price_non_outlier.reset_index().rename(columns={'mean': 'non_outlier_avg_price','median':'non_outlier_median', 'count': 'non_outlier_count'})</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># combined_df = pd.merge(avg_price_outlier, avg_price_non_outlier, on=['model', 'model_year'], how='left')</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># print("Hasil Perbandingan:")</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># display(combined_df)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-35" class="cell" data-outputid="3f66c776-48f6-4de6-e7aa-60be00be1be8" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_outlier = df_outlier.groupby(['model', 'model_year'])['price'].agg(['mean', 'count'])</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_outlier = avg_price_outlier.reset_index().rename(columns={'mean': 'outlier_avg_price', 'count': 'outlier_count'})</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_non_outlier = df_non_outlier.groupby(['model', 'model_year'])['price'].agg(['mean', 'count'])</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_non_outlier = avg_price_non_outlier.reset_index().rename(columns={'mean': 'non_outlier_avg_price', 'count': 'non_outlier_count'})</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># combined_df = pd.merge(avg_price_outlier, avg_price_non_outlier, on=['model', 'model_year'], how='left')</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># print("Hasil Perbandingan:")</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># display(combined_df)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="brand" class="level3">
+<h3 class="anchored" data-anchor-id="brand">Brand</h3>
+<div id="cell-37" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'brand'</span>].nunique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>57</code></pre>
+</div>
+</div>
+<div id="cell-38" class="cell" data-outputid="c99dbc0a-d81c-4d6c-ead5-b59d7ba49365" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'brand'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>brand
+Ford             23088
+Mercedes-Benz    19172
+BMW              17028
+Chevrolet        16335
+Audi             10887
+Porsche          10612
+Land              9525
+Toyota            8850
+Lexus             8643
+Jeep              6474
+Cadillac          4674
+RAM               4249
+Nissan            3930
+Tesla             3738
+INFINITI          3276
+GMC               3215
+Dodge             3133
+Mazda             2719
+Kia               2497
+Lincoln           2423
+Subaru            2381
+Acura             2282
+Honda             2101
+Hyundai           2045
+Volkswagen        1765
+Jaguar            1319
+Bentley           1155
+MINI              1064
+Genesis            969
+Buick              940
+Maserati           939
+Lamborghini        809
+Chrysler           727
+Volvo              723
+Alfa               682
+Rivian             590
+Rolls-Royce        561
+Mitsubishi         551
+Pontiac            538
+Hummer             520
+Ferrari            359
+McLaren            243
+Aston              238
+Saturn             148
+Scion              120
+Lucid               69
+Mercury             57
+Lotus               52
+FIAT                44
+Saab                22
+Karma               17
+Suzuki               8
+Plymouth             7
+Polestar             7
+Bugatti              7
+smart                3
+Maybach              3
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="cell-39" class="cell" data-outputid="e9dd49cb-f7e6-48f6-9164-8aeff8be3f6e" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>np.sort(df_train[<span class="st">'brand'</span>].unique())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>array(['Acura', 'Alfa', 'Aston', 'Audi', 'BMW', 'Bentley', 'Bugatti',
+       'Buick', 'Cadillac', 'Chevrolet', 'Chrysler', 'Dodge', 'FIAT',
+       'Ferrari', 'Ford', 'GMC', 'Genesis', 'Honda', 'Hummer', 'Hyundai',
+       'INFINITI', 'Jaguar', 'Jeep', 'Karma', 'Kia', 'Lamborghini',
+       'Land', 'Lexus', 'Lincoln', 'Lotus', 'Lucid', 'MINI', 'Maserati',
+       'Maybach', 'Mazda', 'McLaren', 'Mercedes-Benz', 'Mercury',
+       'Mitsubishi', 'Nissan', 'Plymouth', 'Polestar', 'Pontiac',
+       'Porsche', 'RAM', 'Rivian', 'Rolls-Royce', 'Saab', 'Saturn',
+       'Scion', 'Subaru', 'Suzuki', 'Tesla', 'Toyota', 'Volkswagen',
+       'Volvo', 'smart'], dtype=object)</code></pre>
+</div>
+</div>
+<ul>
+<li>Tidak terdapat kesalahan pada variabel <code>brand</code>.</li>
+<li>Variabel <code>brand</code> memiliki 57 kategori.</li>
+</ul>
+</section>
+<section id="model" class="level3">
+<h3 class="anchored" data-anchor-id="model">Model</h3>
+<div id="cell-42" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'model'</span>].nunique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>1897</code></pre>
+</div>
+</div>
+<div id="cell-43" class="cell" data-outputid="f1e5fae3-565d-4ec4-8d60-27b51ca1910b" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'model'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>model
+F-150 XLT                        2945
+M3 Base                          2229
+Camaro 2SS                       1709
+M4 Base                          1622
+Mustang GT Premium               1526
+                                 ... 
+ForTwo Pure                         2
+XLR Base                            1
+X5 3.0i                             1
+X5 xDrive40e                        1
+Integra w/A-Spec Tech Package       1
+Name: count, Length: 1897, dtype: int64</code></pre>
+</div>
+</div>
+<ul>
+<li>Variabel <code>model</code> memiliki 1897 kategori.</li>
+</ul>
+</section>
+<section id="fuel-type" class="level3">
+<h3 class="anchored" data-anchor-id="fuel-type">Fuel Type</h3>
+<div id="cell-46" class="cell" data-outputid="94db8c1d-1b57-4ad3-d91d-47cb555a4ef1" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'fuel_type'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>array(['Gasoline', 'E85 Flex Fuel', nan, 'Hybrid', 'Diesel',
+       'Plug-In Hybrid', '–', 'not supported'], dtype=object)</code></pre>
+</div>
+</div>
+<div id="cell-47" class="cell" data-outputid="e997d03c-5a0a-4d16-adca-37a559122a7c" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'fuel_type'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>fuel_type
+Gasoline          165940
+Hybrid              6832
+E85 Flex Fuel       5406
+Diesel              3955
+–                    781
+Plug-In Hybrid       521
+not supported         15
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="cell-48" class="cell" data-outputid="d9d57fe9-966a-4ad4-deff-5cea2bc4f558" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df_train[df_train[<span class="st">'fuel_type'</span>] <span class="op">==</span><span class="st">'not supported'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">brand</th>
+<th data-quarto-table-cell-role="th">model</th>
+<th data-quarto-table-cell-role="th">model_year</th>
+<th data-quarto-table-cell-role="th">milage</th>
+<th data-quarto-table-cell-role="th">fuel_type</th>
+<th data-quarto-table-cell-role="th">engine</th>
+<th data-quarto-table-cell-role="th">transmission</th>
+<th data-quarto-table-cell-role="th">ext_col</th>
+<th data-quarto-table-cell-role="th">int_col</th>
+<th data-quarto-table-cell-role="th">accident</th>
+<th data-quarto-table-cell-role="th">clean_title</th>
+<th data-quarto-table-cell-role="th">price</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4823</td>
+<td>Chevrolet</td>
+<td>Suburban LT</td>
+<td>2011</td>
+<td>109646</td>
+<td>not supported</td>
+<td>320.0HP 5.3L 8 Cylinder Engine Flex Fuel Capab...</td>
+<td>6-Speed A/T</td>
+<td>Black</td>
+<td>Beige</td>
+<td>None reported</td>
+<td>Yes</td>
+<td>18998</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">18000</td>
+<td>Porsche</td>
+<td>Camaro 2SS</td>
+<td>2015</td>
+<td>67000</td>
+<td>not supported</td>
+<td>240.0HP 2.0L 4 Cylinder Engine Gasoline Fuel</td>
+<td>Transmission w/Dual Shift Mode</td>
+<td>Black</td>
+<td>Black</td>
+<td>None reported</td>
+<td>Yes</td>
+<td>11500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">19182</td>
+<td>Nissan</td>
+<td>Mirai Limited</td>
+<td>2000</td>
+<td>131000</td>
+<td>not supported</td>
+<td>182.0HP Electric Motor Hydrogen Fuel</td>
+<td>A/T</td>
+<td>Silver</td>
+<td>Black</td>
+<td>None reported</td>
+<td>Yes</td>
+<td>5000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27199</td>
+<td>Subaru</td>
+<td>Outback 2.5i Limited</td>
+<td>2017</td>
+<td>116000</td>
+<td>not supported</td>
+<td>175.0HP 2.5L 4 Cylinder Engine Gasoline Fuel</td>
+<td>CVT Transmission</td>
+<td>Gray</td>
+<td>Black</td>
+<td>At least 1 accident or damage reported</td>
+<td>Yes</td>
+<td>27499</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">33030</td>
+<td>Nissan</td>
+<td>Mirai Limited</td>
+<td>2009</td>
+<td>137333</td>
+<td>not supported</td>
+<td>182.0HP Electric Motor Hydrogen Fuel</td>
+<td>A/T</td>
+<td>White</td>
+<td>Gray</td>
+<td>At least 1 accident or damage reported</td>
+<td>Yes</td>
+<td>12999</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">60717</td>
+<td>Chevrolet</td>
+<td>Silverado 1500 RST</td>
+<td>2020</td>
+<td>19200</td>
+<td>not supported</td>
+<td>355.0HP 5.3L 8 Cylinder Engine Gasoline Fuel</td>
+<td>10-Speed A/T</td>
+<td>White</td>
+<td>Black</td>
+<td>At least 1 accident or damage reported</td>
+<td>Yes</td>
+<td>58000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">74096</td>
+<td>Toyota</td>
+<td>Mirai Limited</td>
+<td>2021</td>
+<td>79876</td>
+<td>not supported</td>
+<td>182.0HP Electric Motor Hydrogen Fuel</td>
+<td>A/T</td>
+<td>Red</td>
+<td>Black</td>
+<td>None reported</td>
+<td>Yes</td>
+<td>15000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">86897</td>
+<td>Lexus</td>
+<td>IS 350 F Sport</td>
+<td>2022</td>
+<td>9500</td>
+<td>not supported</td>
+<td>311.0HP 3.5L V6 Cylinder Engine Gasoline Fuel</td>
+<td>A/T</td>
+<td>Gray</td>
+<td>Black</td>
+<td>None reported</td>
+<td>Yes</td>
+<td>60000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">94425</td>
+<td>Porsche</td>
+<td>Cayenne Turbo GT</td>
+<td>2018</td>
+<td>52000</td>
+<td>not supported</td>
+<td>550.0HP 4.8L 8 Cylinder Engine Gasoline Fuel</td>
+<td>Transmission w/Dual Shift Mode</td>
+<td>Gray</td>
+<td>Gray</td>
+<td>At least 1 accident or damage reported</td>
+<td>Yes</td>
+<td>35000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">127066</td>
+<td>Toyota</td>
+<td>Mirai Limited</td>
+<td>2016</td>
+<td>58664</td>
+<td>not supported</td>
+<td>151.0HP Electric Motor Hydrogen Fuel</td>
+<td>CVT Transmission</td>
+<td>Black</td>
+<td>Black</td>
+<td>At least 1 accident or damage reported</td>
+<td>Yes</td>
+<td>22500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">128917</td>
+<td>Mazda</td>
+<td>MX-5 Miata Base</td>
+<td>1999</td>
+<td>120000</td>
+<td>not supported</td>
+<td>140.0HP 1.8L 4 Cylinder Engine Gasoline Fuel</td>
+<td>5-Speed M/T</td>
+<td>Black</td>
+<td>Beige</td>
+<td>At least 1 accident or damage reported</td>
+<td>Yes</td>
+<td>4000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">135865</td>
+<td>Lexus</td>
+<td>Mirai Limited</td>
+<td>2014</td>
+<td>123331</td>
+<td>not supported</td>
+<td>182.0HP Electric Motor Hydrogen Fuel</td>
+<td>A/T</td>
+<td>Red</td>
+<td>Gray</td>
+<td>At least 1 accident or damage reported</td>
+<td>Yes</td>
+<td>11495</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">140206</td>
+<td>Lexus</td>
+<td>RX 330 Base</td>
+<td>2006</td>
+<td>110000</td>
+<td>not supported</td>
+<td>230.0HP 3.3L V6 Cylinder Engine Gasoline Fuel</td>
+<td>5-Speed A/T</td>
+<td>White</td>
+<td>Beige</td>
+<td>At least 1 accident or damage reported</td>
+<td>Yes</td>
+<td>9500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">171120</td>
+<td>Hummer</td>
+<td>H2 Base</td>
+<td>2013</td>
+<td>152068</td>
+<td>not supported</td>
+<td>316.0HP 6.0L 8 Cylinder Engine Gasoline Fuel</td>
+<td>A/T</td>
+<td>Black</td>
+<td>Black</td>
+<td>At least 1 accident or damage reported</td>
+<td>Yes</td>
+<td>14000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">171659</td>
+<td>Toyota</td>
+<td>Mirai Limited</td>
+<td>2021</td>
+<td>44000</td>
+<td>not supported</td>
+<td>182.0HP Electric Motor Hydrogen Fuel</td>
+<td>A/T</td>
+<td>Gray</td>
+<td>Black</td>
+<td>None reported</td>
+<td>Yes</td>
+<td>4900</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<ul>
+<li>Variabel <code>fuel_type</code> memiliki missing value yang tersimpan sebagai <code>-</code>,<code>not supported</code> dan<code>nan</code> serta perlu ditambahkan kategori <code>Hydrogen fuel</code>.</li>
+</ul>
+</section>
+<section id="engine" class="level3">
+<h3 class="anchored" data-anchor-id="engine">Engine</h3>
+<div id="cell-51" class="cell" data-outputid="9a4b220e-e33a-448b-f4fe-76660ccc7bfa" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(df_train[<span class="st">'engine'</span>].unique())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>172.0HP 1.6L 4 Cylinder Engine Gasoline Fuel</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>252.0HP 3.9L 8 Cylinder Engine Gasoline Fuel</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>320.0HP 5.3L 8 Cylinder Engine Flex Fuel Capab...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>420.0HP 5.0L 8 Cylinder Engine Gasoline Fuel</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>208.0HP 2.0L 4 Cylinder Engine Gasoline Fuel</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1112</td>
+<td>151.0HP 1.5L 4 Cylinder Engine Gas/Electric Hy...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1113</td>
+<td>184.0HP 2.4L 4 Cylinder Engine Flex Fuel Capab...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1114</td>
+<td>78.0HP 1.2L 3 Cylinder Engine Gasoline Fuel</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1115</td>
+<td>139.0HP 1.6L 4 Cylinder Engine Plug-In Electri...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1116</td>
+<td>313.0HP 2.0L 4 Cylinder Engine Plug-In Electri...</td>
+</tr>
+</tbody>
+</table>
+
+<p>1117 rows × 1 columns</p>
+</div>
+</div>
+</div>
+<div id="cell-52" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> <span class="op">~</span>df_train[<span class="st">'engine'</span>].<span class="bu">str</span>.contains(<span class="st">'cylinder'</span>, case<span class="op">=</span><span class="va">False</span>, na<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-53" class="cell" data-outputid="5948402e-67ec-4b96-bb81-28c20c676629" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df_train.loc[mask, <span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>array(['2.7L V6 24V PDI DOHC Twin Turbo',
+       'Electric Motor Electric Fuel System', '5.2L V10 40V PDI DOHC',
+       '518.0HP Electric Motor Electric Fuel System',
+       '3.6L V6 24V GDI DOHC', '4.0L V8 32V GDI DOHC Twin Turbo',
+       '835.0HP Electric Motor Electric Fuel System',
+       '5.7L V8 16V MPFI OHV', 'Dual Motor - Standard',
+       '3.0L V6 24V GDI DOHC Twin Turbo',
+       '3.8L V8 32V MPFI DOHC Twin Turbo',
+       '3.4L V6 24V PDI DOHC Twin Turbo Hybrid',
+       '3.5L V6 24V PDI DOHC Twin Turbo', '2.0L I4 16V PDI DOHC Turbo',
+       '2.4L I4 16V GDI DOHC', '2.0 Liter DOHC Turbo',
+       '3.6L V6 24V MPFI DOHC', '6.0L V8 16V MPFI OHV Flexible Fuel',
+       '2.0L I4 16V GDI DOHC Turbo', '2.3L I4 16V GDI DOHC Turbo',
+       '670.0HP Electric Motor Electric Fuel System', 'Electric',
+       '5.3L V8 16V GDI OHV',
+       '425.0HP Electric Motor Electric Fuel System', '2.0 Liter',
+       '3.0L V6 24V GDI DOHC Turbo', '3.8L V6 24V GDI DOHC',
+       '3.8L H6 24V GDI DOHC Twin Turbo', '2.0 Liter Turbo',
+       '455.0HP Electric Motor Electric Fuel System', '3.0 Liter Turbo',
+       '2.0 Liter TFSI', '3.5 Liter', '2.5L H4 16V MPFI DOHC',
+       '4.4L V8 32V GDI DOHC Twin Turbo', '5.6 Liter',
+       '4.6L V8 32V MPFI DOHC', '4.0L V8 32V MPFI DOHC Twin Turbo',
+       '2.5L I4 16V GDI DOHC', '3.6L V6 24V MPFI DOHC Hybrid',
+       '2.0L I4 16V GDI SOHC Turbo', '1.5L I3 12V PDI DOHC Turbo',
+       '5.0L V8 32V GDI DOHC Supercharged', '5.0 Liter',
+       '557.0HP Electric Motor Electric Fuel System',
+       '4.0L H6 24V GDI DOHC',
+       '200.0HP Electric Motor Electric Fuel System',
+       '6.3L V12 48V GDI DOHC', '6.7L I6 24V DDI OHV Turbo Diesel',
+       '3.4L H6 24V MPFI DOHC', '2.7L V6 24V GDI DOHC Twin Turbo', '–',
+       '3.6 Liter DOHC', '232.0HP 1.3L Rotary engine Gasoline Fuel',
+       '3.6 Liter SIDI DOHC', '2.0L I4 16V GDI DOHC Turbo Hybrid',
+       '5.0L V8 32V PDI DOHC', '3.0L H6 24V GDI DOHC Twin Turbo',
+       '3.5L V6 24V PDI DOHC', '6.4L V8 16V MPFI OHV',
+       '3.6L V6 24V MPFI DOHC Flexible Fuel',
+       '6.7L V12 48V GDI DOHC Twin Turbo',
+       '3.4L V6 24V PDI DOHC Twin Turbo', '4.0 Liter Twin Turbo',
+       '3.8L H6 24V MPFI DOHC',
+       '214.0HP Electric Motor Electric Fuel System',
+       'Intercooled Turbo Diesel V-8 6.7 L/406',
+       '778.0HP Electric Motor Electric Fuel System',
+       '2.5L I4 16V PDI DOHC Turbo', '4.0 Liter TFSI',
+       '3.3L V6 24V GDI DOHC', '3.6 Liter', '2.5L I4 16V GDI DOHC Turbo',
+       '271.0HP Electric Motor Electric Fuel System', '3.5 Liter DOHC',
+       '5.7L V8 32V MPFI DOHC', '3.0 Liter DOHC Twin Turbo',
+       '2.0L I4 16V GDI DOHC', '2.0L I4 16V MPFI DOHC',
+       '3.0L I6 24V DDI DOHC Turbo Diesel',
+       '482.0HP Electric Motor Electric Fuel System',
+       '2.5L I4 16V PDI DOHC', '6.2L V8 16V GDI OHV',
+       '3.0L I6 24V GDI DOHC Turbo', '3.5L V6 24V GDI SOHC',
+       '480.0HP Electric Motor Electric Fuel System',
+       '5.6L V8 32V GDI DOHC', '3.5L V6 24V MPFI DOHC',
+       '2.5L H4 16V GDI DOHC',
+       '362.0HP Electric Motor Electric Fuel System',
+       '201.0HP Electric Motor Electric Fuel System', '6.4 Liter', 'V6',
+       '563.0HP Electric Motor Electric Fuel System', '3.0 Liter',
+       '3.5L V6 24V PDI DOHC Hybrid', '6.0L V8 16V MPFI OHV',
+       '2.4L I4 16V MPFI DOHC',
+       '2.0L I4 16V GDI DOHC Turbo Flexible Fuel',
+       '5.2L V10 40V GDI DOHC', '1.3L I3 12V GDI DOHC Turbo',
+       '2.0L I4 16V GDI DOHC Hybrid', '3.0 Liter TFSI',
+       '6.5L V12 48V MPFI DOHC', '1.6L I4 16V GDI DOHC Turbo',
+       '3.5 Liter SOHC',
+       '170.0HP 0.65L Electric Motor Electric Fuel System',
+       '3.0 Liter Twin Turbo', '5.4 Liter', '3.6L V6 GDI DOHC',
+       '2.5 Liter', '534.0HP Electric Motor Electric Fuel System',
+       'Standard Range Battery', '4.7 Liter Twin Turbo', '4.6 Liter',
+       '266.0HP Electric Motor Electric Fuel System',
+       '3.5L V6 24V GDI DOHC Twin Turbo',
+       '6.7L V8 32V DDI OHV Turbo Diesel', '3.5L 24V SOHC I-VTEC V6',
+       '3.2L V6 24V MPFI DOHC', '1.5L I4 16V GDI DOHC Turbo',
+       '2.5L I4 16V MPFI DOHC', '2.9L V6 24V GDI DOHC Twin Turbo',
+       '2.4 Liter', '2.5L I4 16V',
+       '355.0HP Electric Motor Electric Fuel System',
+       '422.0HP Electric Motor Electric Fuel System', '4.0 Liter',
+       '3.0 Liter GTDI', '3.5L V6 24V PDI DOHC Twin Turbo Hybrid',
+       '346.0HP Electric Motor Electric Fuel System', '4.4 Liter',
+       '2.4L H4 16V GDI DOHC Turbo', '6.0L W12 48V PDI DOHC Twin Turbo',
+       '4.4 Liter Twin Turbo',
+       '1020.0HP Electric Motor Electric Fuel System',
+       '4.0L V6 24V MPFI DOHC', '3.2L H6 24V MPFI DOHC',
+       '6.8L V12 48V GDI DOHC Twin Turbo', '2.4L I4 16V MPFI SOHC',
+       'Intercooled Turbo Premium Unleaded I-4 2.0 L/122',
+       '295.0HP Electric Motor Electric Fuel System',
+       '1.3L I3 12V MPFI DOHC Turbo', '4.2L V8 32V GDI DOHC',
+       '107.0HP Electric Motor Electric Fuel System',
+       '2.4L I4 16V PDI DOHC Turbo', '6.6L V8 32V DDI OHV Turbo Diesel',
+       '320.0HP Electric Motor Electric Fuel System', '5.4 Liter SC DOHC',
+       '329.0HP Electric Motor Electric Fuel System',
+       '6.6L V8 16V GDI OHV', '2.7 Liter DOHC Turbo',
+       '4.2L V8 32V GDI DOHC Twin Turbo',
+       '3.0L V6 24V PDI DOHC Twin Turbo', '6.2 Liter', '4.0L',
+       '1.6L I4 16V GDI DOHC Turbo Hybrid', '1.5L I3 12V GDI DOHC Turbo',
+       '536.0HP Electric Motor Electric Fuel System',
+       '212.0HP 1.3L Rotary engine Gasoline Fuel',
+       '5.3L V8 16V MPFI OHV Flexible Fuel', '6.6 Liter Twin Turbo',
+       '403.0HP 2.0L Electric Motor Electric Fuel System',
+       '2.5L I4 16V MPFI DOHC Hybrid', '3.0 Liter SC ULEV',
+       '3.5L V6 24V GDI DOHC', 'I4', '2.5L',
+       '3.0L I6 24V GDI DOHC Twin Turbo', '2.0 Liter Supercharged',
+       '2.0 Liter TSI', '416.0HP Electric Motor Electric Fuel System',
+       '2.0L I4 16V MPFI DOHC Hybrid', 'V8',
+       '6.2L V8 16V MPFI SOHC Flexible Fuel', '2.0 Liter DOHC T/C',
+       '3.0L V6 24V GDI DOHC Supercharged',
+       '3.8L V8 32V GDI DOHC Twin Turbo',
+       '3.8L V6 24V MPFI DOHC Twin Turbo', '3.0L',
+       '375.0HP Electric Motor Electric Fuel System', '4.0 Liter Turbo',
+       '1.2L I3 12V GDI DOHC Turbo',
+       '691.0HP Electric Motor Electric Fuel System',
+       '3.9L V8 32V GDI DOHC Twin Turbo', '2.7L I4 16V GDI DOHC Turbo',
+       '5.7 Liter', '1.6L I4 16V MPFI DOHC',
+       '5.2L V12 48V GDI DOHC Twin Turbo',
+       '8.0L W16 64V GDI DOHC Twin Turbo', '3.0 Liter DOHC Turbo',
+       '120 AH', '417.0HP Electric Motor Electric Fuel System',
+       '2.9 Liter Turbo', '1.6L I4 16V GDI DOHC Hybrid',
+       '2.5L I4 16V PDI DOHC Hybrid', '4.4 Liter DOHC Twin Turbo',
+       '6.2L V8 16V GDI OHV Supercharged',
+       '147.0HP Electric Motor Electric Fuel System',
+       '6.8L V12 48V GDI DOHC', 'Battery Electric',
+       '151.0HP Electric Motor Hydrogen Fuel',
+       '182.0HP Electric Motor Hydrogen Fuel',
+       '616.0HP Electric Motor Electric Fuel System', '5.3 Liter',
+       '3.2L V6 18V MPFI SOHC', '2.0L I4 16V GDI DOHC Flexible Fuel',
+       '500.0HP Electric Motor Electric Fuel System', '5.5 Liter',
+       '1.8 Liter', '620.0HP Electric Motor Electric Fuel System',
+       '1.5 Liter Turbo', '321.0HP Electric Motor Electric Fuel System',
+       '3.5 Liter GTDI', '6.4L V8 32V DDI OHV Twin Turbo Diesel',
+       '111.2Ah / FR 70kW / RR 160kW (697V)',
+       '533.0HP Electric Motor Electric Fuel System',
+       '5.8L V8 32V MPFI DOHC Supercharged', '1.4L I4 16V GDI DOHC Turbo',
+       'Dual AC Electric Motors', '4.4 Liter GDI DOHC Twin Turbo',
+       '6.2L V8 32V MPFI DOHC',
+       '290.0HP Electric Motor Electric Fuel System',
+       '1.6L I4 16V GDI DOHC',
+       '402.0HP Electric Motor Electric Fuel System',
+       '111.0HP Electric Motor Electric Fuel System',
+       '3.8L V6 12V MPFI OHV',
+       '115.0HP Electric Motor Electric Fuel System'], dtype=object)</code></pre>
+</div>
+</div>
+<div id="cell-54" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df_copy <span class="op">=</span> df_train.copy()</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>df_copy[<span class="st">'engine_word_count'</span>] <span class="op">=</span> df_copy[<span class="st">'engine'</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.split().<span class="bu">str</span>.<span class="bu">len</span>()</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>df_copy[<span class="st">'engine_word_count'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<pre><code>array([7, 8, 5, 9, 6, 4, 1, 2, 3])</code></pre>
+</div>
+</div>
+<div id="cell-55" class="cell" data-outputid="c60a6d15-c301-45ce-e7fb-04c04d8829b3" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">1</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<pre><code>array(['Electric', '–', 'V6', '4.0L', 'I4', '2.5L', 'V8', '3.0L'],
+      dtype=object)</code></pre>
+</div>
+</div>
+<div id="cell-56" class="cell" data-outputid="b40e7870-a127-4116-f3db-5abc7aedaed5" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">2</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<pre><code>array(['2.0 Liter', '3.5 Liter', '5.6 Liter', '5.0 Liter', '3.6 Liter',
+       '6.4 Liter', '3.0 Liter', '5.4 Liter', '2.5 Liter', '4.6 Liter',
+       '2.4 Liter', '4.0 Liter', '4.4 Liter', '6.2 Liter', '5.7 Liter',
+       '120 AH', 'Battery Electric', '5.3 Liter', '5.5 Liter',
+       '1.8 Liter'], dtype=object)</code></pre>
+</div>
+</div>
+<div id="cell-57" class="cell" data-outputid="37e77361-d686-441f-ee63-789c254fa8bc" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">3</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="40">
+<pre><code>array(['2.0 Liter Turbo', '3.0 Liter Turbo', '2.0 Liter TFSI',
+       '3.6 Liter DOHC', '4.0 Liter TFSI', '3.5 Liter DOHC',
+       '3.0 Liter TFSI', '3.5 Liter SOHC', 'Standard Range Battery',
+       '2.5L I4 16V', '3.0 Liter GTDI', '12 Cylinder Engine',
+       '2.0 Liter Supercharged', '2.0 Liter TSI', '5.0L 8 Cylinder',
+       '4.0 Liter Turbo', '2.9 Liter Turbo', '1.5 Liter Turbo',
+       '3.5 Liter GTDI'], dtype=object)</code></pre>
+</div>
+</div>
+<div id="cell-58" class="cell" data-outputid="b9d6d76d-64ec-4bd3-f3ba-64bab4777891" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">4</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="41">
+<pre><code>array(['Dual Motor - Standard', '2.0 Liter DOHC Turbo',
+       '3.6 Liter SIDI DOHC', '4.0 Liter Twin Turbo',
+       '3.0 Liter Twin Turbo', '3.6L V6 GDI DOHC', '4.7 Liter Twin Turbo',
+       '4.4 Liter Twin Turbo', '5.4 Liter SC DOHC',
+       '2.7 Liter DOHC Turbo', '6.6 Liter Twin Turbo',
+       '3.0 Liter SC ULEV', '2.0 Liter DOHC T/C', '3.0 Liter DOHC Turbo',
+       'Dual AC Electric Motors'], dtype=object)</code></pre>
+</div>
+</div>
+<div id="cell-59" class="cell" data-outputid="61ecf3fc-ce42-4b24-b659-47b10f52dceb" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">5</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<pre><code>array(['Electric Motor Electric Fuel System', '5.2L V10 40V PDI DOHC',
+       '3.6L V6 24V GDI DOHC', '5.7L V8 16V MPFI OHV',
+       '2.4L I4 16V GDI DOHC', '3.6L V6 24V MPFI DOHC',
+       '5.3L V8 16V GDI OHV', '3.8L V6 24V GDI DOHC',
+       '2.5L H4 16V MPFI DOHC', '4.6L V8 32V MPFI DOHC',
+       '2.5L I4 16V GDI DOHC', '4.0L H6 24V GDI DOHC',
+       '6.3L V12 48V GDI DOHC', '3.4L H6 24V MPFI DOHC',
+       '5.0L V8 32V PDI DOHC', '3.5L V6 24V PDI DOHC',
+       '6.4L V8 16V MPFI OHV', '3.8L H6 24V MPFI DOHC',
+       '3.3L V6 24V GDI DOHC', '5.7L V8 32V MPFI DOHC',
+       '3.0 Liter DOHC Twin Turbo', '2.0L I4 16V GDI DOHC',
+       '2.0L I4 16V MPFI DOHC', '2.5L I4 16V PDI DOHC',
+       '6.2L V8 16V GDI OHV', '3.5L V6 24V GDI SOHC',
+       '5.6L V8 32V GDI DOHC', '3.5L V6 24V MPFI DOHC',
+       '2.5L H4 16V GDI DOHC', '6.0L V8 16V MPFI OHV',
+       '2.4L I4 16V MPFI DOHC', '5.2L V10 40V GDI DOHC',
+       '6.5L V12 48V MPFI DOHC', '3.5L 24V SOHC I-VTEC V6',
+       '3.2L V6 24V MPFI DOHC', '2.5L I4 16V MPFI DOHC',
+       '4.0L V6 24V MPFI DOHC', '3.2L H6 24V MPFI DOHC',
+       '2.4L I4 16V MPFI SOHC', '4.2L V8 32V GDI DOHC',
+       '6.6L V8 16V GDI OHV', '3.5L V6 24V GDI DOHC',
+       '1.6L I4 16V MPFI DOHC', '4.4 Liter DOHC Twin Turbo',
+       '6.8L V12 48V GDI DOHC', '151.0HP Electric Motor Hydrogen Fuel',
+       '182.0HP Electric Motor Hydrogen Fuel', '3.2L V6 18V MPFI SOHC',
+       '6.2L V8 32V MPFI DOHC', '1.6L I4 16V GDI DOHC',
+       '3.8L V6 12V MPFI OHV'], dtype=object)</code></pre>
+</div>
+</div>
+<div id="cell-60" class="cell" data-outputid="57dfb5b0-8903-457e-dfed-4ff1a9c36ac9" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">6</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="43">
+<pre><code>array(['518.0HP Electric Motor Electric Fuel System',
+       '835.0HP Electric Motor Electric Fuel System',
+       '2.0L I4 16V PDI DOHC Turbo', '2.0L I4 16V GDI DOHC Turbo',
+       '2.3L I4 16V GDI DOHC Turbo',
+       '670.0HP Electric Motor Electric Fuel System',
+       '425.0HP Electric Motor Electric Fuel System',
+       '3.0L V6 24V GDI DOHC Turbo',
+       '455.0HP Electric Motor Electric Fuel System',
+       '3.6L V6 24V MPFI DOHC Hybrid', '2.0L I4 16V GDI SOHC Turbo',
+       '1.5L I3 12V PDI DOHC Turbo', '5.0L V8 32V GDI DOHC Supercharged',
+       '557.0HP Electric Motor Electric Fuel System',
+       '200.0HP Electric Motor Electric Fuel System',
+       '232.0HP 1.3L Rotary engine Gasoline Fuel',
+       '214.0HP Electric Motor Electric Fuel System',
+       'Intercooled Turbo Diesel V-8 6.7 L/406',
+       '778.0HP Electric Motor Electric Fuel System',
+       '2.5L I4 16V PDI DOHC Turbo', '2.5L I4 16V GDI DOHC Turbo',
+       '271.0HP Electric Motor Electric Fuel System',
+       '4.7L 8 Cylinder Engine Gasoline Fuel',
+       '482.0HP Electric Motor Electric Fuel System',
+       '3.0L I6 24V GDI DOHC Turbo',
+       '480.0HP Electric Motor Electric Fuel System',
+       '362.0HP Electric Motor Electric Fuel System',
+       '201.0HP Electric Motor Electric Fuel System',
+       '563.0HP Electric Motor Electric Fuel System',
+       '3.5L V6 24V PDI DOHC Hybrid', '1.3L I3 12V GDI DOHC Turbo',
+       '2.0L I4 16V GDI DOHC Hybrid', '1.6L I4 16V GDI DOHC Turbo',
+       '534.0HP Electric Motor Electric Fuel System',
+       '266.0HP Electric Motor Electric Fuel System',
+       '1.5L I4 16V GDI DOHC Turbo',
+       '355.0HP Electric Motor Electric Fuel System',
+       '422.0HP Electric Motor Electric Fuel System',
+       '346.0HP Electric Motor Electric Fuel System',
+       '2.4L H4 16V GDI DOHC Turbo',
+       '6.0L 8 Cylinder Engine Gasoline Fuel',
+       '1020.0HP Electric Motor Electric Fuel System',
+       '295.0HP Electric Motor Electric Fuel System',
+       '1.3L I3 12V MPFI DOHC Turbo',
+       '107.0HP Electric Motor Electric Fuel System',
+       '2.4L I4 16V PDI DOHC Turbo',
+       '320.0HP Electric Motor Electric Fuel System',
+       '329.0HP Electric Motor Electric Fuel System',
+       '1.5L I3 12V GDI DOHC Turbo',
+       '536.0HP Electric Motor Electric Fuel System',
+       '212.0HP 1.3L Rotary engine Gasoline Fuel',
+       '2.5L I4 16V MPFI DOHC Hybrid',
+       '416.0HP Electric Motor Electric Fuel System',
+       '2.0L I4 16V MPFI DOHC Hybrid',
+       '3.0L V6 24V GDI DOHC Supercharged',
+       '375.0HP Electric Motor Electric Fuel System',
+       '1.2L I3 12V GDI DOHC Turbo',
+       '691.0HP Electric Motor Electric Fuel System',
+       '2.7L I4 16V GDI DOHC Turbo',
+       '2.5L 4 Cylinder Engine Gasoline Fuel',
+       '417.0HP Electric Motor Electric Fuel System',
+       '1.6L I4 16V GDI DOHC Hybrid', '2.5L I4 16V PDI DOHC Hybrid',
+       '6.2L V8 16V GDI OHV Supercharged',
+       '147.0HP Electric Motor Electric Fuel System',
+       '616.0HP Electric Motor Electric Fuel System',
+       '500.0HP Electric Motor Electric Fuel System',
+       '3.0L V6 Cylinder Engine Diesel Fuel',
+       '620.0HP Electric Motor Electric Fuel System',
+       '321.0HP Electric Motor Electric Fuel System',
+       '533.0HP Electric Motor Electric Fuel System',
+       '5.8L V8 32V MPFI DOHC Supercharged', '1.4L I4 16V GDI DOHC Turbo',
+       '4.4 Liter GDI DOHC Twin Turbo',
+       '290.0HP Electric Motor Electric Fuel System',
+       '402.0HP Electric Motor Electric Fuel System',
+       '111.0HP Electric Motor Electric Fuel System',
+       '115.0HP Electric Motor Electric Fuel System'], dtype=object)</code></pre>
+</div>
+</div>
+<div id="cell-61" class="cell" data-outputid="afc599e6-1340-4de3-d4a1-fbc9e37ff710" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">7</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="44">
+<pre><code>array(['172.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '252.0HP 3.9L 8 Cylinder Engine Gasoline Fuel',
+       '420.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '208.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '252.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '333.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '2.7L V6 24V PDI DOHC Twin Turbo',
+       '312.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '420.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '523.0HP 4.4L 8 Cylinder Engine Gasoline Fuel',
+       '503.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '310.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '469.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '429.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '210.0HP 3.7L V6 Cylinder Engine Gasoline Fuel',
+       '316.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '381.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '450.0HP 6.7L 8 Cylinder Engine Diesel Fuel',
+       '236.0HP 4.0L V6 Cylinder Engine Gasoline Fuel',
+       '211.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '220.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '255.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '268.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '174.0HP 2.8L V6 Cylinder Engine Gasoline Fuel',
+       '240.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '248.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '563.0HP 5.5L 8 Cylinder Engine Gasoline Fuel',
+       '241.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '430.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '4.0L V8 32V GDI DOHC Twin Turbo',
+       '300.0HP 5.4L 8 Cylinder Engine Gasoline Fuel',
+       '310.0HP 6.8L 10 Cylinder Engine Gasoline Fuel',
+       '280.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '295.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '348.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '560.0HP 4.4L 8 Cylinder Engine Gasoline Fuel',
+       '285.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '300.0HP 4.4L 8 Cylinder Engine Gasoline Fuel',
+       '302.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '3.0L V6 24V GDI DOHC Twin Turbo',
+       '300.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '490.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '300.0HP 5.3L 8 Cylinder Engine Gasoline Fuel',
+       '200.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '416.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '179.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '302.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '3.8L V8 32V MPFI DOHC Twin Turbo',
+       '160.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '210.0HP 3.3L V6 Cylinder Engine Gasoline Fuel',
+       '385.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '270.0HP 4.0L V6 Cylinder Engine Gasoline Fuel',
+       '560.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '210.0HP 4.0L V6 Cylinder Engine Gasoline Fuel',
+       '3.5L V6 24V PDI DOHC Twin Turbo',
+       '310.0HP 2.3L 4 Cylinder Engine Gasoline Fuel',
+       '350.0HP 2.3L 4 Cylinder Engine Gasoline Fuel',
+       '181.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '300.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '270.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '265.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '345.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '400.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '261.0HP 4.0L V6 Cylinder Engine Gasoline Fuel',
+       '355.0HP 5.3L 8 Cylinder Engine Gasoline Fuel',
+       '536.0HP 5.5L 8 Cylinder Engine Gasoline Fuel',
+       '320.0HP 5.3L 8 Cylinder Engine Gasoline Fuel',
+       '402.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '450.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '180.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '617.0HP 4.4L 8 Cylinder Engine Gasoline Fuel',
+       '173.0HP 2.7L V6 Cylinder Engine Gasoline Fuel',
+       '429.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '318.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '325.0HP 3.7L V6 Cylinder Engine Gasoline Fuel',
+       '365.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '340.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '255.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '6.0L V8 16V MPFI OHV Flexible Fuel',
+       '173.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '710.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '225.0HP 3.3L V6 Cylinder Engine Gasoline Fuel',
+       '270.0HP 2.3L 4 Cylinder Engine Gasoline Fuel',
+       '366.0HP 6.0L 8 Cylinder Engine Gasoline Fuel',
+       '284.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '260.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '480.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '400.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '440.0HP 4.8L 8 Cylinder Engine Gasoline Fuel',
+       '301.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '450.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '380.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '616.0HP 6.0L 12 Cylinder Engine Gasoline Fuel',
+       '317.0HP 5.6L 8 Cylinder Engine Gasoline Fuel',
+       '435.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '190.0HP 4.3L V6 Cylinder Engine Gasoline Fuel',
+       '305.0HP 3.7L V6 Cylinder Engine Gasoline Fuel',
+       '471.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '328.0HP 3.7L V6 Cylinder Engine Gasoline Fuel',
+       '550.0HP 4.8L 8 Cylinder Engine Gasoline Fuel',
+       '276.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '582.0HP 6.0L 12 Cylinder Engine Gasoline Fuel',
+       '290.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '270.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '300.0HP 4.2L 8 Cylinder Engine Gasoline Fuel',
+       '184.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '120.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '302.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '275.0HP 4.8L 8 Cylinder Engine Gasoline Fuel',
+       '510.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '414.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '3.8L H6 24V GDI DOHC Twin Turbo',
+       '375.0HP 5.6L 8 Cylinder Engine Gasoline Fuel',
+       '268.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '520.0HP 4.8L 8 Cylinder Engine Gasoline Fuel',
+       '375.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '306.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '455.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '292.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '362.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '454.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '375.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '340.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '166.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '430.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '288.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '200.0HP 2.5L 4 Cylinder Engine Gas/Electric Hybrid',
+       '640.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '300.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '293.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '147.0HP 2.4L 4 Cylinder Engine Gas/Electric Hybrid',
+       '4.4L V8 32V GDI DOHC Twin Turbo',
+       '263.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '550.0HP 5.2L 10 Cylinder Engine Gasoline Fuel',
+       '170.0HP 2.5L 5 Cylinder Engine Gasoline Fuel',
+       '577.0HP 5.5L 8 Cylinder Engine Gasoline Fuel',
+       '325.0HP 2.7L V6 Cylinder Engine Gasoline Fuel',
+       '449.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '296.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '291.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '467.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '354.0HP 3.5L V6 Cylinder Engine Gas/Electric Hybrid',
+       '382.0HP 5.5L 8 Cylinder Engine Gasoline Fuel',
+       '310.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '603.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '310.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '386.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '264.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '292.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '204.0HP 2.5L V6 Cylinder Engine Gasoline Fuel',
+       '4.0L V8 32V MPFI DOHC Twin Turbo',
+       '215.0HP 3.2L V6 Cylinder Engine Gasoline Fuel',
+       '412.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '150.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '140.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '707.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '242.0HP 3.7L 5 Cylinder Engine Gasoline Fuel',
+       '140.0HP 2.8L V6 Cylinder Engine Gasoline Fuel',
+       '445.0HP 4.4L 8 Cylinder Engine Gasoline Fuel',
+       '310.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '410.0HP 6.4L 8 Cylinder Engine Gasoline Fuel',
+       '500.0HP 8.3L 10 Cylinder Engine Gasoline Fuel',
+       '518.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '429.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '188.0HP 3.0L V6 Cylinder Engine Diesel Fuel',
+       '295.0HP 5.3L 8 Cylinder Engine Gasoline Fuel',
+       '300.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '400.0HP 5.6L 8 Cylinder Engine Gasoline Fuel',
+       '142.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '199.0HP 2.4L 4 Cylinder Engine Gas/Electric Hybrid',
+       '201.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '315.0HP 2.7L V6 Cylinder Engine Gasoline Fuel',
+       '395.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '247.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '282.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '230.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '385.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '182.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '305.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '6.7L I6 24V DDI OHV Turbo Diesel',
+       '605.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '220.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '161.0HP 2.1L 4 Cylinder Engine Diesel Fuel',
+       '440.0HP 6.7L 8 Cylinder Engine Diesel Fuel',
+       '150.0HP 1.4L 4 Cylinder Engine Gasoline Fuel',
+       '202.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '349.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '152.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '2.7L V6 24V GDI DOHC Twin Turbo',
+       '228.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '154.0HP 2.7L 5 Cylinder Engine Diesel Fuel',
+       '383.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '526.0HP 5.2L 8 Cylinder Engine Gasoline Fuel',
+       '475.0HP 6.7L 8 Cylinder Engine Diesel Fuel',
+       '760.0HP 5.2L 8 Cylinder Engine Gasoline Fuel',
+       '275.0HP 3.7L V6 Cylinder Engine Gasoline Fuel',
+       '188.0HP 2.0L 4 Cylinder Engine Gas/Electric Hybrid',
+       '350.0HP 3.7L V6 Cylinder Engine Gasoline Fuel',
+       '240.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '630.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '335.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '200.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '287.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '717.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '350.0HP 6.4L 8 Cylinder Engine Diesel Fuel',
+       '521.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '248.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '2.0L I4 16V GDI DOHC Turbo Hybrid',
+       '200.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '444.0HP 2.9L V6 Cylinder Engine Gasoline Fuel',
+       '3.0L H6 24V GDI DOHC Twin Turbo',
+       '290.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '170.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '641.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '308.0HP 3.5L V6 Cylinder Engine Gas/Electric Hybrid',
+       '175.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '260.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '542.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '463.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '475.0HP 6.4L 8 Cylinder Engine Gasoline Fuel',
+       '130.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '577.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '280.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '405.0HP 4.2L 8 Cylinder Engine Gasoline Fuel',
+       '550.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '460.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '330.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '227.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '3.6L V6 24V MPFI DOHC Flexible Fuel',
+       '321.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '6.7L V12 48V GDI DOHC Twin Turbo',
+       '153.0HP 1.4L 4 Cylinder Engine Gasoline Fuel',
+       '3.4L V6 24V PDI DOHC Twin Turbo',
+       '220.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '280.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '424.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '300.0HP 2.3L 4 Cylinder Engine Gasoline Fuel',
+       '329.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '189.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '485.0HP 6.4L 8 Cylinder Engine Gasoline Fuel',
+       '420.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '390.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '160.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '218.0HP 2.5L 5 Cylinder Engine Gasoline Fuel',
+       '311.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '210.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '295.0HP 4.8L 8 Cylinder Engine Gasoline Fuel',
+       '115.0HP 1.7L 4 Cylinder Engine Gasoline Fuel',
+       '190.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '158.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '310.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '445.0HP 6.6L 8 Cylinder Engine Diesel Fuel',
+       '380.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '169.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '173.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '460.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '155.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '263.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '360.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '240.0HP 3.0L V6 Cylinder Engine Diesel Fuel',
+       '239.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '316.0HP 6.0L 8 Cylinder Engine Gasoline Fuel',
+       '228.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '270.0HP 3.2L V6 Cylinder Engine Gasoline Fuel',
+       '325.0HP 6.0L 8 Cylinder Engine Diesel Fuel',
+       '272.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '332.0HP 3.7L V6 Cylinder Engine Gasoline Fuel',
+       '170.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '260.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '335.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '303.0HP 5.3L 8 Cylinder Engine Gasoline Fuel',
+       '350.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '601.0HP 6.6L 12 Cylinder Engine Gasoline Fuel',
+       '562.0HP 3.8L 8 Cylinder Engine Gasoline Fuel',
+       '133.0HP 2.2L 4 Cylinder Engine Gasoline Fuel',
+       '224.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '182.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '518.0HP 6.3L 8 Cylinder Engine Gasoline Fuel',
+       '275.0HP 2.3L 4 Cylinder Engine Gasoline Fuel',
+       '411.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '273.0HP 3.7L V6 Cylinder Engine Gasoline Fuel',
+       '3.0L I6 24V DDI DOHC Turbo Diesel',
+       '345.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '485.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '453.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '300.0HP 3.7L V6 Cylinder Engine Gasoline Fuel',
+       '260.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '187.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '354.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '306.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '425.0HP 6.1L 8 Cylinder Engine Gasoline Fuel',
+       '191.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '245.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '195.0HP 4.3L V6 Cylinder Engine Gasoline Fuel',
+       '188.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '335.0HP 2.7L V6 Cylinder Engine Gasoline Fuel',
+       '355.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '217.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '211.0HP 2.0L 4 Cylinder Engine Diesel Fuel',
+       '230.0HP 3.3L V6 Cylinder Engine Gasoline Fuel',
+       '206.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '397.0HP 6.6L 8 Cylinder Engine Diesel Fuel',
+       '292.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '278.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '430.0HP 7.3L 8 Cylinder Engine Gasoline Fuel',
+       '240.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '456.0HP 4.4L 8 Cylinder Engine Gasoline Fuel',
+       '166.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '138.0HP 1.4L 4 Cylinder Engine Gasoline Fuel',
+       '420.0HP 4.8L 8 Cylinder Engine Gasoline Fuel',
+       '403.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '255.0HP 4.8L 8 Cylinder Engine Gasoline Fuel',
+       '191.0HP 2.5L 4 Cylinder Engine Gas/Electric Hybrid',
+       '239.0HP 4.0L V6 Cylinder Engine Gasoline Fuel',
+       '273.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '409.0HP 3.4L V6 Cylinder Engine Gasoline Fuel',
+       '134.0HP 1.8L 4 Cylinder Engine Gas/Electric Hybrid',
+       '400.0HP 6.0L 8 Cylinder Engine Gasoline Fuel',
+       '380.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '400.0HP 4.8L 8 Cylinder Engine Gasoline Fuel',
+       '390.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '325.0HP 6.0L 8 Cylinder Engine Gasoline Fuel',
+       '563.0HP 6.6L 12 Cylinder Engine Gasoline Fuel',
+       '161.0HP 2.0L 4 Cylinder Engine Diesel Fuel',
+       '308.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '437.0HP 3.4L V6 Cylinder Engine Gas/Electric Hybrid',
+       '350.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '390.0HP 5.6L 8 Cylinder Engine Gasoline Fuel',
+       '275.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '176.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '610.0HP 5.2L 10 Cylinder Engine Gasoline Fuel',
+       '266.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '270.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '650.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '600.0HP 4.4L 8 Cylinder Engine Gasoline Fuel',
+       '451.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '265.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '180.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '540.0HP 4.4L 8 Cylinder Engine Gasoline Fuel',
+       '208.0HP 3.3L V6 Cylinder Engine Gas/Electric Hybrid',
+       '148.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '208.0HP 2.5L 4 Cylinder Engine Gas/Electric Hybrid',
+       '281.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '759.0HP 6.5L 12 Cylinder Engine Gasoline Fuel',
+       '245.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '270.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '360.0HP 6.6L 8 Cylinder Engine Diesel Fuel',
+       '335.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '305.0HP 6.8L 10 Cylinder Engine Gasoline Fuel',
+       '369.0HP 1.5L 3 Cylinder Engine Plug-In Electric/Gas',
+       '440.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '266.0HP 4.0L V6 Cylinder Engine Gasoline Fuel',
+       '365.0HP 3.3L V6 Cylinder Engine Gasoline Fuel',
+       '228.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '237.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '118.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '170.0HP 3.3L V6 Cylinder Engine Gasoline Fuel',
+       '575.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '394.0HP 4.2L 8 Cylinder Engine Gasoline Fuel',
+       '170.0HP 0.65L Electric Motor Electric Fuel System',
+       '136.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '201.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '278.0HP 4.3L 8 Cylinder Engine Gasoline Fuel',
+       '390.0HP 4.2L 8 Cylinder Engine Gasoline Fuel',
+       '560.0HP 5.2L 10 Cylinder Engine Gasoline Fuel',
+       '185.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '285.0HP 4.8L 8 Cylinder Engine Gasoline Fuel',
+       '160.0HP 1.5L 4 Cylinder Engine Gasoline Fuel',
+       '375.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '729.0HP 6.5L 12 Cylinder Engine Gasoline Fuel',
+       '237.0HP 2.2L 4 Cylinder Engine Gasoline Fuel',
+       '256.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '788.0HP 6.5L 12 Cylinder Engine Gasoline Fuel',
+       '323.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '330.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '147.0HP 1.4L 4 Cylinder Engine Gasoline Fuel',
+       '169.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '348.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '285.0HP 5.3L 8 Cylinder Engine Gasoline Fuel',
+       '797.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '205.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '378.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '235.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '300.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '295.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '330.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '416.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '140.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '426.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '552.0HP 6.0L 12 Cylinder Engine Gasoline Fuel',
+       '335.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '380.0HP 4.3L 8 Cylinder Engine Gasoline Fuel',
+       '260.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '156.0HP 2.3L 4 Cylinder Engine Gasoline Fuel',
+       '168.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '167.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '192.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '420.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '175.0HP 3.9L V6 Cylinder Engine Gasoline Fuel',
+       '250.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '571.0HP 6.2L 12 Cylinder Engine Gasoline Fuel',
+       '3.5L V6 24V GDI DOHC Twin Turbo',
+       '389.0HP 3.4L V6 Cylinder Engine Gasoline Fuel',
+       '6.7L V8 32V DDI OHV Turbo Diesel',
+       '500.0HP 5.0L 10 Cylinder Engine Gasoline Fuel',
+       '311.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '181.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '263.0HP 2.3L 4 Cylinder Engine Gasoline Fuel',
+       '335.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '355.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '400.0HP 6.75L 8 Cylinder Engine Gasoline Fuel',
+       '262.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '172.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '265.0HP 4.0L V6 Cylinder Engine Gasoline Fuel',
+       '272.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '505.0HP 7.0L 8 Cylinder Engine Gasoline Fuel',
+       '286.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '400.0HP 4.2L 8 Cylinder Engine Gasoline Fuel',
+       '168.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '132.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '303.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '132.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '184.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '306.0HP 3.5L V6 Cylinder Engine Gas/Electric Hybrid',
+       '250.0HP 7.3L 8 Cylinder Engine Diesel Fuel',
+       '171.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '2.9L V6 24V GDI DOHC Twin Turbo',
+       '104.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '360.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '201.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '122.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '420.0HP 5.6L 8 Cylinder Engine Gasoline Fuel',
+       '220.0HP 3.5L 5 Cylinder Engine Gasoline Fuel',
+       '276.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '808.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '404.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '401.0HP 6.6L 8 Cylinder Engine Gasoline Fuel',
+       '255.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '315.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '416.0HP 3.0L V6 Cylinder Engine Plug-In Electric/Gas',
+       '400.0HP 4.4L 8 Cylinder Engine Gasoline Fuel',
+       '600.0HP 6.0L 12 Cylinder Engine Gasoline Fuel',
+       '330.0HP 3.7L V6 Cylinder Engine Gasoline Fuel',
+       '244.0HP 2.3L 4 Cylinder Engine Gasoline Fuel',
+       '250.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '353.0HP 6.0L 8 Cylinder Engine Gasoline Fuel',
+       '493.0HP 5.0L 10 Cylinder Engine Gasoline Fuel',
+       '390.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '246.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '260.0HP 4.0L V6 Cylinder Engine Gasoline Fuel',
+       '304.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '188.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '150.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '240.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '340.0HP 4.2L 8 Cylinder Engine Gasoline Fuel',
+       '300.0HP 6.6L 8 Cylinder Engine Diesel Fuel',
+       '470.0HP 6.4L 8 Cylinder Engine Gasoline Fuel',
+       '227.0HP 2.5L 5 Cylinder Engine Gasoline Fuel',
+       '173.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '6.0L W12 48V PDI DOHC Twin Turbo',
+       '300.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '132.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '70.0HP 1.0L 3 Cylinder Engine Gasoline Fuel',
+       '165.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '310.0HP 2.7L 4 Cylinder Engine Gasoline Fuel',
+       '260.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '255.0HP 3.2L V6 Cylinder Engine Gasoline Fuel',
+       '150.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '235.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '355.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '602.0HP 3.9L 8 Cylinder Engine Gasoline Fuel',
+       '186.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '290.0HP 3.3L V6 Cylinder Engine Gasoline Fuel',
+       '265.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '134.0HP 1.8L 4 Cylinder Engine Plug-In Electric/Gas',
+       '258.0HP 3.2L V6 Cylinder Engine Gasoline Fuel',
+       '247.0HP 2.0L 4 Cylinder Engine Plug-In Electric/Gas',
+       '6.8L V12 48V GDI DOHC Twin Turbo',
+       '670.0HP 5.5L 8 Cylinder Engine Gasoline Fuel',
+       '375.0HP 2.9L V6 Cylinder Engine Gasoline Fuel',
+       '362.0HP 5.4L 8 Cylinder Engine Gasoline Fuel',
+       'Intercooled Turbo Premium Unleaded I-4 2.0 L/122',
+       '591.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '505.0HP 2.9L V6 Cylinder Engine Gasoline Fuel',
+       '188.0HP 2.0L 4 Cylinder Engine Plug-In Electric/Gas',
+       '206.0HP 2.4L 4 Cylinder Engine Gas/Electric Hybrid',
+       '525.0HP 5.2L 10 Cylinder Engine Gasoline Fuel',
+       '360.0HP 4.8L 8 Cylinder Engine Gasoline Fuel',
+       '159.0HP 2.7L 4 Cylinder Engine Gasoline Fuel',
+       '197.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '545.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '201.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '265.0HP 3.2L V6 Cylinder Engine Gasoline Fuel',
+       '390.0HP 6.0L 8 Cylinder Engine Gasoline Fuel',
+       '303.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '450.0HP 4.2L 8 Cylinder Engine Gasoline Fuel',
+       '300.0HP 4.3L 8 Cylinder Engine Gasoline Fuel',
+       '6.6L V8 32V DDI OHV Turbo Diesel',
+       '200.0HP 4.3L V6 Cylinder Engine Gasoline Fuel',
+       '325.0HP 2.9L V6 Cylinder Engine Gasoline Fuel',
+       '573.0HP 5.2L 10 Cylinder Engine Gasoline Fuel',
+       '563.0HP 6.7L 12 Cylinder Engine Gasoline Fuel',
+       '402.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '345.0HP 6.0L 8 Cylinder Engine Gasoline Fuel',
+       '147.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '231.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '400.0HP 2.0L 4 Cylinder Engine Plug-In Electric/Gas',
+       '550.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '611.0HP 3.9L 8 Cylinder Engine Gasoline Fuel',
+       '624.0HP 6.6L 12 Cylinder Engine Gasoline Fuel',
+       '225.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '500.0HP 4.8L 8 Cylinder Engine Gasoline Fuel',
+       '480.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '567.0HP 4.4L 8 Cylinder Engine Gasoline Fuel',
+       '207.0HP 4.0L V6 Cylinder Engine Gasoline Fuel',
+       '179.0HP 1.5L 4 Cylinder Engine Gasoline Fuel',
+       '300.0HP 2.5L 5 Cylinder Engine Gasoline Fuel',
+       '173.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '202.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '602.0HP 5.2L 10 Cylinder Engine Gasoline Fuel',
+       '190.0HP 2.3L 4 Cylinder Engine Gasoline Fuel',
+       '181.0HP 1.5L 3 Cylinder Engine Gasoline Fuel',
+       '190.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '180.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '181.0HP 1.5L 4 Cylinder Engine Gasoline Fuel',
+       '4.2L V8 32V GDI DOHC Twin Turbo',
+       '370.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '455.0HP 2.0L 4 Cylinder Engine Plug-In Electric/Gas',
+       '300.0HP 6.0L 8 Cylinder Engine Gasoline Fuel',
+       '298.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '344.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '177.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '3.0L V6 24V PDI DOHC Twin Turbo',
+       '290.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '1.6L I4 16V GDI DOHC Turbo Hybrid',
+       '280.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '362.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '440.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '5.3L V8 16V MPFI OHV Flexible Fuel',
+       '272.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '215.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '170.0HP 1.5L 4 Cylinder Engine Gasoline Fuel',
+       '400.0HP 6.7L 8 Cylinder Engine Diesel Fuel',
+       '291.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '540.0HP 5.4L 8 Cylinder Engine Gasoline Fuel',
+       '403.0HP 2.0L Electric Motor Electric Fuel System',
+       '440.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '303.0HP 3.7L V6 Cylinder Engine Gasoline Fuel',
+       '315.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '702.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '197.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '182.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '318.0HP 3.3L V6 Cylinder Engine Gas/Electric Hybrid',
+       '280.0HP 3.9L 8 Cylinder Engine Gasoline Fuel',
+       '203.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '275.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '192.0HP 2.3L 4 Cylinder Engine Gasoline Fuel',
+       '295.0HP 3.5L V6 Cylinder Engine Gas/Electric Hybrid',
+       '158.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '260.0HP 5.4L 8 Cylinder Engine Gasoline Fuel',
+       '300.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '245.0HP 5.9L 8 Cylinder Engine Gasoline Fuel',
+       '244.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '305.0HP 5.6L 8 Cylinder Engine Gasoline Fuel',
+       '305.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '245.0HP 4.0L V6 Cylinder Engine Gasoline Fuel',
+       '3.0L I6 24V GDI DOHC Twin Turbo',
+       '245.0HP 3.5L V6 Cylinder Engine Gas/Electric Hybrid',
+       '565.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '375.0HP 2.0L 4 Cylinder Engine Plug-In Electric/Gas',
+       '271.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '197.0HP 3.8L V6 Cylinder Engine Gasoline Fuel',
+       '153.0HP 2.3L 4 Cylinder Engine Gasoline Fuel',
+       '420.0HP 4.2L 8 Cylinder Engine Gasoline Fuel',
+       '340.0HP 8.1L 8 Cylinder Engine Gasoline Fuel',
+       '180.0HP 6.5L 8 Cylinder Engine Diesel Fuel',
+       '222.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '456.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '215.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '180.0HP 1.6L 4 Cylinder Engine Plug-In Electric/Gas',
+       '172.0HP 2.4L 4 Cylinder Engine Gas/Electric Hybrid',
+       '550.0HP 5.5L 8 Cylinder Engine Gasoline Fuel',
+       '420.0HP 5.9L 12 Cylinder Engine Gasoline Fuel',
+       '510.0HP 5.5L 12 Cylinder Engine Gasoline Fuel',
+       '325.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '444.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '6.2L V8 16V MPFI SOHC Flexible Fuel',
+       '400.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '325.0HP 8.1L 8 Cylinder Engine Gasoline Fuel',
+       '557.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '3.8L V8 32V GDI DOHC Twin Turbo',
+       '300.0HP 1.6L 3 Cylinder Engine Gasoline Fuel',
+       '143.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '225.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '471.0HP 6.4L 8 Cylinder Engine Gasoline Fuel',
+       '200.0HP 2.2L 4 Cylinder Engine Gasoline Fuel',
+       '240.0HP 2.5L 4 Cylinder Engine Gas/Electric Hybrid',
+       '550.0HP 6.0L 12 Cylinder Engine Gasoline Fuel',
+       '136.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '221.0HP 2.5L 4 Cylinder Engine Plug-In Electric/Gas',
+       '360.0HP 3.5L V6 Cylinder Engine Gas/Electric Hybrid',
+       '493.0HP 5.5L 12 Cylinder Engine Gasoline Fuel',
+       '227.0HP 1.6L 4 Cylinder Engine Gas/Electric Hybrid',
+       '360.0HP 2.5L 5 Cylinder Engine Gasoline Fuel',
+       '500.0HP 5.4L 8 Cylinder Engine Gasoline Fuel',
+       '400.0HP 2.5L 5 Cylinder Engine Gasoline Fuel',
+       '360.0HP 4.2L 8 Cylinder Engine Gasoline Fuel',
+       '210.0HP 5.8L 8 Cylinder Engine Gasoline Fuel',
+       '651.0HP 6.3L 12 Cylinder Engine Gasoline Fuel',
+       '3.8L V6 24V MPFI DOHC Twin Turbo',
+       '250.0HP 2.5L 5 Cylinder Engine Gasoline Fuel',
+       '660.0HP 3.9L 8 Cylinder Engine Gasoline Fuel',
+       '365.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '162.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '219.0HP 2.5L 4 Cylinder Engine Gas/Electric Hybrid',
+       '148.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '451.0HP 6.3L 8 Cylinder Engine Gasoline Fuel',
+       '221.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '523.0HP 6.0L 12 Cylinder Engine Gasoline Fuel',
+       '270.0HP 4.8L 8 Cylinder Engine Gasoline Fuel',
+       '302.0HP 2.5L 4 Cylinder Engine Plug-In Electric/Gas',
+       '276.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '239.0HP 3.7L 5 Cylinder Engine Gasoline Fuel',
+       '621.0HP 6.0L 12 Cylinder Engine Gasoline Fuel',
+       '301.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '260.0HP 6.6L 8 Cylinder Engine Diesel Fuel',
+       '281.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '200.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '205.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '500.0HP 4.0L 8 Cylinder Engine Gasoline Fuel',
+       '440.0HP 2.9L V6 Cylinder Engine Gasoline Fuel',
+       '305.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '3.9L V8 32V GDI DOHC Twin Turbo',
+       '230.0HP 5.2L 8 Cylinder Engine Gasoline Fuel',
+       '180.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '553.0HP 3.9L 8 Cylinder Engine Gasoline Fuel',
+       '146.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '198.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '252.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '250.0HP 3.0L V6 Cylinder Engine Diesel Fuel',
+       '645.0HP 8.4L 10 Cylinder Engine Gasoline Fuel',
+       '282.0HP 4.4L 8 Cylinder Engine Gasoline Fuel',
+       '380.0HP 5.4L 8 Cylinder Engine Gasoline Fuel',
+       '181.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '160.0HP 1.4L 4 Cylinder Engine Gasoline Fuel',
+       '283.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '261.0HP 1.6L 4 Cylinder Engine Plug-In Electric/Gas',
+       '174.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '279.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '355.0HP 6.0L 8 Cylinder Engine Gasoline Fuel',
+       '210.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '106.0HP 1.5L 4 Cylinder Engine Gasoline Fuel',
+       '483.0HP 4.3L 8 Cylinder Engine Gasoline Fuel',
+       '5.2L V12 48V GDI DOHC Twin Turbo',
+       '210.0HP 2.0L 4 Cylinder Engine Diesel Fuel',
+       '134.0HP 1.5L 3 Cylinder Engine Gasoline Fuel',
+       '8.0L W16 64V GDI DOHC Twin Turbo',
+       '210.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '332.0HP 6.0L 8 Cylinder Engine Gas/Electric Hybrid',
+       '416.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '469.0HP 5.4L 8 Cylinder Engine Gasoline Fuel',
+       '201.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '321.0HP 3.0L V6 Cylinder Engine Gas/Electric Hybrid',
+       '101.0HP 1.4L 4 Cylinder Engine Gasoline Fuel',
+       '405.0HP 4.8L 8 Cylinder Engine Gasoline Fuel',
+       '335.0HP 6.6L 8 Cylinder Engine Diesel Fuel',
+       '109.0HP 1.5L 4 Cylinder Engine Gasoline Fuel',
+       '242.0HP 3.3L V6 Cylinder Engine Gasoline Fuel',
+       '131.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '138.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '395.0HP 6.0L 8 Cylinder Engine Gasoline Fuel',
+       '155.0HP 1.3L 3 Cylinder Engine Gasoline Fuel',
+       '186.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '200.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '205.0HP 1.5L 4 Cylinder Engine Gasoline Fuel',
+       '319.0HP 6.0L 8 Cylinder Engine Gasoline Fuel',
+       '400.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '393.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '161.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '401.0HP 2.5L 5 Cylinder Engine Gasoline Fuel',
+       '138.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '357.0HP 1.5L 3 Cylinder Engine Plug-In Electric/Gas',
+       '120.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '556.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '156.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '275.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '420.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '180.0HP 3.4L V6 Cylinder Engine Gasoline Fuel',
+       '175.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '518.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '170.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '260.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '137.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '287.0HP 3.6L V6 Cylinder Engine Gasoline Fuel',
+       '265.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '180.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '562.0HP 5.2L 10 Cylinder Engine Gasoline Fuel',
+       '150.0HP 2.0L 4 Cylinder Engine Diesel Fuel',
+       '271.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '285.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '250.0HP 3.2L V6 Cylinder Engine Gasoline Fuel',
+       '294.0HP 4.2L 8 Cylinder Engine Gasoline Fuel',
+       '286.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '126.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '192.0HP 1.5L 4 Cylinder Engine Gasoline Fuel',
+       '115.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '192.0HP 2.0L 4 Cylinder Engine Gas/Electric Hybrid',
+       '375.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '115.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '109.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
+       '156.0HP 2.5L 4 Cylinder Engine Gas/Electric Hybrid',
+       '306.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '2.0L I4 16V GDI DOHC Flexible Fuel',
+       '444.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '382.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '450.0HP 4.5L 8 Cylinder Engine Gasoline Fuel',
+       '261.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '405.0HP 3.0L V6 Cylinder Engine Gasoline Fuel',
+       '145.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '425.0HP 4.7L 8 Cylinder Engine Gasoline Fuel',
+       '430.0HP 3.5L V6 Cylinder Engine Gas/Electric Hybrid',
+       '372.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '326.0HP 5.4L 12 Cylinder Engine Gasoline Fuel',
+       '243.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '555.0HP 4.4L 8 Cylinder Engine Gasoline Fuel',
+       '323.0HP 6.0L 8 Cylinder Engine Gasoline Fuel',
+       '227.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '141.0HP 2.0L 4 Cylinder Engine Gasoline Fuel',
+       '363.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '290.0HP 4.3L 8 Cylinder Engine Gasoline Fuel',
+       '150.0HP 2.7L 4 Cylinder Engine Gasoline Fuel',
+       '271.0HP 2.4L 4 Cylinder Engine Gasoline Fuel',
+       '245.0HP 2.5L 4 Cylinder Engine Gas/Electric Hybrid',
+       '253.0HP 3.5L V6 Cylinder Engine Gasoline Fuel',
+       '174.0HP 1.5L 4 Cylinder Engine Gasoline Fuel',
+       '550.0HP 5.4L 8 Cylinder Engine Gasoline Fuel',
+       '495.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '121.0HP 1.8L 4 Cylinder Engine Gas/Electric Hybrid',
+       '543.0HP 5.5L 12 Cylinder Engine Gasoline Fuel',
+       '354.0HP 4.2L 8 Cylinder Engine Gasoline Fuel',
+       '280.0HP 2.8L V6 Cylinder Engine Gasoline Fuel',
+       '193.0HP 2.5L 4 Cylinder Engine Gasoline Fuel',
+       '605.0HP 5.7L 10 Cylinder Engine Gasoline Fuel',
+       '715.0HP 5.2L 12 Cylinder Engine Gasoline Fuel',
+       '290.0HP 7.4L 8 Cylinder Engine Gasoline Fuel',
+       '260.0HP 3.0L V6 Cylinder Engine Diesel Fuel',
+       '405.0HP 5.7L 8 Cylinder Engine Gasoline Fuel',
+       '212.0HP 2.0L 4 Cylinder Engine Gas/Electric Hybrid',
+       '400.0HP 5.0L 8 Cylinder Engine Gasoline Fuel',
+       '178.0HP 1.8L 4 Cylinder Engine Gasoline Fuel',
+       '266.0HP 2.5L 4 Cylinder Engine Plug-In Electric/Gas',
+       '638.0HP 6.2L 8 Cylinder Engine Gasoline Fuel',
+       '226.0HP 1.6L 4 Cylinder Engine Gas/Electric Hybrid',
+       '650.0HP 5.8L 8 Cylinder Engine Gasoline Fuel',
+       '407.0HP 4.4L 8 Cylinder Engine Gasoline Fuel',
+       '76.0HP 1.5L 4 Cylinder Engine Gas/Electric Hybrid',
+       '320.0HP 4.6L 8 Cylinder Engine Gasoline Fuel',
+       '212.0HP 1.5L 4 Cylinder Engine Plug-In Electric/Gas',
+       '322.0HP 2.0L 4 Cylinder Engine Plug-In Electric/Gas',
+       '139.0HP 1.6L 4 Cylinder Engine Gas/Electric Hybrid',
+       '443.0HP 4.4L 8 Cylinder Engine Gasoline Fuel',
+       '288.0HP 2.0L 4 Cylinder Engine Plug-In Electric/Gas',
+       '164.0HP 1.4L 4 Cylinder Engine Gasoline Fuel',
+       '250.0HP 2.7L V6 Cylinder Engine Gasoline Fuel',
+       '151.0HP 1.5L 4 Cylinder Engine Gas/Electric Hybrid',
+       '78.0HP 1.2L 3 Cylinder Engine Gasoline Fuel',
+       '139.0HP 1.6L 4 Cylinder Engine Plug-In Electric/Gas',
+       '313.0HP 2.0L 4 Cylinder Engine Plug-In Electric/Gas'],
+      dtype=object)</code></pre>
+</div>
+</div>
+<div id="cell-62" class="cell" data-outputid="ec36ad5b-1063-4fe0-bae6-74c089856db8" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">8</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="45">
+<pre><code>array(['320.0HP 5.3L 8 Cylinder Engine Flex Fuel Capability',
+       '355.0HP 5.3L 8 Cylinder Engine Flex Fuel Capability',
+       '425.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '335.0HP 3.0L V6 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '230.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '3.4L V6 24V PDI DOHC Twin Turbo Hybrid',
+       '385.0HP 6.2L 8 Cylinder Engine Flex Fuel Capability',
+       '385.0HP 3.8L Flat 6 Cylinder Engine Gasoline Fuel',
+       '350.0HP 6.7L Straight 6 Cylinder Engine Diesel Fuel',
+       '190.0HP 4.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '333.0HP 3.2L Straight 6 Cylinder Engine Gasoline Fuel',
+       '389.0HP 3.0L Straight 6 Cylinder Engine Plug-In Electric/Gas',
+       '235.0HP 3.2L Straight 6 Cylinder Engine Gasoline Fuel',
+       '169.0HP 2.5L 4 Cylinder Engine Flex Fuel Capability',
+       '400.0HP 3.8L Flat 6 Cylinder Engine Gasoline Fuel',
+       '350.0HP 3.4L Flat 6 Cylinder Engine Gasoline Fuel',
+       '335.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '310.0HP 5.4L 8 Cylinder Engine Flex Fuel Capability',
+       '443.0HP 3.0L Flat 6 Cylinder Engine Gasoline Fuel',
+       '201.0HP 2.5L Flat 6 Cylinder Engine Gasoline Fuel',
+       '300.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '403.0HP 6.2L 8 Cylinder Engine Flex Fuel Capability',
+       '496.0HP 4.0L 8 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '290.0HP 3.5L V6 Cylinder Engine Flex Fuel Capability',
+       '283.0HP 3.6L V6 Cylinder Engine Flex Fuel Capability',
+       '603.0HP 4.0L 8 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '453.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '480.0HP 3.6L Flat 6 Cylinder Engine Gasoline Fuel',
+       '255.0HP 5.4L 8 Cylinder Engine Flex Fuel Capability',
+       '285.0HP 3.6L V6 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '503.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '320.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '282.0HP 3.5L V6 Cylinder Engine Flex Fuel Capability',
+       '475.0HP 3.8L Flat 6 Cylinder Engine Gasoline Fuel',
+       '225.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '420.0HP 3.0L Flat 6 Cylinder Engine Gasoline Fuel',
+       '212.0HP 4.5L Straight 6 Cylinder Engine Gasoline Fuel',
+       '395.0HP 5.7L 8 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '355.0HP 3.8L Flat 6 Cylinder Engine Gasoline Fuel',
+       '240.0HP 3.2L Straight 6 Cylinder Engine Gasoline Fuel',
+       '379.0HP 3.0L Flat 6 Cylinder Engine Gasoline Fuel',
+       '220.0HP 2.0L 4 Cylinder Engine Flex Fuel Capability',
+       '295.0HP 5.3L 8 Cylinder Engine Flex Fuel Capability',
+       '325.0HP 3.4L Flat 6 Cylinder Engine Gasoline Fuel',
+       '275.0HP 2.7L Flat 6 Cylinder Engine Gasoline Fuel',
+       '430.0HP 3.8L Flat 6 Cylinder Engine Gasoline Fuel',
+       '385.0HP 6.7L Straight 6 Cylinder Engine Diesel Fuel',
+       '315.0HP 3.6L Flat 6 Cylinder Engine Gasoline Fuel',
+       '591.0HP 4.0L 8 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '275.0HP 3.7L V6 Cylinder Engine Flex Fuel Capability',
+       '300.0HP 3.4L Flat 6 Cylinder Engine Gasoline Fuel',
+       '405.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '235.0HP 4.7L 8 Cylinder Engine Flex Fuel Capability',
+       '381.0HP 5.7L 8 Cylinder Engine Flex Fuel Capability',
+       '382.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '580.0HP 3.8L Flat 6 Cylinder Engine Gasoline Fuel',
+       '265.0HP 2.9L Flat 6 Cylinder Engine Gasoline Fuel',
+       '302.0HP 3.5L V6 Cylinder Engine Flex Fuel Capability',
+       '290.0HP 3.6L V6 Cylinder Engine Flex Fuel Capability',
+       '256.0HP 3.6L Flat 6 Cylinder Engine Gasoline Fuel',
+       '181.0HP 4.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '360.0HP 6.0L 8 Cylinder Engine Flex Fuel Capability',
+       '225.0HP 4.6L 8 Cylinder Engine Flex Fuel Capability',
+       '184.0HP 2.5L Straight 6 Cylinder Engine Gasoline Fuel',
+       '300.0HP 3.7L V6 Cylinder Engine Flex Fuel Capability',
+       '473.0HP 3.0L Flat 6 Cylinder Engine Gasoline Fuel',
+       '2.0L I4 16V GDI DOHC Turbo Flexible Fuel',
+       '540.0HP 3.8L Flat 6 Cylinder Engine Gasoline Fuel',
+       '450.0HP 3.0L Flat 6 Cylinder Engine Gasoline Fuel',
+       '414.0HP 4.0L Flat 6 Cylinder Engine Gasoline Fuel',
+       '444.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '500.0HP 4.0L Flat 6 Cylinder Engine Gasoline Fuel',
+       '240.0HP 2.7L Flat 6 Cylinder Engine Gasoline Fuel',
+       '317.0HP 5.6L 8 Cylinder Engine Flex Fuel Capability',
+       '385.0HP 5.0L 8 Cylinder Engine Flex Fuel Capability',
+       '160.0HP 2.0L 4 Cylinder Engine Flex Fuel Capability',
+       '640.0HP 3.8L Flat 6 Cylinder Engine Gasoline Fuel',
+       '265.0HP 2.7L Flat 6 Cylinder Engine Gasoline Fuel',
+       '502.0HP 4.0L Flat 6 Cylinder Engine Gasoline Fuel',
+       '230.0HP 3.2L Straight 6 Cylinder Engine Gasoline Fuel',
+       '325.0HP 3.6L Flat 6 Cylinder Engine Gasoline Fuel',
+       '400.0HP 6.7L Straight 6 Cylinder Engine Diesel Fuel',
+       '340.0HP 3.0L V6 Cylinder Engine Flex Fuel Capability',
+       '326.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '315.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '316.0HP 6.2L 8 Cylinder Engine Flex Fuel Capability',
+       '3.5L V6 24V PDI DOHC Twin Turbo Hybrid',
+       '550.0HP 5.0L 8 Cylinder Engine Flex Fuel Capability',
+       '277.0HP 3.0L Straight 6 Cylinder Engine Diesel Fuel',
+       '567.0HP 6.0L 12 Cylinder Engine Flex Fuel Capability',
+       '280.0HP 3.2L Flat 6 Cylinder Engine Gasoline Fuel',
+       '330.0HP 3.4L Flat 6 Cylinder Engine Gasoline Fuel',
+       '240.0HP 3.0L V6 Cylinder Engine Flex Fuel Capability',
+       '170.0HP 2.5L Straight 6 Cylinder Engine Gasoline Fuel',
+       '248.0HP 2.0L 4 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '572.0HP 3.8L Flat 6 Cylinder Engine Gasoline Fuel',
+       '295.0HP 3.4L Flat 6 Cylinder Engine Gasoline Fuel',
+       '365.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '310.0HP 5.3L 8 Cylinder Engine Flex Fuel Capability',
+       '250.0HP 5.9L Straight 6 Cylinder Engine Diesel Fuel',
+       '315.0HP 5.3L 8 Cylinder Engine Flex Fuel Capability',
+       '473.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '295.0HP 3.6L V6 Cylinder Engine Flex Fuel Capability',
+       '190.0HP 2.8L Straight 6 Cylinder Engine Gasoline Fuel',
+       '303.0HP 3.4L Flat 6 Cylinder Engine Gasoline Fuel',
+       '395.0HP 5.0L 8 Cylinder Engine Flex Fuel Capability',
+       '296.0HP 2.0L 4 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '201.0HP 2.0L 4 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '370.0HP 6.7L Straight 6 Cylinder Engine Diesel Fuel',
+       '340.0HP 3.4L Flat 6 Cylinder Engine Gasoline Fuel',
+       '182.0HP 2.4L 4 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '543.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '325.0HP 2.0L 4 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '275.0HP 3.5L V6 Cylinder Engine Flex Fuel Capability',
+       '261.0HP 2.0L 4 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '245.0HP 5.9L Straight 6 Cylinder Engine Diesel Fuel',
+       '305.0HP 3.6L V6 Cylinder Engine Flex Fuel Capability',
+       '320.0HP 3.6L Flat 6 Cylinder Engine Gasoline Fuel',
+       '275.0HP 4.2L Straight 6 Cylinder Engine Gasoline Fuel',
+       '510.0HP 5.0L 8 Cylinder Engine Flex Fuel Capability',
+       '285.0HP 4.3L V6 Cylinder Engine Flex Fuel Capability',
+       '255.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '255.0HP 2.9L Flat 6 Cylinder Engine Gasoline Fuel',
+       '208.0HP 2.0L 4 Cylinder Engine Flex Fuel Capability',
+       '245.0HP 2.7L Flat 6 Cylinder Engine Gasoline Fuel',
+       '180.0HP 2.4L 4 Cylinder Engine Flex Fuel Capability',
+       '415.0HP 3.6L Flat 6 Cylinder Engine Gasoline Fuel',
+       '210.0HP 4.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '552.0HP 6.0L 12 Cylinder Engine Flex Fuel Capability',
+       '324.0HP 6.0L 8 Cylinder Engine Flex Fuel Capability',
+       '215.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '247.0HP 2.0L 4 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '342.0HP 6.0L 8 Cylinder Engine Flex Fuel Capability',
+       '152.0HP 3.0L V6 Cylinder Engine Flex Fuel Capability',
+       '345.0HP 3.6L Flat 6 Cylinder Engine Gasoline Fuel',
+       '444.0HP 2.9L V6 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '260.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '215.0HP 2.5L Straight 6 Cylinder Engine Gasoline Fuel',
+       '310.0HP 4.7L 8 Cylinder Engine Flex Fuel Capability',
+       '250.0HP 3.0L Flat 6 Cylinder Engine Gasoline Fuel',
+       '281.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '308.0HP 3.6L V6 Cylinder Engine Flex Fuel Capability',
+       '6.4L V8 32V DDI OHV Twin Turbo Diesel',
+       '111.2Ah / FR 70kW / RR 160kW (697V)',
+       '325.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '305.0HP 3.6L V6 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '341.0HP 6.0L 8 Cylinder Engine Flex Fuel Capability',
+       '306.0HP 3.0L Straight 6 Cylinder Engine Gasoline Fuel',
+       '120.0HP 2.2L 4 Cylinder Engine Flex Fuel Capability',
+       '184.0HP 2.4L 4 Cylinder Engine Flex Fuel Capability'],
+      dtype=object)</code></pre>
+</div>
+</div>
+<div id="cell-63" class="cell" data-outputid="59396277-4c8c-44cb-d39a-2ab09c02c99c" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">9</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="46">
+<pre><code>array(['395.0HP 3.0L Straight 6 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '382.0HP 3.0L Straight 6 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '362.0HP 3.0L Straight 6 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '335.0HP 3.0L Straight 6 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '355.0HP 3.0L Straight 6 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '429.0HP 3.0L Straight 6 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '375.0HP 3.0L Straight 6 Cylinder Engine Gasoline/Mild Electric Hybrid',
+       '369.0HP 3.0L Straight 6 Cylinder Engine Gasoline/Mild Electric Hybrid'],
+      dtype=object)</code></pre>
+</div>
+</div>
+<ul>
+<li>Sebagian besar nilai-nilai pada kolom’engine’ dengan panjang kata yang sama, memiliki struktur penulisan yang sama.</li>
+<li>Variabel <code>engine</code> dapat diekstrak menjadi beberapa kolom:
+<ul>
+<li><code>horsepower</code> : float64 # contoh: 369.0, 214.0, 482.0</li>
+<li><code>engine_size</code> : float64 # contoh: 3.0, 2.5, 4.4</li>
+<li><code>cylinder</code> : int64 # contoh: 4, 6, 8, 10, 12</li>
+<li><code>is_electric</code> : int64 # 0 = tidak, 1 = ya</li>
+<li><code>is_turbo</code> : int64 # 0 = tidak, 1 = ya</li>
+<li><code>fuel_system</code> : category # contoh: MPFI, GDI, PDI, DOHC, SOHC, dll</li>
+</ul></li>
+<li>Tipe bahan bakar dapat diekstrak dari <code>engine</code> jika <code>fuel_type</code> bernilai nan, -, not supported, atau ’ ’.</li>
+<li>Tipe bahan bakar <code>hydrogen fuel</code> tidak muncul pada kolom<code>fuel_type</code>, tetapi muncul pada kolom<code>engine</code>.</li>
+</ul>
+</section>
+<section id="transmission" class="level3">
+<h3 class="anchored" data-anchor-id="transmission">Transmission</h3>
+<div id="cell-66" class="cell" data-outputid="e833e840-65fb-4867-f286-bdde23b198a2" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'transmission'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="47">
+<pre><code>transmission
+A/T                                                   49904
+8-Speed A/T                                           20645
+Transmission w/Dual Shift Mode                        19255
+6-Speed A/T                                           18044
+6-Speed M/T                                           11998
+7-Speed A/T                                           11124
+Automatic                                             10691
+8-Speed Automatic                                      8431
+10-Speed A/T                                           8044
+9-Speed A/T                                            3866
+5-Speed A/T                                            3217
+10-Speed Automatic                                     3164
+6-Speed Automatic                                      2799
+4-Speed A/T                                            2546
+5-Speed M/T                                            2409
+9-Speed Automatic                                      2325
+CVT Transmission                                       1990
+1-Speed A/T                                            1869
+M/T                                                    1179
+7-Speed Automatic with Auto-Shift                      1172
+Automatic CVT                                           829
+8-Speed Automatic with Auto-Shift                       549
+1-Speed Automatic                                       365
+7-Speed M/T                                             355
+6-Speed Manual                                          211
+7-Speed Automatic                                       178
+5-Speed Automatic                                       159
+Transmission Overdrive Switch                           156
+7-Speed Manual                                          151
+6-Speed Automatic with Auto-Shift                       111
+2                                                        91
+–                                                        87
+2-Speed A/T                                              71
+Variable                                                 66
+F                                                        65
+4-Speed Automatic                                        48
+10-Speed Automatic with Overdrive                        40
+6 Speed Mt                                               37
+9-Speed Automatic with Auto-Shift                        33
+6-Speed Electronically Controlled Automatic with O       31
+7-Speed                                                  29
+8-Speed Manual                                           28
+6-Speed                                                  27
+Manual                                                   27
+2-Speed Automatic                                        22
+6 Speed At/Mt                                            20
+7-Speed DCT Automatic                                    18
+Single-Speed Fixed Gear                                  16
+CVT-F                                                    15
+8-SPEED AT                                               13
+8-SPEED A/T                                               7
+SCHEDULED FOR OR IN PRODUCTION                            6
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="cell-67" class="cell" data-outputid="b201115e-9741-4baf-d3ce-4f855f90a891" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'transmission'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
+<pre><code>array(['A/T', 'Transmission w/Dual Shift Mode', '7-Speed A/T',
+       '8-Speed A/T', '10-Speed Automatic', '1-Speed A/T', '6-Speed A/T',
+       '10-Speed A/T', '9-Speed A/T', '8-Speed Automatic',
+       '9-Speed Automatic', '5-Speed A/T', 'Automatic',
+       '7-Speed Automatic with Auto-Shift', 'CVT Transmission',
+       '5-Speed M/T', 'M/T', '6-Speed M/T', '6-Speed Automatic',
+       '4-Speed Automatic', '7-Speed M/T', '2-Speed A/T',
+       '1-Speed Automatic', 'Automatic CVT', '4-Speed A/T',
+       '6-Speed Manual', 'Transmission Overdrive Switch',
+       '8-Speed Automatic with Auto-Shift', '7-Speed Manual',
+       '7-Speed Automatic', '9-Speed Automatic with Auto-Shift',
+       '6-Speed Automatic with Auto-Shift',
+       '6-Speed Electronically Controlled Automatic with O', 'F', 'CVT-F',
+       '8-Speed Manual', 'Manual', '–', '2', '6 Speed At/Mt',
+       '5-Speed Automatic', '2-Speed Automatic', '8-SPEED A/T', '7-Speed',
+       'Variable', 'Single-Speed Fixed Gear', '8-SPEED AT',
+       '10-Speed Automatic with Overdrive', '7-Speed DCT Automatic',
+       'SCHEDULED FOR OR IN PRODUCTION', '6-Speed', '6 Speed Mt'],
+      dtype=object)</code></pre>
+</div>
+</div>
+<div id="cell-68" class="cell" data-outputid="b9d182ae-d7dd-45d8-826c-92994fced667" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="op">~</span>df_train[<span class="st">'transmission'</span>].<span class="bu">str</span>.lower().<span class="bu">str</span>.contains(<span class="vs">r'\b(automatic|manual|a/t|m/t|at|mt)\b'</span>, na<span class="op">=</span><span class="va">False</span>)][<span class="st">'transmission'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\daffa\AppData\Local\Temp\ipykernel_23156\3707552715.py:1: UserWarning: This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
+  df_train[~df_train['transmission'].str.lower().str.contains(r'\b(automatic|manual|a/t|m/t|at|mt)\b', na=False)]['transmission'].unique()</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="49">
+<pre><code>array(['Transmission w/Dual Shift Mode', 'CVT Transmission',
+       'Transmission Overdrive Switch', 'F', 'CVT-F', '–', '2', '7-Speed',
+       'Variable', 'Single-Speed Fixed Gear',
+       'SCHEDULED FOR OR IN PRODUCTION', '6-Speed'], dtype=object)</code></pre>
+</div>
+</div>
+<ul>
+<li>Variabel <code>transmission</code> dapat disederhanakan menjadi 4 kategori, yaitu <code>A/T</code>, <code>M/T</code>, <code>CVT</code>, dan <code>Unknown</code>.</li>
+</ul>
+</section>
+<section id="ext_col" class="level3">
+<h3 class="anchored" data-anchor-id="ext_col">ext_col</h3>
+<div id="cell-71" class="cell" data-outputid="a6df5d73-1d64-4f40-f4d5-cae0526f561b" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'ext_col'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="50">
+<pre><code>ext_col
+Black                                 48658
+White                                 43815
+Gray                                  25293
+Silver                                16995
+Blue                                  14555
+                                      ...  
+Granite Crystal Metallic Clearcoat        5
+GT SILVER                                 5
+Blue Caelum                               5
+BLUE                                      3
+Mango Tango Pearlcoat                     2
+Name: count, Length: 319, dtype: int64</code></pre>
+</div>
+</div>
+<div id="cell-72" class="cell" data-outputid="5b01fa2e-6acf-4f2a-db95-5ce95dc91e50" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'ext_col'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="51">
+<pre><code>array(['Yellow', 'Silver', 'Blue', 'Black', 'White',
+       'Snowflake White Pearl Metallic', 'Gray', 'Green',
+       'Santorini Black Metallic', 'Purple', 'Ebony Twilight Metallic',
+       'Red', 'Magnetite Black Metallic', 'Diamond Black', 'Vega Blue',
+       'Beige', 'Gold', 'Platinum White Pearl', 'Metallic',
+       'White Frost Tri-Coat', 'Firecracker Red Clearcoat',
+       'Phytonic Blue Metallic', 'Blu', 'Orange', 'Brown',
+       'Brilliant Silver Metallic', 'Black Raven', 'Black Clearcoat',
+       'Firenze Red', 'Agate Black Metallic', 'Glacial White Pearl',
+       'Majestic Plum Metallic', 'designo Diamond White Metallic',
+       'Oxford White', 'Black Sapphire Metallic', 'Mythos Black',
+       'Granite Crystal Clearcoat Metallic', 'White Diamond Tri-Coat',
+       'Magnetite Gray Metallic', 'Carpathian Grey Premium Metallic',
+       'designo Diamond White Bright',
+       'Phantom Black Pearl Effect / Black Roof', 'Nebula Gray Pearl',
+       'Deep Crystal Blue Mica', 'Flame Red Clearcoat',
+       'Lunar Blue Metallic', 'Bright White Clearcoat',
+       'Rapid Red Metallic Tinted Clearcoat', 'Caviar',
+       'Dark Ash Metallic', 'Velvet Red Pearlcoat', 'Silver Zynith',
+       'Super Black', 'Antimatter Blue Metallic',
+       'Dark Moon Blue Metallic', 'Summit White', 'Ebony Black', '–',
+       'Black Cherry', 'Delmonico Red Pearlcoat',
+       'Platinum Quartz Metallic', 'Ultra White', 'Python Green',
+       'Garnet Red Metallic', 'Snow White Pearl', 'Cajun Red Tintcoat',
+       'Midnight Black Metallic', 'Diamond White',
+       'Mythos Black Metallic', 'Soul Red Crystal Metallic',
+       'Atomic Silver', 'Obsidian', 'Magnetic Metallic',
+       'Twilight Blue Metallic', 'Star White', 'Stormy Sea',
+       'Tango Red Metallic', 'Hyper Red', 'Portofino Gray',
+       'MANUFAKTUR Diamond White Bright', 'Snowflake White Pearl',
+       'Patriot Blue Pearlcoat', 'Tungsten Metallic',
+       'Chronos Gray Metallic', 'Silver Ice Metallic',
+       'Daytona Gray Pearl Effect', 'Ruby Red Metallic Tinted Clearcoat',
+       'Alpine White', 'Eminent White Pearl', 'Manhattan Noir Metallic',
+       'Quicksilver Metallic', 'Stellar Black Metallic',
+       'Sparkling Silver', 'Blueprint', 'Crystal Black Silica',
+       'Black Noir Pearl', 'Arancio Borealis', 'Typhoon Gray',
+       'Ibis White', 'Graphite Grey', 'Mineral White', 'Midnight Black',
+       'Northsky Blue Metallic', 'Alta White', 'Brilliant Black',
+       'Jet Black Mica', 'Daytona Gray Pearl Effect w/ Black Roof',
+       'Redline Red', 'Glacier Silver Metallic', 'Magnetic Black',
+       'Chronos Gray', 'Red Quartz Tintcoat', 'Nero Noctis',
+       'Firenze Red Metallic', 'Iridescent Pearl Tricoat',
+       'Twilight Black', 'Radiant Red Metallic II', 'Blue Metallic',
+       'Glacier White', 'Daytona Gray', 'Rosso Mars Metallic',
+       'Wolf Gray', 'Santorin Black', 'Designo Magno Matte',
+       'Emerald Green Metallic', 'Ruby Flare Pearl',
+       'Lunar Silver Metallic', 'Eiger Grey Metallic',
+       'Quartzite Grey Metallic', 'Barcelona Red', 'Beluga Black',
+       'Matador Red Metallic', 'Billet Silver Metallic Clearcoat',
+       'Anodized Blue Metallic', 'Black Forest Green',
+       'Ice Silver Metallic', 'Sandstone Metallic',
+       'Magnetic Gray Clearcoat', 'Crystal Black Pearl',
+       'Pacific Blue Metallic', 'Stone Gray Metallic',
+       'Iconic Silver Metallic', 'Dark Sapphire', 'Onyx',
+       'Aventurine Green Metallic', 'China Blue', 'Majestic Black Pearl',
+       'Midnight Silver Metallic', 'Sting Gray Clearcoat',
+       'Glacier Blue Metallic', 'BLACK', 'Chalk', 'Dark Matter Metallic',
+       'Infrared Tintcoat', 'Iridium Metallic', 'Fuji White',
+       'Alfa White', 'Kodiak Brown Metallic', 'Aurora Black',
+       'Onyx Black', 'Nightfall Gray Metallic', 'Obsidian Black Metallic',
+       'Phantom Black', 'Remington Red Metallic', 'designo Diamond White',
+       'Lizard Green', 'Rosso Corsa', 'Shadow Gray Metallic',
+       'Florett Silver', 'Quartz White', 'DB Black Clearcoat',
+       'Yulong White', 'Eiger Grey', 'Custom Color',
+       'Electric Blue Metallic', 'Tempest', 'Lunar Rock',
+       'Mosaic Black Metallic', 'Gecko Pearlcoat', 'White Clearcoat',
+       'BLU ELEOS', 'Granite Crystal Metallic Clearcoat',
+       'Rich Garnet Metallic', 'Graphite Grey Metallic',
+       'Bianco Icarus Metallic', 'Satin Steel Metallic', 'BLUE',
+       'Moonlight Cloud', 'Matador Red Mica', 'Emin White',
+       'Machine Gray Metallic', 'White Platinum Tri-Coat Metallic',
+       'Cobra Beige Metallic', 'Cayenne Red Tintcoat',
+       'Shoreline Blue Pearl', 'Vik Black', 'Shimmering Silver',
+       'Bianco Monocerus', 'Carbonized Gray Metallic',
+       'Carrara White Metallic', 'Dark Slate Metallic',
+       'Dark Graphite Metallic', 'Sonic Silver Metallic',
+       'White Knuckle Clearcoat', 'Titanium Silver',
+       'Anthracite Blue Metallic', 'Black Obsidian',
+       'Polymetal Gray Metallic', 'Orca Black Metallic',
+       'Wind Chill Pearl', 'Blue Reflex Mica', 'Dark Moss',
+       'Selenite Grey Metallic', 'Kemora Gray Metallic', 'Nightfall Mica',
+       'Liquid Platinum', 'Mountain Air Metallic', 'Kinetic Blue',
+       'Santorini Black', 'Carbon Black Metallic',
+       'Gentian Blue Metallic', 'Red Multi', 'Super White', 'Pearl White',
+       'Typhoon Gray Metallic', 'Navarra Blue Metallic', 'Bianco Isis',
+       'Navarra Blue', 'Volcano Grey Metallic', 'Arctic Gray Metallic',
+       'Pure White', 'Baltic Gray', 'Glacier White Metallic',
+       'Frozen Dark Silver Metallic', 'Magnetic Gray Metallic',
+       'Gun Metallic', 'Siren Red Tintcoat', 'Deep Blue Metallic',
+       'Cirrus Silver Metallic', 'Deep Black Pearl Effect', 'Granite',
+       'Sunset Drift Chromaflair', 'Oryx White Prl', 'Dark Gray Metallic',
+       'Bayside Blue', 'Pink', 'Ice', 'Mango Tango Pearlcoat',
+       'Burnished Bronze Metallic', 'Verde', 'Arctic White',
+       'Portofino Blue Metallic', 'Dazzling White', 'Nero Daytona',
+       'Nautical Blue Pearl', 'Imperial Blue Metallic',
+       'Vulcano Black Metallic', 'Silver Radiance',
+       'Hellayella Clearcoat', 'Jungle Green', 'C / C', 'Yulong',
+       'Pristine White', 'Silky Silver', 'Caspian Blue', 'Sangria Red',
+       'Donington Grey Metallic', 'Apex Blue', 'Rift Metallic',
+       'Fountain Blue', 'Balloon White', 'Matte White', 'Frozen White',
+       'Pacific Blue', 'Rosso', 'Ironman Silver', 'Octane Red Pearlcoat',
+       'Selenite Gray Metallic', 'Hydro Blue Pearlcoat',
+       'Ingot Silver Metallic', 'Quartz Blue Pearl',
+       'Lunare White Metallic', 'Ember Pearlcoat',
+       'Brands Hatch Gray Metallic', 'Navarre Blue',
+       'Midnight Blue Metallic', 'Shadow Black', 'Go Mango!',
+       'Maximum Steel Metallic', 'Silver Flare Metallic',
+       'Billet Clearcoat Metallic', 'Hampton Gray', 'Red Obsession',
+       'Silver Mist', 'Scarlet Ember', 'Crimson Red Tintcoat', 'Tan',
+       'Isle of Man Green Metallic', 'Crystal Black', 'Glacier',
+       'Iridium Silver Metallic', 'Bronze Dune Metallic', 'Maroon',
+       'Platinum Gray Metallic', 'Passion Red', 'Silician Yellow',
+       'Volcanic Orange', 'Crystal White Pearl', 'Reflex Silver',
+       'Blue Caelum', 'Thunder Gray', 'Ultra Black', 'Indus Silver',
+       'Horizon Blue', 'Grigio Nimbus', 'Carpathian Grey',
+       'Ametrin Metallic', 'Jupiter Red', 'GT SILVER'], dtype=object)</code></pre>
+</div>
+</div>
+<div id="cell-73" class="cell" data-outputid="da61b535-a03a-4717-9a81-be2172e195eb" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>ext_col_mask <span class="op">=</span> <span class="op">~</span>df_train[<span class="st">'ext_col'</span>].<span class="bu">str</span>.lower().<span class="bu">str</span>.contains(<span class="vs">r'\b(black|blue|gray|silver|green|red|tan|yellow|brown|white|grey|orange|purple|gold|blu|beige)\b'</span>, na<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>df_train[ext_col_mask][<span class="st">'ext_col'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\daffa\AppData\Local\Temp\ipykernel_23156\2183128968.py:1: UserWarning: This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
+  ext_col_mask = ~df_train['ext_col'].str.lower().str.contains(r'\b(black|blue|gray|silver|green|red|tan|yellow|brown|white|grey|orange|purple|gold|blu|beige)\b', na=False)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="52">
+<pre><code>ext_col
+–                                     366
+Granite Crystal Clearcoat Metallic    365
+Ebony Twilight Metallic               289
+Satin Steel Metallic                  154
+Magnetic Metallic                     152
+                                     ... 
+Tempest                                 8
+Ametrin Metallic                        8
+Glacier                                 8
+Granite Crystal Metallic Clearcoat      5
+Mango Tango Pearlcoat                   2
+Name: count, Length: 71, dtype: int64</code></pre>
+</div>
+</div>
+<ul>
+<li>Variabel <code>ext_col</code> dapat disederhanakan menjadi kategori warna dasar seperti blue, red, black, silver, white, gold, orange, purple, dan beige.</li>
+<li>Warna lain dapat disederhanakan menjadi <code>other</code> atau <code>unknown</code>.</li>
+</ul>
+</section>
+<section id="int_col" class="level3">
+<h3 class="anchored" data-anchor-id="int_col">int_col</h3>
+<div id="cell-76" class="cell" data-outputid="60e704f9-2490-4e01-c1ac-4621761a8482" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'int_col'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="53">
+<pre><code>int_col
+Black           107674
+Beige            24495
+Gray             21204
+Brown             5810
+Red               5145
+                 ...  
+Bianco Polar         7
+Classic Red          7
+Cobalt Blue          6
+WHITE                6
+ORANGE               4
+Name: count, Length: 156, dtype: int64</code></pre>
+</div>
+</div>
+<div id="cell-77" class="cell" data-outputid="4e4be0c6-4b7e-4bcd-8445-33fe68cfddcb" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>int_col_mask <span class="op">=</span> <span class="op">~</span>df_train[<span class="st">'ext_col'</span>].<span class="bu">str</span>.lower().<span class="bu">str</span>.contains(<span class="vs">r'\b(black|blue|gray|silver|green|red|tan|yellow|brown|white|grey|orange|purple|gold|blu|beige)\b'</span>, na<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>df_train[ext_col_mask][<span class="st">'ext_col'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\daffa\AppData\Local\Temp\ipykernel_23156\2779700307.py:1: UserWarning: This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
+  int_col_mask = ~df_train['ext_col'].str.lower().str.contains(r'\b(black|blue|gray|silver|green|red|tan|yellow|brown|white|grey|orange|purple|gold|blu|beige)\b', na=False)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="54">
+<pre><code>ext_col
+–                                     366
+Granite Crystal Clearcoat Metallic    365
+Ebony Twilight Metallic               289
+Satin Steel Metallic                  154
+Magnetic Metallic                     152
+                                     ... 
+Tempest                                 8
+Ametrin Metallic                        8
+Glacier                                 8
+Granite Crystal Metallic Clearcoat      5
+Mango Tango Pearlcoat                   2
+Name: count, Length: 71, dtype: int64</code></pre>
+</div>
+</div>
+<ul>
+<li>Sama seperti <code>ext_col</code>, variabel <code>ext_col</code> dapat disederhanakan menjadi warna dasarnya, ‘others’, dan ‘uknown’.</li>
+</ul>
+</section>
+<section id="accident" class="level3">
+<h3 class="anchored" data-anchor-id="accident">Accident</h3>
+<div id="cell-80" class="cell" data-outputid="48fd0001-2a41-4db1-fc9c-5ab437f592ae" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'accident'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="55">
+<pre><code>accident
+None reported                             144514
+At least 1 accident or damage reported     41567
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="cell-81" class="cell" data-outputid="aaa8feaf-d2e5-4a08-c34f-b084147f75a4" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_train[<span class="st">'accident'</span>].isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2452</code></pre>
+</div>
+</div>
+<ul>
+<li>Variabel <code>accident</code> memiliki missing value</li>
+</ul>
+</section>
+<section id="clean_title" class="level3">
+<h3 class="anchored" data-anchor-id="clean_title">clean_title</h3>
+<div id="cell-84" class="cell" data-outputid="adbf6866-d7a1-41a9-91e1-d722e09c7101" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'clean_title'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="57">
+<pre><code>clean_title
+Yes    167114
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="cell-85" class="cell" data-outputid="3eed69fb-e024-4a4b-e533-08839b26a6cb" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_train[<span class="st">'clean_title'</span>].isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>21419</code></pre>
+</div>
+</div>
+<ul>
+<li>Untuk variabel <code>clean_title</code> terdapat 21419 data yang perlu dikategorikan ‘no’.</li>
+</ul>
+</section>
+</section>
+<section id="kesimpulan-eda" class="level2">
+<h2 class="anchored" data-anchor-id="kesimpulan-eda">Kesimpulan EDA</h2>
+<ul>
+<li>Variabel <code>accident</code>, <code>clean_title</code>, dan <code>fuel_type</code> missing value yang harus ditangani.</li>
+<li>Variable <code>model_year</code>, <code>milage</code>, <code>price</code> memiliki outlier.</li>
+<li>Terdapat 1897 <code>model</code> mobil</li>
+<li>Variabel <code>fuel_type</code> memiliki missing value yang tersimpan sebagai <code>-</code>,<code>not supported</code> dan<code>nan</code> serta perlu ditambahkan kategori <code>hydrogen</code>.</li>
+<li>‘E85 flex fuel’ perlu diseragamkan menjadi ‘flex fuel’</li>
+<li>Variabel <code>engine</code> dapat diekstrak menjadi beberapa kolom agar lebih deskriptif seperti:
+<ul>
+<li><code>horsepower</code> : float64 # contoh: 369.0, 214.0, 482.0</li>
+<li><code>engine_size</code> : float64 # contoh: 3.0, 2.5, 4.4</li>
+<li><code>cylinder</code> : int64 # contoh: 4, 6, 8, 10, 12</li>
+<li><code>is_electric</code> : int64 # 0 = tidak, 1 = ya</li>
+<li><code>is_turbo</code> : int64 # 0 = tidak, 1 = ya</li>
+<li><code>fuel_system</code> : category # contoh: MPFI, GDI, PDI, DOHC, SOHC, dll</li>
+</ul></li>
+<li>Tipe bahan bakar dapat diekstrak dari <code>engine</code> jika <code>fuel_type</code> bernilai nan, - , ’ ’, atau <code>not supported</code>.</li>
+<li>Variabel <code>transmission</code> dapat disederhanakan menjadi 4 kategori, yaitu <code>A/T</code>, <code>M/T</code>, dan <code>Unknown</code>.</li>
+<li>Variabel <code>ext_col</code> dan <code>int_col</code> dapat disederhanakan menjadi kategori warna dasar seperti blue, red, black, silver, white, gold, orange, purple, dan beige sedangkan warna lain dapat disederhanakan menjadi <code>other</code> atau <code>unknown</code>.</li>
+<li>Untuk variabel <code>clean_title</code> terdapat 21419 data yang perlu dikategorikan ‘Unknown’.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/daffadanielr\.github\.io\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

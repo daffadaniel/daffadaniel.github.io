@@ -1,1 +1,14 @@
 /.quarto/
+
+# Python environment
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Jupyter hidden checkpoints
+.ipynb_checkpoints/
+
+# Quarto publish artifacts
+_site/
+

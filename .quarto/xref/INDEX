@@ -134,5 +134,40 @@
   },
   "docs/posts/05-Churn Modelling/EDA-Data Cleaning.out.ipynb": {
     "EDA-Data Cleaning.out.html": "5dfa6b17"
+  },
+  "Project-Folders/01-Usedcar Price Prediction/notebooks/data_preparation.ipynb": {
+    "data_preparation.html": "c26e3536"
+  },
+  "Project-Folders/01-Usedcar Price Prediction/notebooks/data_preprocessing.ipynb": {
+    "data_preprocessing.html": "cdb8eb31"
+  },
+  "Project-Folders/01-Usedcar Price Prediction/notebooks/EDA.ipynb": {
+    "EDA.html": "8a5753f3"
+  },
+  "Project-Folders/01-Usedcar Price Prediction/notebooks/modelling.ipynb": {
+    "modelling.html": "c60d7bc6"
+  },
+  "Project-Folders/05-Churn Modelling/notebooks/churn-prediction.ipynb": {
+    "churn-prediction.html": "3b9bb42b"
+  },
+  "Project-Folders/05-Churn Modelling/notebooks/cohort-analysis.ipynb": {
+    "cohort-analysis.html": "5380c49a"
+  },
+  "Project-Folders/05-Churn Modelling/notebooks/EDA-Data Cleaning.ipynb": {
+    "EDA-Data Cleaning.html": "4bc5b2e2"
+  },
+  "Project-Folders/04-Cohort Analysis/notebooks/cohort-analysis.ipynb": {
+    "cohort-analysis.html": "815cabb6"
+  },
+  "Project-Folders/04-Cohort Analysis/notebooks/EDA-Data Cleaning.ipynb": {
+    "EDA-Data Cleaning.html": "d0e6111e"
+  },
+  "Project-Folders/03-Database Design/notebook/Populating_the_Database.ipynb": {
+    "Populating_the_Database.html": "dbc8f6e5",
+    "Populating_the_Database.out.ipynb": "0621fb6a",
+    "Populating_the_Database-preview.html": "ce775184"
+  },
+  "docs/Project-Folders/03-Database Design/notebook/Populating_the_Database.out.ipynb": {
+    "Populating_the_Database.out.html": "4b20b20f"
   }
 }
