@@ -1,6 +1,7 @@
 /.quarto/
 
 # Python environment
+.venv/ # <-- TAMBAHKAN INI
 venv/
 env/
 __pycache__/
