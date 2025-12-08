@@ -13,7 +13,7 @@ website:
     search: true
     left:
       - text: "About"
-        href: about.qmd 
+        href: index.qmd 
 
       - text: "Portofolio"
         href: portofolio.qmd
