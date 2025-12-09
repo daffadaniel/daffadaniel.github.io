@@ -3,7 +3,7 @@
 title: "Used Car Price Prediction – Model Comparison"
 date: "2025-10-1"
 categories: [Regression]
-image: "row-new-cars-port.jpg"
+image: "01car.jpg"
 image-alt: "image of used cars"
 description: "Using sklearn to build car price predictors"
 ---
