@@ -655,6 +655,13 @@
     "href": "about.html#language",
     "title": "Daffa Daniel Rivaldi",
     "section": "Language",
-    "text": "Language\n\nNative Indonesian\n\n\nEnglish Proficiency Certificate\nDuolingo English Test | Issued Jan 2024 – Expires Jan 2026\n Credential"
+    "text": "Language\n\nNative Indonesian\n\n\n\nEnglish Proficiency Certificate\nDuolingo English Test | Issued Jan 2024 – Expires Jan 2026\n Credential"
+  },
+  {
+    "objectID": "docs/Project-Folders/03-Database Design/notebook/Populating_the_Database.out.html",
+    "href": "docs/Project-Folders/03-Database Design/notebook/Populating_the_Database.out.html",
+    "title": "",
+    "section": "",
+    "text": "!pip install faker\n\nRequirement already satisfied: faker in /usr/local/lib/python3.12/dist-packages (37.12.0)\nRequirement already satisfied: tzdata in /usr/local/lib/python3.12/dist-packages (from faker) (2025.2)\n\n\n\nfrom faker import Faker\nimport random\nimport pandas as pd\nfrom datetime import datetime, timedelta, time\n\n\nfake = Faker('id_ID')\n\n\ndef create_hospital_data(seed = 123):\n  fake.seed_instance(seed)\n  nama_rs = []\n  for i in range (2):\n    nama = fake.last_name()\n    nama_rs.append('RS ' +fake.last_name())\n\n  address_rs =[]\n  for i in range (2):\n    address = fake.address()\n    address_rs.append(fake.address().replace(\"\\n\", \", \"))\n\n  hospital_dict = {'hospital_name':nama_rs, 'hospital_address': address_rs}\n  data = pd.DataFrame(data=hospital_dict)\n\n  return data\n\n\nhospitals = create_hospital_data()\nhospitals"
   }
 ]
