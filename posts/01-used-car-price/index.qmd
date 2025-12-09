@@ -5,8 +5,22 @@ date: "2025-10-1"
 categories: [Regression]
 image: "01car.jpg"
 image-alt: "image of used cars"
-description: "Using sklearn to build car price predictors"
+description: "Predicting the price of used cars based on various attributes and evaluating with RMSE"
 ---
+
+::: {.callout-important}
+The Project 100% completed and fully functional but the
+detailed case study and walkthrough on this Quarto site are being finalized — coming in the next 1–2 days.
+:::
+
+
+## Project Overview
+
+This project is based on a [competition on kaggle](https://www.kaggle.com/competitions/playground-series-s4e9).
+
+
+
+
 
 
 ## Objective

@@ -228,14 +228,14 @@
     "href": "posts/01-used-car-price/index.html",
     "title": "Used Car Price Prediction – Model Comparison",
     "section": "",
-    "text": "Build an accurate pricing model for second-hand cars to support dealers and marketplaces."
+    "text": "Important\n\n\n\nThe Project 100% completed and fully functional Detailed case study and walkthrough on this Quarto site are being finalized — coming in the next 1–2 days."
   },
   {
     "objectID": "posts/01-used-car-price/index.html#objective",
     "href": "posts/01-used-car-price/index.html#objective",
     "title": "Used Car Price Prediction – Model Comparison",
-    "section": "",
-    "text": "Build an accurate pricing model for second-hand cars to support dealers and marketplaces."
+    "section": "Objective",
+    "text": "Objective\nBuild an accurate pricing model for second-hand cars to support dealers and marketplaces."
   },
   {
     "objectID": "posts/01-used-car-price/index.html#dataset",
@@ -263,21 +263,21 @@
     "href": "post.html",
     "title": "Daffa Daniel Rivaldi",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nChurn Prediction: 12-week Observation window with 1-Week Gap\n\n\nBuilt a customer churn prediction model using RFM-T feature as predictors that is extracted from the past 12-week observation windows with a 1-week gap. Achieved realistic…\n\n\n\nNov 26, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCustomer Retention Cohort Analysis\n\n\nAnalyzing Customer Cohorts to Improve Retention & Value\n\n\n\nNov 17, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nDesigning and Creating Relational Database for Doctor-Patient Appointments\n\n\nIn this post, I will design a simple database system for hospital app to manage patient medical records and doctor appointments using postgresql. Through this project, I…\n\n\n\nNov 12, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCustomer Segmentation using RFM Analysis and K-Means Clustering\n\n\nbla bla bla\n\n\n\nOct 15, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUsed Car Price Prediction – Model Comparison\n\n\nUsing sklearn to build car price predictors\n\n\n\nOct 1, 2025\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nChurn Prediction: 12-week Observation window with 1-Week Gap\n\n\nBuilt a customer churn prediction model using RFM-T feature as predictors that is extracted from the past 12-week observation windows with a 1-week gap. Achieved realistic…\n\n\n\nNov 26, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCustomer Retention Cohort Analysis\n\n\nAnalyzing Customer Cohorts to Improve Retention & Value\n\n\n\nNov 17, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nDesigning and Creating Relational Database for Doctor-Patient Appointments\n\n\nIn this post, I will design a simple database system for hospital app to manage patient medical records and doctor appointments using postgresql. Through this project, I…\n\n\n\nNov 12, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCustomer Segmentation using RFM Analysis and K-Means Clustering\n\n\nSegmented xx customers into x actionable groups using RFM + K-Means, unlocking clear retention and re-engagement strategies.\n\n\n\nOct 15, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUsed Car Price Prediction – Model Comparison\n\n\nPredicting the price of used cars based on various attributes and evaluating with RMSE\n\n\n\nOct 1, 2025\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/02-RFM-analysis/index.html",
     "href": "posts/02-RFM-analysis/index.html",
     "title": "Customer Segmentation using RFM Analysis and K-Means Clustering",
     "section": "",
-    "text": "Transform raw transaction data into actionable customer segments for targeted marketing campaigns."
+    "text": "Important\n\n\n\nThe Project 100% completed and fully functional Detailed case study and walkthrough on this Quarto site are being finalized — coming in the next 1–2 days."
   },
   {
     "objectID": "posts/02-RFM-analysis/index.html#objective",
     "href": "posts/02-RFM-analysis/index.html#objective",
     "title": "Customer Segmentation using RFM Analysis and K-Means Clustering",
-    "section": "",
-    "text": "Transform raw transaction data into actionable customer segments for targeted marketing campaigns."
+    "section": "Objective",
+    "text": "Objective\nTransform raw transaction data into actionable customer segments for targeted marketing campaigns."
   },
   {
     "objectID": "posts/02-RFM-analysis/index.html#methodology",
@@ -663,5 +663,12 @@
     "title": "",
     "section": "",
     "text": "!pip install faker\n\nRequirement already satisfied: faker in /usr/local/lib/python3.12/dist-packages (37.12.0)\nRequirement already satisfied: tzdata in /usr/local/lib/python3.12/dist-packages (from faker) (2025.2)\n\n\n\nfrom faker import Faker\nimport random\nimport pandas as pd\nfrom datetime import datetime, timedelta, time\n\n\nfake = Faker('id_ID')\n\n\ndef create_hospital_data(seed = 123):\n  fake.seed_instance(seed)\n  nama_rs = []\n  for i in range (2):\n    nama = fake.last_name()\n    nama_rs.append('RS ' +fake.last_name())\n\n  address_rs =[]\n  for i in range (2):\n    address = fake.address()\n    address_rs.append(fake.address().replace(\"\\n\", \", \"))\n\n  hospital_dict = {'hospital_name':nama_rs, 'hospital_address': address_rs}\n  data = pd.DataFrame(data=hospital_dict)\n\n  return data\n\n\nhospitals = create_hospital_data()\nhospitals"
+  },
+  {
+    "objectID": "posts/01-used-car-price/index.html#project-overview",
+    "href": "posts/01-used-car-price/index.html#project-overview",
+    "title": "Used Car Price Prediction – Model Comparison",
+    "section": "Project Overview",
+    "text": "Project Overview\nThis project is based on a competition on kaggle."
   }
 ]

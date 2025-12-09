@@ -19013,6 +19013,19 @@ font-style: inherit;">BY</span> hospital_name, specialization_name, spec_count</
 
 
 
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Project 100% completed and fully functional Detailed case study and walkthrough on this Quarto site are being finalized — coming in the next 1–2 days.</p>
+</div>
+</div>
 <section id="objective" class="level2">
 <h2 class="anchored" data-anchor-id="objective">Objective</h2>
 <p>Transform raw transaction data into actionable customer segments for targeted marketing campaigns.</p>
@@ -19114,6 +19127,23 @@ font-style: inherit;">BY</span> hospital_name, specialization_name, spec_count</
 
 
 
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Project 100% completed and fully functional Detailed case study and walkthrough on this Quarto site are being finalized — coming in the next 1–2 days.</p>
+</div>
+</div>
+<section id="project-overview" class="level2">
+<h2 class="anchored" data-anchor-id="project-overview">Project Overview</h2>
+<p>This project is based on a <a href="https://www.kaggle.com/competitions/playground-series-s4e9">competition on kaggle</a>.</p>
+</section>
 <section id="objective" class="level2">
 <h2 class="anchored" data-anchor-id="objective">Objective</h2>
 <p>Build an accurate pricing model for second-hand cars to support dealers and marketplaces.</p>

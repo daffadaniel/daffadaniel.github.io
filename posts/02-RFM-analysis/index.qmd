@@ -3,9 +3,13 @@ title: "Customer Segmentation using RFM Analysis and K-Means Clustering"
 date: "2025-10-15"
 categories: [Machine Learning, Portofolio]
 image: sil-plot.png
-description: "bla bla bla" 
+description: Segmented xx customers into x actionable groups using RFM + K-Means, unlocking clear retention and re-engagement strategies.
 ---
 
+::: {.callout-important}
+The Project 100% completed and fully functional but the
+detailed case study and walkthrough on this Quarto site are being finalized — coming in the next 1–2 days.
+:::
 
 ## Objective
 Transform raw transaction data into actionable customer segments for targeted marketing campaigns.
