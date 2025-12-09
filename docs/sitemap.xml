@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://daffadanielr.github.io/portofolio.html</loc>
-    <lastmod>2025-11-13T11:04:05.308Z</lastmod>
+    <loc>https://daffadanielr.github.io/Project-Folders/05-Churn Modelling/notebooks/EDA-Data Cleaning.html</loc>
+    <lastmod>2025-11-26T08:58:53.703Z</lastmod>
   </url>
   <url>
-    <loc>https://daffadanielr.github.io/Project-Folders/05-Churn Modelling/notebooks/cohort-analysis.html</loc>
-    <lastmod>2025-11-26T09:00:38.067Z</lastmod>
+    <loc>https://daffadanielr.github.io/Project-Folders/04-Cohort Analysis/notebooks/EDA-Data Cleaning.html</loc>
+    <lastmod>2025-11-26T08:58:53.703Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/Project-Folders/03-Database Design/notebook/Populating_the_Database.html</loc>
+    <lastmod>2025-11-11T08:37:42.257Z</lastmod>
   </url>
   <url>
     <loc>https://daffadanielr.github.io/Project-Folders/01-Usedcar Price Prediction/notebooks/modelling.html</loc>
@@ -15,6 +19,38 @@
   <url>
     <loc>https://daffadanielr.github.io/Project-Folders/01-Usedcar Price Prediction/notebooks/data_preprocessing.html</loc>
     <lastmod>2025-09-22T08:33:15.697Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/Project-Folders/01-Usedcar Price Prediction/notebooks/Copy_of_Portofolio_Project_1_Regression_Analysis.html</loc>
+    <lastmod>2025-12-09T05:35:21.390Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/posts/04-Cohort Analysis/index.html</loc>
+    <lastmod>2025-12-08T16:23:24.692Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/posts/03-Database Design/index.html</loc>
+    <lastmod>2025-12-04T09:30:32.562Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/posts/01-used-car-price/index.html</loc>
+    <lastmod>2025-12-04T13:51:45.744Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/index.html</loc>
+    <lastmod>2025-12-09T07:04:03.605Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/post.html</loc>
+    <lastmod>2025-11-13T11:04:05.308Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/posts/02-RFM-analysis/index.html</loc>
+    <lastmod>2025-11-26T17:23:13.153Z</lastmod>
+  </url>
+  <url>
+    <loc>https://daffadanielr.github.io/posts/03-Database Design/populating-database.html</loc>
+    <lastmod>2025-11-14T11:54:11.658Z</lastmod>
   </url>
   <url>
     <loc>https://daffadanielr.github.io/posts/05-Churn Modelling/index.html</loc>
@@ -29,43 +65,19 @@
     <lastmod>2025-09-20T13:50:35.547Z</lastmod>
   </url>
   <url>
-    <loc>https://daffadanielr.github.io/Project-Folders/05-Churn Modelling/notebooks/churn-prediction.html</loc>
-    <lastmod>2025-12-02T13:33:24.223Z</lastmod>
-  </url>
-  <url>
-    <loc>https://daffadanielr.github.io/Project-Folders/05-Churn Modelling/notebooks/EDA-Data Cleaning.html</loc>
-    <lastmod>2025-11-26T08:58:53.703Z</lastmod>
-  </url>
-  <url>
-    <loc>https://daffadanielr.github.io/posts/04-Cohort Analysis/index.html</loc>
-    <lastmod>2025-12-08T16:23:24.692Z</lastmod>
+    <loc>https://daffadanielr.github.io/Project-Folders/01-Usedcar Price Prediction/notebooks/Portofolio_Project_1_Regression_Analysis.html</loc>
+    <lastmod>2025-12-09T05:33:13.444Z</lastmod>
   </url>
   <url>
     <loc>https://daffadanielr.github.io/Project-Folders/04-Cohort Analysis/notebooks/cohort-analysis.html</loc>
     <lastmod>2025-12-08T16:21:01.204Z</lastmod>
   </url>
   <url>
-    <loc>https://daffadanielr.github.io/Project-Folders/04-Cohort Analysis/notebooks/EDA-Data Cleaning.html</loc>
-    <lastmod>2025-11-26T08:58:53.703Z</lastmod>
+    <loc>https://daffadanielr.github.io/Project-Folders/05-Churn Modelling/notebooks/churn-prediction.html</loc>
+    <lastmod>2025-12-02T13:33:24.223Z</lastmod>
   </url>
   <url>
-    <loc>https://daffadanielr.github.io/index.html</loc>
-    <lastmod>2025-11-15T15:06:15.678Z</lastmod>
-  </url>
-  <url>
-    <loc>https://daffadanielr.github.io/posts/01-used-car-price/index.html</loc>
-    <lastmod>2025-12-04T13:51:45.744Z</lastmod>
-  </url>
-  <url>
-    <loc>https://daffadanielr.github.io/posts/03-Database Design/index.html</loc>
-    <lastmod>2025-12-04T09:30:32.562Z</lastmod>
-  </url>
-  <url>
-    <loc>https://daffadanielr.github.io/Project-Folders/03-Database Design/notebook/Populating_the_Database.html</loc>
-    <lastmod>2025-11-11T08:37:42.257Z</lastmod>
-  </url>
-  <url>
-    <loc>https://daffadanielr.github.io/docs/Project-Folders/03-Database Design/notebook/Populating_the_Database.out.html</loc>
-    <lastmod>2025-12-03T10:11:19.034Z</lastmod>
+    <loc>https://daffadanielr.github.io/about.html</loc>
+    <lastmod>2025-12-09T07:10:37.187Z</lastmod>
   </url>
 </urlset>

@@ -12,46 +12,16 @@ website:
     background: dark
     search: true
     left:
-      - text: "About"
-        href: index.qmd 
-
-      - text: "Portofolio"
-        href: portofolio.qmd
-    
-    sidebar:
-      style: "docked"
-      search: true
-
-  # sidebar:
-  #   - title: "Portofolio"
-  #     style: "floating"
-  #     background: light
-  #     contents:
-  #       - text: Projects Overview
-  #         href: portofolio.qmd 
-
-  #       # - text: "contoh project"
-  #       #   href: posts\00-contoh-project\index.qmd
-
-  #       - text: "Used Car Price Prediction"
-  #         href: posts\01-used-car-price\index.qmd
-
-  #       - text: "RFM Analysis"
-  #         href: posts/02-RFM-analysis/index.qmd
-
-  #       - text: "database"
-  #         href: posts/03-database/index.qmd
-
-  #       - text: "BGNBD Model"
-  #         href: posts/04-bgnbd-model/index.qmd
-
-  #       - text: "Cohort Analysis"
-  #         href: posts/05-cohort-analysis/index.qmd
+      - href: about.qmd
+        text: About
+      - href: post.qmd
+        text: "Post"
+    right:
+      - icon: github
+        href: https://github.com/daffadanielr
+      - icon: linkedin
+        href: https://linkedin.com/in/...
         
-  #       - text: "Recommender System"
-  #         href: posts/06-recomender-system/index.qmd
-        
-
 
 page-footer:
     right: "This blog is built with [Quarto](https://quarto.org/)."
@@ -60,7 +30,6 @@ format:
     theme: darkly
     css: styles.css
     toc: true
-
 
 execute:
   eval: false
