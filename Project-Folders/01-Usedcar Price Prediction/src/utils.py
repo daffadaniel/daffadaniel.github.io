@@ -3,29 +3,29 @@ import pandas as pd
 
 def load_data(fname: str) -> pd.DataFrame:
   """
-  Membaca file csv dan mengembailkan DataFrame
+  Read a CSV file and return a DataFrame
 
   Args: 
-      fname (str): path ke file CSV yang akan dibaca.
+      fname (str): path to the CSV file to be read.
 
   Returns:
       data (pd.DataFrame)
   """
-  data = pd.read_csv(fname,index_col='id')
+  data = pd.read_csv(fname, index_col='id')
   print("Data Shape: ", data.shape)
   return data
 
 def split_input_output(data: pd.DataFrame, target_col: str):
     """
-    Split variabel prediktor dengan variabl target 
+    Split predictor variables with target variables 
     
     Args: 
-        data (pd.DataFrame): Data yang ingin di split
-        target_col (str): variabel target pada data
+        data (pd.DataFrame): Data to be split
+        target_col (str): target variable in the data
     
     Returns:
-        X (pd.DataFrame): variabel prediktor
-        y (pd.Series): variabel target
+        X (pd.DataFrame): predictor variables
+        y (pd.Series): target variables
     """
     X = data.drop(columns = target_col)
     y = data[target_col]
@@ -37,11 +37,11 @@ def split_input_output(data: pd.DataFrame, target_col: str):
 
 def serialize_data(data: pd.DataFrame, path: str):
     """
-     Menyimpan data ke dalam file dengan format pickle (.pkl) menggunakan joblib.
+    Saves data to a file in pickle format (.pkl) using joblib.
 
     Args:
-        data (pd.DataFrame): Data yang ingin di simpan. 
-        path (str): Path lengkap lokasi penyimpanan file, termasuk nama file dan ekstensi (.pkl).
+        data (pd.DataFrame): Data to be saved. 
+        path (str): Full path to the file storage location, including the file name and extension (.pkl).
 
     Returns:
         None
@@ -50,13 +50,13 @@ def serialize_data(data: pd.DataFrame, path: str):
 
 def deserialize_data(path: str):
     """
-    Melakukan deserialisasi (load) data dari file yang disimpan dalam format pickle menggunakan joblib.
+    Deserialize (load) data from a file stored in pickle format using joblib.
 
     Args:
-        path (str): Alamat atau path file tempat data disimpan.
+        path (str): Address or path of the file where the data is stored.
 
     Returns:
-        data (pd.DataFrame): data yang di deserialize
+        data (pd.DataFrame): Deserialized data.
     """
     data =  joblib.load(path)
     return data

@@ -2,7 +2,7 @@
 ---
 title: "Used Car Price Prediction – Model Comparison"
 date: "2025-10-1"
-categories: [Regression]
+categories: [Regression, Portofolio, ML Deployments]
 image: "01car.jpg"
 image-alt: "image of used cars"
 description: "Predicting the price of used cars based on various attributes and evaluating with RMSE"
@@ -19,39 +19,41 @@ detailed case study and walkthrough on this Quarto site are being finalized — 
 This project is based on a [competition on kaggle](https://www.kaggle.com/competitions/playground-series-s4e9).
 
 
-
-
-
-
-## Objective
-Build an accurate pricing model for second-hand cars to support dealers and marketplaces.
-
-## Dataset
-~25,000 used car listings with features:  
-brand, model, year, mileage, fuel type, transmission, engine size, location, etc.
-
-## Model Comparison (Test Set)
-
-| Model               | R²     | RMSE | Training Time |
-|---------------------|--------|--------------------|---------------|
-| Linear Regression   | 0.72   | 28.4               | <1 s          |
-| Random Forest       | 0.91   | 15.1               | 8 s           |
-| XGBoost             | **0.94** | **12.8**         | 12 s          |
-| LightGBM            | 0.93   | 13.5               | 3 s           |
-
-**Winner: XGBoost** – best accuracy while remaining interpretable.
-
-![Feature Importance (XGBoost)](images/car_price_importance.png)
-![Actual vs Predicted Prices](images/car_price_actual_vs_pred.png)
-
 **Tech Stack:** 
 - Python 
 - Pandas 
 - Scikit-learn
 - XGBoost 
 
+### Project Structure
+```
+├───data
+│   ├───processed
+│   │   └───
+│   └───raw
+│       └───
+├───models
+│   └───imputer.pkl
+│   └───lgb_randomized.pkl
+│   └───OHencoder.pkl
+│   └───scaler.pkl
+│   
+├───notebooks
+│  
+├───src
+│   └───modelling.py
+│   └───preprocessing.pkl    
+│   └───utils.pkl 
+│  
+└───requirements.txt
+```
+
+### Deployments
+
 ::: {.iframe-container}
 <iframe src="https://usedcarpredapp-bhwgx6h2tvu5cf48ue4pu3.streamlit.app//?embed=true" 
         width="100%" height="700" frameborder="0">
 </iframe>
 :::
+
+### Full Code & Details
