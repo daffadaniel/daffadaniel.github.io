@@ -19023,7 +19023,7 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The Project 100% completed and fully functional Detailed case study and walkthrough on this Quarto site are being finalized — coming in the next 1–2 days.</p>
+<p>The Project 100% completed and fully functional but the detailed case study and walkthrough on this Quarto site are being finalized — coming in the next 1–2 days.</p>
 </div>
 </div>
 <section id="objective" class="level2">
@@ -19120,93 +19120,247 @@ Important
   <media:content url="https://daffadanielr.github.io/posts/02-RFM-analysis/sil-plot.png" medium="image" type="image/png" height="110" width="144"/>
 </item>
 <item>
-  <title>Used Car Price Prediction – Model Comparison</title>
+  <title>Used Car Price Prediction – End-to-End Machine Learning Project</title>
   <link>https://daffadanielr.github.io/posts/01-used-car-price/</link>
   <description><![CDATA[ 
 
 
 
 
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The Project 100% completed and fully functional Detailed case study and walkthrough on this Quarto site are being finalized — coming in the next 1–2 days.</p>
-</div>
-</div>
 <section id="project-overview" class="level2">
 <h2 class="anchored" data-anchor-id="project-overview">Project Overview</h2>
-<p>This project is based on a <a href="https://www.kaggle.com/competitions/playground-series-s4e9">competition on kaggle</a>.</p>
+<p>This is a complete end-to-end machine learning project that predicts used car prices based on a finished Kaggle competition dataset (Used Car Price Dataset ~188k rows). The goal of this repository is to showcase a production-ready ML workflow from raw data to a deployed web app:</p>
+<ul>
+<li>Exploratory Data Analysis (EDA)</li>
+<li>Preprocessing &amp; feature engineering</li>
+<li>Model selection &amp; hyperparameter tuning</li>
+<li>Final model training with proper train/validation split</li>
+<li>Simple deployment using Streamlit</li>
+</ul>
+<section id="dataset" class="level3">
+<h3 class="anchored" data-anchor-id="dataset">Dataset</h3>
+<p>Source: Kaggle Playground Competition Series 4, Episode 9 (competition has ended)<br>
+Original name: <strong>Regression of Used Car Prices</strong><br>
+~188,000 rows of used car listings with features such as brand, model, year, mileage, fuel type, transmission, etc.</p>
+<p>Link to original competition (for reference): <a href="https://www.kaggle.com/competitions/playground-series-s4e9">Kaggle competition</a></p>
 </section>
-<section id="objective" class="level2">
-<h2 class="anchored" data-anchor-id="objective">Objective</h2>
-<p>Build an accurate pricing model for second-hand cars to support dealers and marketplaces.</p>
+<section id="project-structure" class="level3">
+<h3 class="anchored" data-anchor-id="project-structure">Project Structure</h3>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```{bash}</span></span>
+<span id="cb1-2"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">├───data</span></span>
+<span id="cb1-3"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│   ├───processed</span></span>
+<span id="cb1-4"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│   │   └───</span></span>
+<span id="cb1-5"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│   └───raw</span></span>
+<span id="cb1-6"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│       └───test.csv</span></span>
+<span id="cb1-7"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│       └───sample_submission.csv</span></span>
+<span id="cb1-8"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│       └───train.csv</span></span>
+<span id="cb1-9"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│       └───X_train.pkl</span></span>
+<span id="cb1-10"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│       └───X_valid.pkl</span></span>
+<span id="cb1-11"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│       └───y_train.pkl</span></span>
+<span id="cb1-12"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│       └───y_valid.pkl</span></span>
+<span id="cb1-13"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">├───models</span></span>
+<span id="cb1-14"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│   └───imputer.pkl</span></span>
+<span id="cb1-15"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│   └───lgb_rand.pkl</span></span>
+<span id="cb1-16"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│   └───OHencoder.pkl</span></span>
+<span id="cb1-17"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│   └───scaler.pkl</span></span>
+<span id="cb1-18"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">├───notebooks</span></span>
+<span id="cb1-19"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│       └───data_preparation.ipynb</span></span>
+<span id="cb1-20"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│       └───EDA.ipynb</span></span>
+<span id="cb1-21"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│       └───data_preprocessing.ipynb</span></span>
+<span id="cb1-22"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│       └───modelling.ipynb</span></span>
+<span id="cb1-23"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">├───src</span></span>
+<span id="cb1-24"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│   └───modelling.py</span></span>
+<span id="cb1-25"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│   └───preprocessing.pkl    </span></span>
+<span id="cb1-26"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">│   └───utils.pkl </span></span>
+<span id="cb1-27"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">└───requirements.txt</span></span>
+<span id="cb1-28"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```</span></span></code></pre></div>
 </section>
-<section id="dataset" class="level2">
-<h2 class="anchored" data-anchor-id="dataset">Dataset</h2>
-<p>~25,000 used car listings with features:<br>
-brand, model, year, mileage, fuel type, transmission, engine size, location, etc.</p>
+<section id="key-findings-from-eda" class="level3">
+<h3 class="anchored" data-anchor-id="key-findings-from-eda">Key Findings from EDA</h3>
+<ul>
+<li>The variables <code>accident</code>, <code>clean_title</code>, and <code>fuel_type</code> have missing values that must be handled.</li>
+<li>The variables <code>model_year</code>, <code>mileage</code>, and <code>price</code> have outliers.</li>
+<li>There are 1897 car <code>models</code>.</li>
+<li>The variable <code>fuel_type</code> has missing values stored as <code>-</code>, <code>not supported</code>, and <code>nan</code>, and the category <code>hydrogen fuel</code> needs to be added.</li>
+<li>The <code>engine</code> variable can be extracted into several columns to be more descriptive, such as:
+<ul>
+<li><code>horsepower</code> : float64 # example: 369.0, 214.0, 482.0</li>
+<li><code>engine_size</code> : float64 # example: 3.0, 2.5, 4.4</li>
+<li><code>cylinder</code> : int64 # example: 4, 6, 8, 10, 12</li>
+<li><code>is_electric</code> : int64 # 0 = no, 1 = yes</li>
+<li><code>is_turbo</code> : int64 # 0 = no, 1 = yes</li>
+<li><code>fuel_system</code> : category # example: MPFI, GDI, PDI, DOHC, SOHC, etc.</li>
+</ul></li>
+<li>Fuel type can be extracted from <code>engine</code> if <code>fuel_type</code> is nan, -, ‘ ’, or <code>not supported</code>.</li>
+<li>The <code>transmission</code> variable can be simplified into 4 categories, namely <code>A/T</code>, <code>M/T</code>, and <code>Unknown</code>.</li>
+<li>The <code>ext_col</code> and <code>int_col</code> variables can be simplified into basic color categories such as blue, red, black, silver, white, gold, orange, purple, and beige, while other colors can be simplified into <code>other</code> or <code>unknown</code>.</li>
+<li>The variable <code>accident</code> have only 2 type of category with 2452 rows missing.</li>
+</ul>
 </section>
-<section id="model-comparison-test-set" class="level2">
-<h2 class="anchored" data-anchor-id="model-comparison-test-set">Model Comparison (Test Set)</h2>
+<section id="preprocessing-feature-engineering" class="level3">
+<h3 class="anchored" data-anchor-id="preprocessing-feature-engineering">Preprocessing &amp; Feature Engineering</h3>
+<ul>
+<li><p><strong>Consistent handling of missing/inconsistent categorical values</strong><br>
+Replaced ambiguous entries in fuel_type and transmission with standardized categories (Unknown, a/t, m/t) using regex-based cleaning.</p></li>
+<li><p><strong>Parsing of the free-text engine column</strong><br>
+Used regular expressions for robust extraction even from highly inconsistent formats. Extracted structured features:</p>
+<ul>
+<li>Horsepower (HP)</li>
+<li>Engine displacement (Liters)<br>
+</li>
+<li>Number of cylinders<br>
+</li>
+<li>Turbocharged / supercharged flag<br>
+</li>
+<li>Electric motor flag<br>
+</li>
+<li>Fuel system type</li>
+</ul></li>
+<li><p><strong>Recovery of fuel_type</strong><br>
+Filled missing/unknown fuel_type values using information parsed from the engine string (e.g., “Electric Motor”, “Hybrid”, “Diesel”).</p></li>
+<li><p><strong>Context-aware imputation</strong></p>
+<ul>
+<li>Applied median imputation for horsepower, engine size, and cylinders only on non-electric vehicles</li>
+<li>Set horsepower = 0 and cylinders = 0 for confirmed electric vehicles</li>
+<li>Filled accident and clean_title with an explicit “Unknown” category.</li>
+</ul></li>
+<li><p><strong>Color simplification</strong><br>
+Reduced hundreds of unique exterior &amp; interior colors into 11 meaningful groups (blue, red, black, silver, white, gold, orange, purple, beige, other, unknown) to reduce cardinality and noise.</p></li>
+<li><p><strong>Robust numerical scaling</strong><br>
+Applied StandardScaler to: model_year, milage, horsepower, engine_size, cylinder.</p></li>
+<li><p><strong>Categorical encoding</strong><br>
+Used One-Hot Encoding on cleaned categorical columns: brand, fuel_type, transmission, ext_col, int_col, accident, clean_title, fuel_system.</p></li>
+<li><p><strong>Dropped redundant/high-cardinality raw columns</strong><br>
+Removed original engine and model columns after successful feature extraction.</p></li>
+<li><p><strong>Modular &amp; reusable pipeline</strong><br>
+Entire workflow wrapped into a single preprocessing_pipeline() function that accepts pre-fitted imputer, scaler, and encoder → ensures zero data leakage between train/validation/test sets.</p></li>
+</ul>
+<p>All steps were carefully designed to handle the highly messy real-world nature of the used-car dataset while maintaining reproducibility and production-readiness.</p>
+</section>
+<section id="modeling" class="level3">
+<h3 class="anchored" data-anchor-id="modeling">Modeling</h3>
+<p>Several models were evaluated using 5-fold CV and a hold-out validation set:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Model</th>
-<th>R²</th>
-<th>RMSE</th>
-<th>Training Time</th>
+<th>RMSE(Validation)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Linear Regression</td>
-<td>0.72</td>
-<td>28.4</td>
-<td>&lt;1 s</td>
+<td>LGBM_rand</td>
+<td>68090</td>
 </tr>
 <tr class="even">
-<td>Random Forest</td>
-<td>0.91</td>
-<td>15.1</td>
-<td>8 s</td>
+<td>CatBoost_rand</td>
+<td>68257</td>
 </tr>
 <tr class="odd">
-<td>XGBoost</td>
-<td><strong>0.94</strong></td>
-<td><strong>12.8</strong></td>
-<td>12 s</td>
+<td>LGBM</td>
+<td>68344</td>
 </tr>
 <tr class="even">
-<td>LightGBM</td>
-<td>0.93</td>
-<td>13.5</td>
-<td>3 s</td>
+<td>XGBoost</td>
+<td>68352</td>
+</tr>
+<tr class="odd">
+<td>CatBoost</td>
+<td>68356</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Winner: XGBoost</strong> – best accuracy while remaining interpretable.</p>
-<p><img src="https://daffadanielr.github.io/posts/01-used-car-price/images/car_price_importance.png" class="img-fluid" alt="Feature Importance (XGBoost)"> <img src="https://daffadanielr.github.io/posts/01-used-car-price/images/car_price_actual_vs_pred.png" class="img-fluid" alt="Actual vs Predicted Prices"></p>
-<p><strong>Tech Stack:</strong> - Python - Pandas - Scikit-learn - XGBoost</p>
+<p>LightGBM achieved the lowest RMSE of 68090 on the validation set and was therefore selected as the final model.</p>
+</section>
+<section id="deployment" class="level3">
+<h3 class="anchored" data-anchor-id="deployment">Deployment</h3>
 <div class="iframe-container">
 <iframe src="https://usedcarpredapp-bhwgx6h2tvu5cf48ue4pu3.streamlit.app//?embed=true" width="100%" height="700" frameborder="0">
 </iframe>
 </div>
+</section>
+</section>
+<section id="full-code-notebooks" class="level2">
+<h2 class="anchored" data-anchor-id="full-code-notebooks">Full Code &amp; Notebooks</h2>
+<p>All notebooks (from data preparation to modelling) are available in the GitHub repository:</p>
+<p><strong>GitHub Repository</strong>: <a href="https://github.com/daffadaniel/daffadaniel.github.io/tree/master/Project-Folders/01-Usedcar%20Price%20Prediction">link</a></p>
+<p>Or You can explore the notebooks directly:</p>
+<ol type="1">
+<li><a href="&quot;../../../../Project-Folders/01-Usedcar Price Prediction/notebooks/data_preparation.ipynb&quot;">Data Preparation</a><br>
+</li>
+<li><a href="&quot;../../../../Project-Folders/01-Usedcar Price Prediction/notebooks/EDA.ipynb&quot;">EDA Notebook</a><br>
+</li>
+<li><a href="&quot;../../../../Project-Folders/01-Usedcar Price Prediction/notebooks/data_preprocessing.ipynb&quot;">Data Preprocessing &amp; feature engineering Notebook</a><br>
+</li>
+<li><a href="&quot;../../../../Project-Folders/01-Usedcar Price Prediction/notebooks/modelling.ipynb&quot;">Modelling Notebook</a></li>
+</ol>
 
 
 </section>
 
  ]]></description>
   <category>Regression</category>
+  <category>Portofolio</category>
+  <category>ML Deployments</category>
   <guid>https://daffadanielr.github.io/posts/01-used-car-price/</guid>
   <pubDate>Tue, 30 Sep 2025 17:00:00 GMT</pubDate>
-  <media:content url="https://daffadanielr.github.io/posts/01-used-car-price/01car.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="https://daffadanielr.github.io/posts/01-used-car-price/images/01car.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>
 </rss>

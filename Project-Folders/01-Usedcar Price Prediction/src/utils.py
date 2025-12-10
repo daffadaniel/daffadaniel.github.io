@@ -40,7 +40,7 @@ def serialize_data(data: pd.DataFrame, path: str):
     Saves data to a file in pickle format (.pkl) using joblib.
 
     Args:
-        data (pd.DataFrame): Data to be saved. 
+        data (e.g. pd.DataFrame): Data to be saved. 
         path (str): Full path to the file storage location, including the file name and extension (.pkl).
 
     Returns:

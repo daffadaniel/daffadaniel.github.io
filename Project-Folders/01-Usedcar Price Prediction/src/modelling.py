@@ -3,9 +3,9 @@ from src.utils import *
 from src.preprocessing import *
 from lightgbm import LGBMRegressor
 
-# Paths ke model, scaler, imputer, dan encoder
+# Paths to the model, scaler, imputer, and encoder
 BASE_DIR = Path(__file__).resolve().parent.parent
-MODEL_PATH   = BASE_DIR / "models" / "lgb_randomized.pkl"
+MODEL_PATH   = BASE_DIR / "models" / "lgb_rand.pkl"
 SCALER_PATH  = BASE_DIR / "models" / "scaler.pkl"
 IMPUTER_PATH = BASE_DIR / "models" / "imputer.pkl"
 ENCODER_PATH = BASE_DIR / "models" / "OHencoder.pkl"
@@ -19,8 +19,8 @@ def load_models():
 
 def predict(data: pd.DataFrame):
     """
-    data: DataFrame dengan kolom yang sama seperti saat training
-    return: array prediksi
+    data: DataFrame with the same columns as during training
+    return: prediction array
     """
     # Step 1: Load model & scaler
     model, scaler, imputer, encoder = load_models()
@@ -28,6 +28,6 @@ def predict(data: pd.DataFrame):
     # Step 2: preprocessing
     data_clean = preprocessing_pipeline(data, imputer, scaler, encoder)
     
-    # Step 3: Prediksi
+    # Step 3: Prediction
     preds = model.predict(data_clean)
     return preds

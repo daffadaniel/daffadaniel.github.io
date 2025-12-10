@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1. Exploratory Data Analysis – Daffa Daniel Rivaldi</title>
+<title>Data Definition – Daffa Daniel Rivaldi</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -161,26 +161,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-definition" id="toc-data-definition" class="nav-link active" data-scroll-target="#data-definition">Data Definition</a></li>
-  <li><a href="#descriptive-analysis" id="toc-descriptive-analysis" class="nav-link" data-scroll-target="#descriptive-analysis">Descriptive Analysis</a></li>
+  <li><a href="#descriptive-analysis" id="toc-descriptive-analysis" class="nav-link active" data-scroll-target="#descriptive-analysis">Descriptive Analysis</a></li>
   <li><a href="#checking-duplicated-data" id="toc-checking-duplicated-data" class="nav-link" data-scroll-target="#checking-duplicated-data">Checking Duplicated Data</a></li>
   <li><a href="#checking-missing-value" id="toc-checking-missing-value" class="nav-link" data-scroll-target="#checking-missing-value">Checking Missing Value</a></li>
-  <li><a href="#univariate-analysis" id="toc-univariate-analysis" class="nav-link" data-scroll-target="#univariate-analysis">Univariate Analysis</a>
-  <ul class="collapse">
-  <li><a href="#model_year" id="toc-model_year" class="nav-link" data-scroll-target="#model_year">model_year</a></li>
-  <li><a href="#milage" id="toc-milage" class="nav-link" data-scroll-target="#milage">Milage</a></li>
-  <li><a href="#price" id="toc-price" class="nav-link" data-scroll-target="#price">Price</a></li>
-  <li><a href="#brand" id="toc-brand" class="nav-link" data-scroll-target="#brand">Brand</a></li>
-  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model">Model</a></li>
-  <li><a href="#fuel-type" id="toc-fuel-type" class="nav-link" data-scroll-target="#fuel-type">Fuel Type</a></li>
-  <li><a href="#engine" id="toc-engine" class="nav-link" data-scroll-target="#engine">Engine</a></li>
-  <li><a href="#transmission" id="toc-transmission" class="nav-link" data-scroll-target="#transmission">Transmission</a></li>
-  <li><a href="#ext_col" id="toc-ext_col" class="nav-link" data-scroll-target="#ext_col">ext_col</a></li>
-  <li><a href="#int_col" id="toc-int_col" class="nav-link" data-scroll-target="#int_col">int_col</a></li>
-  <li><a href="#accident" id="toc-accident" class="nav-link" data-scroll-target="#accident">Accident</a></li>
-  <li><a href="#clean_title" id="toc-clean_title" class="nav-link" data-scroll-target="#clean_title">clean_title</a></li>
-  </ul></li>
-  <li><a href="#kesimpulan-eda" id="toc-kesimpulan-eda" class="nav-link" data-scroll-target="#kesimpulan-eda">Kesimpulan EDA</a></li>
+  <li><a href="#univariate-analysis" id="toc-univariate-analysis" class="nav-link" data-scroll-target="#univariate-analysis">Univariate Analysis</a></li>
+  <li><a href="#eda-summary" id="toc-eda-summary" class="nav-link" data-scroll-target="#eda-summary">EDA Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -189,7 +174,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">1. Exploratory Data Analysis</h1>
+<h1 class="title">Data Definition</h1>
 </div>
 
 
@@ -206,28 +191,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="3">
+<div id="cell-1" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys, os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sys.path.append(os.path.abspath(<span class="st">".."</span>))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> src.utils <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>sns.set_theme()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> src.utils <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_theme()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-2" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_train <span class="op">=</span> load_data(<span class="st">"../data/raw/train.csv"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df_test <span class="op">=</span> load_data(<span class="st">"../data/raw/test.csv"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># df_sample_submission = pd.read_csv("/content/playground-series-s4e9/sample_submission.csv")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This dataset representing a unique vehicle listing, and includes twelve distinct features providing valuable insights. - Brand: Identify the brand or company name - Model: Specific model of each vehicle - model_year: Manufacturing year of the vehicles, crucial for assessing depreciation and technology advancements - mileage: Mileage of each vehicle, a key indicator of wear and tear and potential maintenance requirements - fuel_type: Type of fuel the vehicle runs on (gasoline, diesel, electric, hybrid, etc.) - engine: Engine specifications - transmission: Transmission type (automatic, manual, or other variants) - ext_col: Exterior color of the car - int_col: Interior color of the car - accident: Vehicle prior history of accidents or damage - clean_title: Indicates whether the vehicle has a clean title (legal status) - price: Price of the vehicle (target variable)</p>
+<div id="cell-3" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Train Dataset"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df_train <span class="op">=</span> load_data(<span class="st">"../data/raw/train.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">Test Dataset'</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>df_test <span class="op">=</span> load_data(<span class="st">"../data/raw/test.csv"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">Competition Submission Format'</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>df_sample_submission <span class="op">=</span> load_data(<span class="st">"../data/raw/sample_submission.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Data Shape:  (188533, 13)
-Data Shape:  (125690, 12)</code></pre>
+<pre><code>Train Dataset
+Data Shape:  (188533, 12)
+
+Test Dataset
+Data Shape:  (125690, 11)
+
+Competition Submission Format
+Data Shape:  (125690, 1)</code></pre>
 </div>
 </div>
-<div id="cell-4" class="cell" data-outputid="e84c4905-5511-4d9b-b001-28b4fc212d96" data-execution_count="12">
+<div id="cell-4" class="cell" data-outputid="e84c4905-5511-4d9b-b001-28b4fc212d96" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 
 
@@ -235,7 +236,6 @@ Data Shape:  (125690, 12)</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">id</th>
 <th data-quarto-table-cell-role="th">brand</th>
 <th data-quarto-table-cell-role="th">model</th>
 <th data-quarto-table-cell-role="th">model_year</th>
@@ -249,11 +249,25 @@ Data Shape:  (125690, 12)</code></pre>
 <th data-quarto-table-cell-role="th">clean_title</th>
 <th data-quarto-table-cell-role="th">price</th>
 </tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0</td>
 <td>MINI</td>
 <td>Cooper S Base</td>
 <td>2007</td>
@@ -269,7 +283,6 @@ Data Shape:  (125690, 12)</code></pre>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>1</td>
 <td>Lincoln</td>
 <td>LS V8</td>
 <td>2002</td>
@@ -285,7 +298,6 @@ Data Shape:  (125690, 12)</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>2</td>
 <td>Chevrolet</td>
 <td>Silverado 2500 LT</td>
 <td>2002</td>
@@ -301,7 +313,6 @@ Data Shape:  (125690, 12)</code></pre>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>3</td>
 <td>Genesis</td>
 <td>G90 5.0 Ultimate</td>
 <td>2017</td>
@@ -317,7 +328,6 @@ Data Shape:  (125690, 12)</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>4</td>
 <td>Mercedes-Benz</td>
 <td>Metris Base</td>
 <td>2021</td>
@@ -337,34 +347,172 @@ Data Shape:  (125690, 12)</code></pre>
 </div>
 </div>
 </div>
-<section id="data-definition" class="level2">
-<h2 class="anchored" data-anchor-id="data-definition">Data Definition</h2>
-<p>This dataset representing a unique vehicle listing, and includes nine distinct features providing valuable insights into the world of automobiles.</p>
-<ul>
-<li>Brand &amp; Model: Identify the brand or company name along with the specific model of each vehicle.</li>
-<li>Model Year: Discover the manufacturing year of the vehicles, crucial for assessing depreciation and technology advancements.</li>
-<li>Mileage: Obtain the mileage of each vehicle, a key indicator of wear and tear and potential maintenance requirements.</li>
-<li>Fuel Type: Learn about the type of fuel the vehicles run on, whether it’s gasoline, diesel, electric, or hybrid.</li>
-<li>Engine Type: Understand the engine specifications, shedding light on performance and efficiency.</li>
-<li>Transmission: Determine the transmission type, whether automatic, manual, or another variant.</li>
-<li>Exterior &amp; Interior Colors: Explore the aesthetic aspects of the vehicles, including exterior and interior color options. Accident History: Discover whether a vehicle has a prior history of accidents or damage, crucial for informed decision-making.</li>
-<li>Clean Title: Evaluate the availability of a clean title, which can impact the vehicle’s resale value and legal status.</li>
-<li>Price: Access the listed prices for each vehicle, aiding in price comparison and budgeting.</li>
-</ul>
-</section>
-<section id="descriptive-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="descriptive-analysis">Descriptive Analysis</h2>
-<div id="cell-7" class="cell" data-outputid="18e33535-5826-44ef-aa35-af5a1bd12132" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_train.set_index(<span class="st">'id'</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df_train.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
-<pre><code>(188533, 12)</code></pre>
+<div id="cell-5" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_test.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">brand</th>
+<th data-quarto-table-cell-role="th">model</th>
+<th data-quarto-table-cell-role="th">model_year</th>
+<th data-quarto-table-cell-role="th">milage</th>
+<th data-quarto-table-cell-role="th">fuel_type</th>
+<th data-quarto-table-cell-role="th">engine</th>
+<th data-quarto-table-cell-role="th">transmission</th>
+<th data-quarto-table-cell-role="th">ext_col</th>
+<th data-quarto-table-cell-role="th">int_col</th>
+<th data-quarto-table-cell-role="th">accident</th>
+<th data-quarto-table-cell-role="th">clean_title</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">188533</td>
+<td>Land</td>
+<td>Rover LR2 Base</td>
+<td>2015</td>
+<td>98000</td>
+<td>Gasoline</td>
+<td>240.0HP 2.0L 4 Cylinder Engine Gasoline Fuel</td>
+<td>6-Speed A/T</td>
+<td>White</td>
+<td>Beige</td>
+<td>None reported</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">188534</td>
+<td>Land</td>
+<td>Rover Defender SE</td>
+<td>2020</td>
+<td>9142</td>
+<td>Hybrid</td>
+<td>395.0HP 3.0L Straight 6 Cylinder Engine Gasoli...</td>
+<td>8-Speed A/T</td>
+<td>Silver</td>
+<td>Black</td>
+<td>None reported</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">188535</td>
+<td>Ford</td>
+<td>Expedition Limited</td>
+<td>2022</td>
+<td>28121</td>
+<td>Gasoline</td>
+<td>3.5L V6 24V PDI DOHC Twin Turbo</td>
+<td>10-Speed Automatic</td>
+<td>White</td>
+<td>Ebony</td>
+<td>None reported</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">188536</td>
+<td>Audi</td>
+<td>A6 2.0T Sport</td>
+<td>2016</td>
+<td>61258</td>
+<td>Gasoline</td>
+<td>2.0 Liter TFSI</td>
+<td>Automatic</td>
+<td>Silician Yellow</td>
+<td>Black</td>
+<td>None reported</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">188537</td>
+<td>Audi</td>
+<td>A6 2.0T Premium Plus</td>
+<td>2018</td>
+<td>59000</td>
+<td>Gasoline</td>
+<td>252.0HP 2.0L 4 Cylinder Engine Gasoline Fuel</td>
+<td>A/T</td>
+<td>Gray</td>
+<td>Black</td>
+<td>None reported</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 </div>
+</div>
+<div id="cell-6" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_sample_submission.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">price</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">188533</td>
+<td>43878.016</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">188534</td>
+<td>43878.016</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">188535</td>
+<td>43878.016</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">188536</td>
+<td>43878.016</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">188537</td>
+<td>43878.016</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 <ul>
-<li>Dataset memiliki 188.533 baris dan 13 kolom (dengan kolom ‘id’).</li>
+<li>The train dataset has 188.533 rows and 13 columns (including <code>id</code>).</li>
+<li>The test set has 125,690 rows and 12 columns, excluding the price column.</li>
+<li>Submit the prediction of test data to kaggle by using CSV format with <code>id</code> as the index and <code>price</code> as the column.</li>
 </ul>
-<div id="cell-9" class="cell" data-outputid="ce4f012b-d4e7-400b-df66-649229b891f8" data-execution_count="14">
+<section id="descriptive-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="descriptive-analysis">Descriptive Analysis</h3>
+<div id="cell-9" class="cell" data-outputid="ce4f012b-d4e7-400b-df66-649229b891f8" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_train.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
@@ -389,12 +537,12 @@ memory usage: 18.7+ MB</code></pre>
 </div>
 </div>
 <ul>
-<li>Dataset memiliki 3 variabel numerik, yaitu ‘price’, ‘model_year’, dan ‘milage’.</li>
-<li>Variabel lainnya bertipe kategorik.</li>
+<li>The dataset has three numeric variables, namely <code>price</code>, <code>model_year</code>, and <code>mileage</code>.</li>
+<li>The other variables are categorical.</li>
 </ul>
-<div id="cell-11" class="cell" data-outputid="14fe2644-8451-463d-e324-4ff2b1f2b7a9" data-execution_count="15">
+<div id="cell-11" class="cell" data-outputid="14fe2644-8451-463d-e324-4ff2b1f2b7a9" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_train.describe() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
@@ -463,11 +611,11 @@ memory usage: 18.7+ MB</code></pre>
 </div>
 </div>
 <ul>
-<li>Variabel ‘price’ dan ‘milage’ memiliki nilai maksimum yang sangat jauh dari kuartil ketiganya.</li>
+<li>The variables <code>price</code> and <code>mileage</code> have maximum values that are very far from their third quartiles. This indicate outliers.</li>
 </ul>
-<div id="cell-13" class="cell" data-outputid="9501052f-96be-460a-c795-cfc23197d16e" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_train.describe(exclude<span class="op">=</span><span class="st">'int64'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div id="cell-13" class="cell" data-outputid="9501052f-96be-460a-c795-cfc23197d16e" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_train.describe(exclude<span class="op">=</span>np.number)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -541,12 +689,15 @@ memory usage: 18.7+ MB</code></pre>
 </div>
 </div>
 </div>
+<p><br></p>
+<p>There are 57 type of <code>brand</code>, 1897 type of <code>model</code>, 7 type of <code>fuel</code>, 52 type of <code>transmission</code>, 319 type of <code>ext_col</code>, 156 type of <code>int_col</code>, 2 categories of <code>accident</code>, and 1 category of <code>clean_title</code></p>
+<p><br></p>
 </section>
-<section id="checking-duplicated-data" class="level2">
-<h2 class="anchored" data-anchor-id="checking-duplicated-data">Checking Duplicated Data</h2>
-<div id="cell-15" class="cell" data-outputid="14525b6a-4df9-4156-f6b9-1560b1549fdd" data-execution_count="17">
+<section id="checking-duplicated-data" class="level3">
+<h3 class="anchored" data-anchor-id="checking-duplicated-data">Checking Duplicated Data</h3>
+<div id="cell-16" class="cell" data-outputid="14525b6a-4df9-4156-f6b9-1560b1549fdd" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_train[df_train.duplicated(keep<span class="op">=</span><span class="va">False</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 
@@ -590,15 +741,13 @@ memory usage: 18.7+ MB</code></pre>
 </div>
 </div>
 </div>
-<ul>
-<li>Tidak ada duplikasi data</li>
-</ul>
+<p>There are NO DUPLICATED DATA.</p>
 </section>
-<section id="checking-missing-value" class="level2">
-<h2 class="anchored" data-anchor-id="checking-missing-value">Checking Missing Value</h2>
-<div id="cell-18" class="cell" data-outputid="1bfd06d4-9b1e-401f-8db3-066d63b2fb73" data-execution_count="18">
+<section id="checking-missing-value" class="level3">
+<h3 class="anchored" data-anchor-id="checking-missing-value">Checking Missing Value</h3>
+<div id="cell-19" class="cell" data-outputid="1bfd06d4-9b1e-401f-8db3-066d63b2fb73" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_train.isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>brand               0
 model               0
 model_year          0
@@ -614,39 +763,20 @@ price               0
 dtype: int64</code></pre>
 </div>
 </div>
-<ul>
-<li>Variabel <code>accident</code>, <code>clean_title</code>, dan <code>fuel_type</code> missing value yang harus ditangani.</li>
-</ul>
+<p><br></p>
+<p>The variables <code>accident</code>, <code>clean_title</code>, and <code>fuel_type</code> have missing values that must be handled.</p>
+<p><br></p>
 </section>
-<section id="univariate-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="univariate-analysis">Univariate Analysis</h2>
-<section id="model_year" class="level3">
-<h3 class="anchored" data-anchor-id="model_year">model_year</h3>
-<div id="cell-22" class="cell" data-outputid="c9261bbd-857b-4728-a310-5a06a47e04a4" data-execution_count="19">
+<section id="univariate-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="univariate-analysis">Univariate Analysis</h3>
+<p>In this part we will analyze each column separately. We’ll start off with the numeric columns and then followed with the categoric ones.</p>
+<section id="model_year" class="level4">
+<h4 class="anchored" data-anchor-id="model_year"><code>model_year</code></h4>
+<div id="cell-24" class="cell" data-outputid="c9261bbd-857b-4728-a310-5a06a47e04a4" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">7</span>), gridspec_kw<span class="op">=</span>{<span class="st">'height_ratios'</span>: [<span class="dv">3</span>, <span class="dv">1</span>]})</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df_train, x<span class="op">=</span><span class="st">'model_year'</span>, kde<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span>df_train[<span class="st">'model_year'</span>], ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="EDA_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<ul>
-<li>Sebagian besar mobil yang dijual adalah mobil keluaran tahun 2000 keatas.</li>
-<li>Variable <code>model_year</code> memiliki beberapa outlier yang perlu diselidiki lebih lanjut.</li>
-</ul>
-</section>
-<section id="milage" class="level3">
-<h3 class="anchored" data-anchor-id="milage">Milage</h3>
-<div id="cell-25" class="cell" data-outputid="ebb3a8b6-f390-422d-eb8a-444211b2449e" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">8</span>), gridspec_kw<span class="op">=</span>{<span class="st">'height_ratios'</span>: [<span class="dv">3</span>, <span class="dv">1</span>]})</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df_train, x<span class="op">=</span><span class="st">'milage'</span>, kde<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span>df_train[<span class="st">'milage'</span>], ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -656,16 +786,17 @@ dtype: int64</code></pre>
 </div>
 </div>
 <ul>
-<li>Variabel <code>milage</code> memiliki banyak outlier yang membuat distribusinya sangat skewed.</li>
+<li>Most of the cars sold are models from 2000 onwards.</li>
+<li>The variable <code>model_year</code> has several outliers that need to be investigated further.</li>
 </ul>
 </section>
-<section id="price" class="level3">
-<h3 class="anchored" data-anchor-id="price">Price</h3>
-<div id="cell-28" class="cell" data-outputid="a2ff2806-821c-4813-ef98-0097526b9597" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">8</span>), gridspec_kw<span class="op">=</span>{<span class="st">'height_ratios'</span>: [<span class="dv">3</span>, <span class="dv">1</span>]})</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df_train, x<span class="op">=</span><span class="st">'price'</span>, kde<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span>df_train[<span class="st">'price'</span>], ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="milage" class="level4">
+<h4 class="anchored" data-anchor-id="milage"><code>milage</code></h4>
+<div id="cell-27" class="cell" data-outputid="ebb3a8b6-f390-422d-eb8a-444211b2449e" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">8</span>), gridspec_kw<span class="op">=</span>{<span class="st">'height_ratios'</span>: [<span class="dv">3</span>, <span class="dv">1</span>]})</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df_train, x<span class="op">=</span><span class="st">'milage'</span>, kde<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span>df_train[<span class="st">'milage'</span>], ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -675,481 +806,37 @@ dtype: int64</code></pre>
 </div>
 </div>
 <ul>
-<li>Variabel <code>price</code> memiliki banyak nilai outlier yang terlalu jauh dari upper whisker.</li>
+<li>The variable <code>mileage</code> has many outliers, which makes its distribution highly skewed.</li>
 </ul>
-<div id="cell-30" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Q1 <span class="op">=</span> df_train[<span class="st">'price'</span>].quantile(<span class="fl">0.25</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>Q3 <span class="op">=</span> df_train[<span class="st">'price'</span>].quantile(<span class="fl">0.75</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>IQR <span class="op">=</span> Q3 <span class="op">-</span> Q1</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>upper_whisker <span class="op">=</span> Q3 <span class="op">+</span> <span class="fl">1.5</span><span class="op">*</span>IQR</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>outlier_id <span class="op">=</span> df_train[df_train[<span class="st">'price'</span>]<span class="op">&gt;</span> upper_whisker].index</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>df_outlier <span class="op">=</span>df_train.loc[outlier_id]</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>df_outlier_1 <span class="op">=</span> df_outlier[(df_outlier[<span class="st">'price'</span>] <span class="op">&gt;</span> upper_whisker) <span class="op">&amp;</span> (df_outlier[<span class="st">'price'</span>] <span class="op">&lt;</span> <span class="dv">500_000</span>)]</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>df_outlier_2 <span class="op">=</span> df_outlier[(df_outlier[<span class="st">'price'</span>] <span class="op">&gt;</span> <span class="dv">500_000</span>) <span class="op">&amp;</span> (df_outlier[<span class="st">'price'</span>] <span class="op">&lt;</span> <span class="dv">1_000_000</span>)]</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>df_outlier_3 <span class="op">=</span> df_outlier[(df_outlier[<span class="st">'price'</span>] <span class="op">&gt;</span> <span class="dv">1_500_000</span>) <span class="op">&amp;</span> (df_outlier[<span class="st">'price'</span>] <span class="op">&lt;</span> <span class="dv">2_000_000</span>)]</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>df_outlier_4 <span class="op">=</span> df_outlier[df_outlier[<span class="st">'price'</span>] <span class="op">&gt;</span> <span class="dv">2_500_000</span>]</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>df_non_outlier <span class="op">=</span> df_train.loc[<span class="op">~</span>df_train.index.isin(outlier_id)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-31" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># df_outlier_4.set_index(['brand','model','model_year']).sort_index()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-32" class="cell" data-outputid="96fc1835-5d3e-466a-d5da-cfe510cd9c7a" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df_outlier_4.groupby([<span class="st">'model'</span>,<span class="st">'model_year'</span>])[<span class="st">'price'</span>].agg([<span class="st">'count'</span>, <span class="st">'mean'</span>, <span class="st">'min'</span>, <span class="st">'max'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">count</th>
-<th data-quarto-table-cell-role="th">mean</th>
-<th data-quarto-table-cell-role="th">min</th>
-<th data-quarto-table-cell-role="th">max</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">model</th>
-<th data-quarto-table-cell-role="th">model_year</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">1500 Classic Warlock</td>
-<td data-quarto-table-cell-role="th">2019</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1500 Laramie</td>
-<td data-quarto-table-cell-role="th">2022</td>
-<td>3</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">1500 Limited</td>
-<td data-quarto-table-cell-role="th">2018</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">300C Base</td>
-<td data-quarto-table-cell-role="th">2003</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">AMG GLE AMG GLE 63 S-Model 4MATIC</td>
-<td data-quarto-table-cell-role="th">2017</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">AMG GT 53 Base</td>
-<td data-quarto-table-cell-role="th">2023</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Bronco Raptor</td>
-<td data-quarto-table-cell-role="th">2023</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Continental GT V8</td>
-<td data-quarto-table-cell-role="th">2021</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">Corvette Base</td>
-<td data-quarto-table-cell-role="th">2005</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2007</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">DeVille Base</td>
-<td data-quarto-table-cell-role="th">1994</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">ES 350 Base</td>
-<td data-quarto-table-cell-role="th">2008</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Escalade ESV Platinum</td>
-<td data-quarto-table-cell-role="th">2015</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Escalade Premium Luxury Platinum</td>
-<td data-quarto-table-cell-role="th">2021</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Excursion Limited Ultimate</td>
-<td data-quarto-table-cell-role="th">2002</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Expedition Max King Ranch</td>
-<td data-quarto-table-cell-role="th">2021</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Expedition Max Limited</td>
-<td data-quarto-table-cell-role="th">2022</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Expedition Timberline</td>
-<td data-quarto-table-cell-role="th">2021</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">F-150 XL</td>
-<td data-quarto-table-cell-role="th">2022</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">F-150 XLT</td>
-<td data-quarto-table-cell-role="th">2021</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Firebird Trans Am</td>
-<td data-quarto-table-cell-role="th">2001</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Highlander SE</td>
-<td data-quarto-table-cell-role="th">2014</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Highlander XLE</td>
-<td data-quarto-table-cell-role="th">2022</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">LS 430 Base</td>
-<td data-quarto-table-cell-role="th">2002</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2004</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Martin DB7 Vantage Volante</td>
-<td data-quarto-table-cell-role="th">2005</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Metris Base</td>
-<td data-quarto-table-cell-role="th">2020</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Model 3 Long Range</td>
-<td data-quarto-table-cell-role="th">2021</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Mustang GT</td>
-<td data-quarto-table-cell-role="th">2005</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Pilot Elite</td>
-<td data-quarto-table-cell-role="th">2021</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">QX60 Base</td>
-<td data-quarto-table-cell-role="th">2017</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Ram 2500 Laramie Quad Cab</td>
-<td data-quarto-table-cell-role="th">2005</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Rover LR4 Lux</td>
-<td data-quarto-table-cell-role="th">2010</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Rover Range Rover 3.0L V6 Supercharged HSE</td>
-<td data-quarto-table-cell-role="th">2021</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Rover Range Rover 5.0L Supercharged Autobiography LWB</td>
-<td data-quarto-table-cell-role="th">2017</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Rover Range Rover P525 HSE SWB</td>
-<td data-quarto-table-cell-role="th">2020</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Rover Range Rover Sport HST MHEV</td>
-<td data-quarto-table-cell-role="th">2022</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">S4 Base</td>
-<td data-quarto-table-cell-role="th">2004</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">SC 430 Base</td>
-<td data-quarto-table-cell-role="th">2004</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">SL-Class SL500 Roadster</td>
-<td data-quarto-table-cell-role="th">2005</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">SL-Class SL550 Roadster</td>
-<td data-quarto-table-cell-role="th">2001</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">SL-Class SL600 Roadster</td>
-<td data-quarto-table-cell-role="th">2005</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Santa Fe SEL</td>
-<td data-quarto-table-cell-role="th">2022</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Sierra 1500 SLE1 Extended Cab</td>
-<td data-quarto-table-cell-role="th">2020</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Silverado 1500 Custom Trail Boss</td>
-<td data-quarto-table-cell-role="th">2022</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Tahoe LT</td>
-<td data-quarto-table-cell-role="th">2018</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Thunderbird Deluxe</td>
-<td data-quarto-table-cell-role="th">2008</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">XT5 Luxury</td>
-<td data-quarto-table-cell-role="th">2021</td>
-<td>1</td>
-<td>2954083.0</td>
-<td>2954083</td>
-<td>2954083</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<div id="cell-33" class="cell" data-outputid="40f2fe39-fea7-4a40-d00c-1f756485ac8c" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># df_outlier_3.groupby(['brand','model','model_year']).apply(lambda x: x)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-34" class="cell" data-outputid="cad9cef8-3683-4323-ca4c-6362ab82f865" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_outlier = df_outlier_4.groupby(['model', 'model_year'])['price'].agg(['mean', 'count'])</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_outlier = avg_price_outlier.reset_index().rename(columns={'mean': 'outlier_avg_price', 'count': 'outlier_count'})</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_non_outlier = df_non_outlier.groupby(['model', 'model_year'])['price'].agg(['mean','median', 'count'])</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_non_outlier = avg_price_non_outlier.reset_index().rename(columns={'mean': 'non_outlier_avg_price','median':'non_outlier_median', 'count': 'non_outlier_count'})</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># combined_df = pd.merge(avg_price_outlier, avg_price_non_outlier, on=['model', 'model_year'], how='left')</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># print("Hasil Perbandingan:")</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># display(combined_df)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-35" class="cell" data-outputid="3f66c776-48f6-4de6-e7aa-60be00be1be8" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_outlier = df_outlier.groupby(['model', 'model_year'])['price'].agg(['mean', 'count'])</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_outlier = avg_price_outlier.reset_index().rename(columns={'mean': 'outlier_avg_price', 'count': 'outlier_count'})</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_non_outlier = df_non_outlier.groupby(['model', 'model_year'])['price'].agg(['mean', 'count'])</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># avg_price_non_outlier = avg_price_non_outlier.reset_index().rename(columns={'mean': 'non_outlier_avg_price', 'count': 'non_outlier_count'})</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># combined_df = pd.merge(avg_price_outlier, avg_price_non_outlier, on=['model', 'model_year'], how='left')</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># print("Hasil Perbandingan:")</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># display(combined_df)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
-<section id="brand" class="level3">
-<h3 class="anchored" data-anchor-id="brand">Brand</h3>
-<div id="cell-37" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'brand'</span>].nunique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<section id="price" class="level4">
+<h4 class="anchored" data-anchor-id="price"><code>price</code></h4>
+<div id="cell-30" class="cell" data-outputid="a2ff2806-821c-4813-ef98-0097526b9597" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">8</span>), gridspec_kw<span class="op">=</span>{<span class="st">'height_ratios'</span>: [<span class="dv">3</span>, <span class="dv">1</span>]})</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df_train, x<span class="op">=</span><span class="st">'price'</span>, kde<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span>df_train[<span class="st">'price'</span>], ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This variable is extremely skewed. There are outlier values that are too far from the upper whisker. This needs to be handeld.</p>
+</section>
+<section id="brand" class="level4">
+<h4 class="anchored" data-anchor-id="brand"><code>brand</code></h4>
+<div id="cell-33" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'brand'</span>].nunique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>57</code></pre>
 </div>
 </div>
-<div id="cell-38" class="cell" data-outputid="c99dbc0a-d81c-4d6c-ead5-b59d7ba49365" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'brand'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div id="cell-34" class="cell" data-outputid="c99dbc0a-d81c-4d6c-ead5-b59d7ba49365" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'brand'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>brand
 Ford             23088
 Mercedes-Benz    19172
@@ -1211,9 +898,73 @@ Maybach              3
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="cell-39" class="cell" data-outputid="e9dd49cb-f7e6-48f6-9164-8aeff8be3f6e" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>np.sort(df_train[<span class="st">'brand'</span>].unique())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div id="cell-35" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'brand'</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>brand
+Ford             0.122461
+Mercedes-Benz    0.101690
+BMW              0.090318
+Chevrolet        0.086643
+Audi             0.057746
+Porsche          0.056287
+Land             0.050522
+Toyota           0.046941
+Lexus            0.045843
+Jeep             0.034339
+Cadillac         0.024791
+RAM              0.022537
+Nissan           0.020845
+Tesla            0.019827
+INFINITI         0.017376
+GMC              0.017053
+Dodge            0.016618
+Mazda            0.014422
+Kia              0.013244
+Lincoln          0.012852
+Subaru           0.012629
+Acura            0.012104
+Honda            0.011144
+Hyundai          0.010847
+Volkswagen       0.009362
+Jaguar           0.006996
+Bentley          0.006126
+MINI             0.005644
+Genesis          0.005140
+Buick            0.004986
+Maserati         0.004981
+Lamborghini      0.004291
+Chrysler         0.003856
+Volvo            0.003835
+Alfa             0.003617
+Rivian           0.003129
+Rolls-Royce      0.002976
+Mitsubishi       0.002923
+Pontiac          0.002854
+Hummer           0.002758
+Ferrari          0.001904
+McLaren          0.001289
+Aston            0.001262
+Saturn           0.000785
+Scion            0.000636
+Lucid            0.000366
+Mercury          0.000302
+Lotus            0.000276
+FIAT             0.000233
+Saab             0.000117
+Karma            0.000090
+Suzuki           0.000042
+Plymouth         0.000037
+Polestar         0.000037
+Bugatti          0.000037
+smart            0.000016
+Maybach          0.000016
+Name: proportion, dtype: float64</code></pre>
+</div>
+</div>
+<div id="cell-36" class="cell" data-outputid="e9dd49cb-f7e6-48f6-9164-8aeff8be3f6e" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>np.sort(df_train[<span class="st">'brand'</span>].unique())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>array(['Acura', 'Alfa', 'Aston', 'Audi', 'BMW', 'Bentley', 'Bugatti',
        'Buick', 'Cadillac', 'Chevrolet', 'Chrysler', 'Dodge', 'FIAT',
        'Ferrari', 'Ford', 'GMC', 'Genesis', 'Honda', 'Hummer', 'Hyundai',
@@ -1227,21 +978,22 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <ul>
-<li>Tidak terdapat kesalahan pada variabel <code>brand</code>.</li>
-<li>Variabel <code>brand</code> memiliki 57 kategori.</li>
+<li>There are no naming inconsistencies in the <code>brand</code> variable.</li>
+<li>The <code>brand</code> variable has 57 categories, with Ford as the brand with the most data.</li>
+<li>The most common category accounts for only 12% of the total data.</li>
 </ul>
 </section>
-<section id="model" class="level3">
-<h3 class="anchored" data-anchor-id="model">Model</h3>
-<div id="cell-42" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'model'</span>].nunique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<section id="model" class="level4">
+<h4 class="anchored" data-anchor-id="model"><code>model</code></h4>
+<div id="cell-39" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'model'</span>].nunique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>1897</code></pre>
 </div>
 </div>
-<div id="cell-43" class="cell" data-outputid="f1e5fae3-565d-4ec4-8d60-27b51ca1910b" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'model'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="26">
+<div id="cell-40" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'model'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>model
 F-150 XLT                        2945
 M3 Base                          2229
@@ -1257,21 +1009,54 @@ Integra w/A-Spec Tech Package       1
 Name: count, Length: 1897, dtype: int64</code></pre>
 </div>
 </div>
+<div id="cell-41" class="cell" data-outputid="f1e5fae3-565d-4ec4-8d60-27b51ca1910b" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'model'</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>model
+F-150 XLT                        0.015621
+M3 Base                          0.011823
+Camaro 2SS                       0.009065
+M4 Base                          0.008603
+Mustang GT Premium               0.008094
+                                   ...   
+ForTwo Pure                      0.000011
+XLR Base                         0.000005
+X5 3.0i                          0.000005
+X5 xDrive40e                     0.000005
+Integra w/A-Spec Tech Package    0.000005
+Name: proportion, Length: 1897, dtype: float64</code></pre>
+</div>
+</div>
+<div id="cell-42" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'model'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>array(['Cooper S Base', 'LS V8', 'Silverado 2500 LT', ..., 'e-Golf SE',
+       'Integra w/A-Spec Tech Package', 'IONIQ Plug-In Hybrid SEL'],
+      shape=(1897,), dtype=object)</code></pre>
+</div>
+</div>
+<div id="cell-43" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df_train[(df_train[<span class="st">'model'</span>]<span class="op">==</span><span class="st">'Unknown'</span>)<span class="op">|</span>(df_train[<span class="st">'model'</span>]<span class="op">==</span><span class="st">'other'</span>)][<span class="st">'model'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>Series([], Name: model, dtype: object)</code></pre>
+</div>
+</div>
 <ul>
-<li>Variabel <code>model</code> memiliki 1897 kategori.</li>
+<li>There are 1897 unique <code>model</code>, with F-150 XLT as the most common.</li>
+<li>The most common category accounts for only 1.5% of the total data.</li>
 </ul>
 </section>
-<section id="fuel-type" class="level3">
-<h3 class="anchored" data-anchor-id="fuel-type">Fuel Type</h3>
+<section id="fuel_type" class="level4">
+<h4 class="anchored" data-anchor-id="fuel_type"><code>fuel_type</code></h4>
 <div id="cell-46" class="cell" data-outputid="94db8c1d-1b57-4ad3-d91d-47cb555a4ef1" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'fuel_type'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'fuel_type'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>array(['Gasoline', 'E85 Flex Fuel', nan, 'Hybrid', 'Diesel',
        'Plug-In Hybrid', '–', 'not supported'], dtype=object)</code></pre>
 </div>
 </div>
 <div id="cell-47" class="cell" data-outputid="e997d03c-5a0a-4d16-adca-37a559122a7c" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'fuel_type'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'fuel_type'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>fuel_type
 Gasoline          165940
@@ -1285,7 +1070,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <div id="cell-48" class="cell" data-outputid="d9d57fe9-966a-4ad4-deff-5cea2bc4f558" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df_train[df_train[<span class="st">'fuel_type'</span>] <span class="op">==</span><span class="st">'not supported'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df_train[df_train[<span class="st">'fuel_type'</span>] <span class="op">==</span><span class="st">'not supported'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="31">
 <div>
 
@@ -1556,13 +1341,15 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <ul>
-<li>Variabel <code>fuel_type</code> memiliki missing value yang tersimpan sebagai <code>-</code>,<code>not supported</code> dan<code>nan</code> serta perlu ditambahkan kategori <code>Hydrogen fuel</code>.</li>
+<li>The variable <code>fuel_type</code> has missing values stored as <code>-</code>, <code>not supported</code>, and <code>nan</code></li>
+<li>There are alot of mismatch between fuel type stated on the <code>engine</code> spec and fuel type on the <code>fuel_type</code></li>
+<li>Category <code>Hydrogen fuel</code> needs to be added.</li>
 </ul>
 </section>
-<section id="engine" class="level3">
-<h3 class="anchored" data-anchor-id="engine">Engine</h3>
+<section id="engine" class="level4">
+<h4 class="anchored" data-anchor-id="engine"><code>engine</code></h4>
 <div id="cell-51" class="cell" data-outputid="9a4b220e-e33a-448b-f4fe-76660ccc7bfa" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(df_train[<span class="st">'engine'</span>].unique())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(df_train[<span class="st">'engine'</span>].unique())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
 <div>
 
@@ -1626,170 +1413,56 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-52" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> <span class="op">~</span>df_train[<span class="st">'engine'</span>].<span class="bu">str</span>.contains(<span class="st">'cylinder'</span>, case<span class="op">=</span><span class="va">False</span>, na<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It seems that most of the car uses cylinder engine. Let’s see the proportion!</p>
+<div id="cell-53" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> df_train[<span class="st">'engine'</span>].<span class="bu">str</span>.contains(<span class="st">'cylinder'</span>, case<span class="op">=</span><span class="va">False</span>, na<span class="op">=</span><span class="va">False</span>) <span class="co"># contain 'cylinder'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-53" class="cell" data-outputid="5948402e-67ec-4b96-bb81-28c20c676629" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df_train.loc[mask, <span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
-<pre><code>array(['2.7L V6 24V PDI DOHC Twin Turbo',
-       'Electric Motor Electric Fuel System', '5.2L V10 40V PDI DOHC',
-       '518.0HP Electric Motor Electric Fuel System',
-       '3.6L V6 24V GDI DOHC', '4.0L V8 32V GDI DOHC Twin Turbo',
-       '835.0HP Electric Motor Electric Fuel System',
-       '5.7L V8 16V MPFI OHV', 'Dual Motor - Standard',
-       '3.0L V6 24V GDI DOHC Twin Turbo',
-       '3.8L V8 32V MPFI DOHC Twin Turbo',
-       '3.4L V6 24V PDI DOHC Twin Turbo Hybrid',
-       '3.5L V6 24V PDI DOHC Twin Turbo', '2.0L I4 16V PDI DOHC Turbo',
-       '2.4L I4 16V GDI DOHC', '2.0 Liter DOHC Turbo',
-       '3.6L V6 24V MPFI DOHC', '6.0L V8 16V MPFI OHV Flexible Fuel',
-       '2.0L I4 16V GDI DOHC Turbo', '2.3L I4 16V GDI DOHC Turbo',
-       '670.0HP Electric Motor Electric Fuel System', 'Electric',
-       '5.3L V8 16V GDI OHV',
-       '425.0HP Electric Motor Electric Fuel System', '2.0 Liter',
-       '3.0L V6 24V GDI DOHC Turbo', '3.8L V6 24V GDI DOHC',
-       '3.8L H6 24V GDI DOHC Twin Turbo', '2.0 Liter Turbo',
-       '455.0HP Electric Motor Electric Fuel System', '3.0 Liter Turbo',
-       '2.0 Liter TFSI', '3.5 Liter', '2.5L H4 16V MPFI DOHC',
-       '4.4L V8 32V GDI DOHC Twin Turbo', '5.6 Liter',
-       '4.6L V8 32V MPFI DOHC', '4.0L V8 32V MPFI DOHC Twin Turbo',
-       '2.5L I4 16V GDI DOHC', '3.6L V6 24V MPFI DOHC Hybrid',
-       '2.0L I4 16V GDI SOHC Turbo', '1.5L I3 12V PDI DOHC Turbo',
-       '5.0L V8 32V GDI DOHC Supercharged', '5.0 Liter',
-       '557.0HP Electric Motor Electric Fuel System',
-       '4.0L H6 24V GDI DOHC',
-       '200.0HP Electric Motor Electric Fuel System',
-       '6.3L V12 48V GDI DOHC', '6.7L I6 24V DDI OHV Turbo Diesel',
-       '3.4L H6 24V MPFI DOHC', '2.7L V6 24V GDI DOHC Twin Turbo', '–',
-       '3.6 Liter DOHC', '232.0HP 1.3L Rotary engine Gasoline Fuel',
-       '3.6 Liter SIDI DOHC', '2.0L I4 16V GDI DOHC Turbo Hybrid',
-       '5.0L V8 32V PDI DOHC', '3.0L H6 24V GDI DOHC Twin Turbo',
-       '3.5L V6 24V PDI DOHC', '6.4L V8 16V MPFI OHV',
-       '3.6L V6 24V MPFI DOHC Flexible Fuel',
-       '6.7L V12 48V GDI DOHC Twin Turbo',
-       '3.4L V6 24V PDI DOHC Twin Turbo', '4.0 Liter Twin Turbo',
-       '3.8L H6 24V MPFI DOHC',
-       '214.0HP Electric Motor Electric Fuel System',
-       'Intercooled Turbo Diesel V-8 6.7 L/406',
-       '778.0HP Electric Motor Electric Fuel System',
-       '2.5L I4 16V PDI DOHC Turbo', '4.0 Liter TFSI',
-       '3.3L V6 24V GDI DOHC', '3.6 Liter', '2.5L I4 16V GDI DOHC Turbo',
-       '271.0HP Electric Motor Electric Fuel System', '3.5 Liter DOHC',
-       '5.7L V8 32V MPFI DOHC', '3.0 Liter DOHC Twin Turbo',
-       '2.0L I4 16V GDI DOHC', '2.0L I4 16V MPFI DOHC',
-       '3.0L I6 24V DDI DOHC Turbo Diesel',
-       '482.0HP Electric Motor Electric Fuel System',
-       '2.5L I4 16V PDI DOHC', '6.2L V8 16V GDI OHV',
-       '3.0L I6 24V GDI DOHC Turbo', '3.5L V6 24V GDI SOHC',
-       '480.0HP Electric Motor Electric Fuel System',
-       '5.6L V8 32V GDI DOHC', '3.5L V6 24V MPFI DOHC',
-       '2.5L H4 16V GDI DOHC',
-       '362.0HP Electric Motor Electric Fuel System',
-       '201.0HP Electric Motor Electric Fuel System', '6.4 Liter', 'V6',
-       '563.0HP Electric Motor Electric Fuel System', '3.0 Liter',
-       '3.5L V6 24V PDI DOHC Hybrid', '6.0L V8 16V MPFI OHV',
-       '2.4L I4 16V MPFI DOHC',
-       '2.0L I4 16V GDI DOHC Turbo Flexible Fuel',
-       '5.2L V10 40V GDI DOHC', '1.3L I3 12V GDI DOHC Turbo',
-       '2.0L I4 16V GDI DOHC Hybrid', '3.0 Liter TFSI',
-       '6.5L V12 48V MPFI DOHC', '1.6L I4 16V GDI DOHC Turbo',
-       '3.5 Liter SOHC',
-       '170.0HP 0.65L Electric Motor Electric Fuel System',
-       '3.0 Liter Twin Turbo', '5.4 Liter', '3.6L V6 GDI DOHC',
-       '2.5 Liter', '534.0HP Electric Motor Electric Fuel System',
-       'Standard Range Battery', '4.7 Liter Twin Turbo', '4.6 Liter',
-       '266.0HP Electric Motor Electric Fuel System',
-       '3.5L V6 24V GDI DOHC Twin Turbo',
-       '6.7L V8 32V DDI OHV Turbo Diesel', '3.5L 24V SOHC I-VTEC V6',
-       '3.2L V6 24V MPFI DOHC', '1.5L I4 16V GDI DOHC Turbo',
-       '2.5L I4 16V MPFI DOHC', '2.9L V6 24V GDI DOHC Twin Turbo',
-       '2.4 Liter', '2.5L I4 16V',
-       '355.0HP Electric Motor Electric Fuel System',
-       '422.0HP Electric Motor Electric Fuel System', '4.0 Liter',
-       '3.0 Liter GTDI', '3.5L V6 24V PDI DOHC Twin Turbo Hybrid',
-       '346.0HP Electric Motor Electric Fuel System', '4.4 Liter',
-       '2.4L H4 16V GDI DOHC Turbo', '6.0L W12 48V PDI DOHC Twin Turbo',
-       '4.4 Liter Twin Turbo',
-       '1020.0HP Electric Motor Electric Fuel System',
-       '4.0L V6 24V MPFI DOHC', '3.2L H6 24V MPFI DOHC',
-       '6.8L V12 48V GDI DOHC Twin Turbo', '2.4L I4 16V MPFI SOHC',
-       'Intercooled Turbo Premium Unleaded I-4 2.0 L/122',
-       '295.0HP Electric Motor Electric Fuel System',
-       '1.3L I3 12V MPFI DOHC Turbo', '4.2L V8 32V GDI DOHC',
-       '107.0HP Electric Motor Electric Fuel System',
-       '2.4L I4 16V PDI DOHC Turbo', '6.6L V8 32V DDI OHV Turbo Diesel',
-       '320.0HP Electric Motor Electric Fuel System', '5.4 Liter SC DOHC',
-       '329.0HP Electric Motor Electric Fuel System',
-       '6.6L V8 16V GDI OHV', '2.7 Liter DOHC Turbo',
-       '4.2L V8 32V GDI DOHC Twin Turbo',
-       '3.0L V6 24V PDI DOHC Twin Turbo', '6.2 Liter', '4.0L',
-       '1.6L I4 16V GDI DOHC Turbo Hybrid', '1.5L I3 12V GDI DOHC Turbo',
-       '536.0HP Electric Motor Electric Fuel System',
-       '212.0HP 1.3L Rotary engine Gasoline Fuel',
-       '5.3L V8 16V MPFI OHV Flexible Fuel', '6.6 Liter Twin Turbo',
-       '403.0HP 2.0L Electric Motor Electric Fuel System',
-       '2.5L I4 16V MPFI DOHC Hybrid', '3.0 Liter SC ULEV',
-       '3.5L V6 24V GDI DOHC', 'I4', '2.5L',
-       '3.0L I6 24V GDI DOHC Twin Turbo', '2.0 Liter Supercharged',
-       '2.0 Liter TSI', '416.0HP Electric Motor Electric Fuel System',
-       '2.0L I4 16V MPFI DOHC Hybrid', 'V8',
-       '6.2L V8 16V MPFI SOHC Flexible Fuel', '2.0 Liter DOHC T/C',
-       '3.0L V6 24V GDI DOHC Supercharged',
-       '3.8L V8 32V GDI DOHC Twin Turbo',
-       '3.8L V6 24V MPFI DOHC Twin Turbo', '3.0L',
-       '375.0HP Electric Motor Electric Fuel System', '4.0 Liter Turbo',
-       '1.2L I3 12V GDI DOHC Turbo',
-       '691.0HP Electric Motor Electric Fuel System',
-       '3.9L V8 32V GDI DOHC Twin Turbo', '2.7L I4 16V GDI DOHC Turbo',
-       '5.7 Liter', '1.6L I4 16V MPFI DOHC',
-       '5.2L V12 48V GDI DOHC Twin Turbo',
-       '8.0L W16 64V GDI DOHC Twin Turbo', '3.0 Liter DOHC Turbo',
-       '120 AH', '417.0HP Electric Motor Electric Fuel System',
-       '2.9 Liter Turbo', '1.6L I4 16V GDI DOHC Hybrid',
-       '2.5L I4 16V PDI DOHC Hybrid', '4.4 Liter DOHC Twin Turbo',
-       '6.2L V8 16V GDI OHV Supercharged',
-       '147.0HP Electric Motor Electric Fuel System',
-       '6.8L V12 48V GDI DOHC', 'Battery Electric',
-       '151.0HP Electric Motor Hydrogen Fuel',
-       '182.0HP Electric Motor Hydrogen Fuel',
-       '616.0HP Electric Motor Electric Fuel System', '5.3 Liter',
-       '3.2L V6 18V MPFI SOHC', '2.0L I4 16V GDI DOHC Flexible Fuel',
-       '500.0HP Electric Motor Electric Fuel System', '5.5 Liter',
-       '1.8 Liter', '620.0HP Electric Motor Electric Fuel System',
-       '1.5 Liter Turbo', '321.0HP Electric Motor Electric Fuel System',
-       '3.5 Liter GTDI', '6.4L V8 32V DDI OHV Twin Turbo Diesel',
-       '111.2Ah / FR 70kW / RR 160kW (697V)',
-       '533.0HP Electric Motor Electric Fuel System',
-       '5.8L V8 32V MPFI DOHC Supercharged', '1.4L I4 16V GDI DOHC Turbo',
-       'Dual AC Electric Motors', '4.4 Liter GDI DOHC Twin Turbo',
-       '6.2L V8 32V MPFI DOHC',
-       '290.0HP Electric Motor Electric Fuel System',
-       '1.6L I4 16V GDI DOHC',
-       '402.0HP Electric Motor Electric Fuel System',
-       '111.0HP Electric Motor Electric Fuel System',
-       '3.8L V6 12V MPFI OHV',
-       '115.0HP Electric Motor Electric Fuel System'], dtype=object)</code></pre>
+<div id="cell-54" class="cell" data-outputid="5948402e-67ec-4b96-bb81-28c20c676629" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Cylinder :"</span>, <span class="bu">len</span>(df_train.loc[mask, <span class="st">'engine'</span>])<span class="op">/</span> <span class="bu">len</span>(df_train))</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Non-cylinder :"</span>,<span class="bu">len</span>(df_train.loc[<span class="op">~</span>mask, <span class="st">'engine'</span>])<span class="op">/</span> <span class="bu">len</span>(df_train))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Cylinder : 0.7992128698954559
+Non-cylinder : 0.20078713010454402</code></pre>
 </div>
 </div>
-<div id="cell-54" class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df_copy <span class="op">=</span> df_train.copy()</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>df_copy[<span class="st">'engine_word_count'</span>] <span class="op">=</span> df_copy[<span class="st">'engine'</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.split().<span class="bu">str</span>.<span class="bu">len</span>()</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>df_copy[<span class="st">'engine_word_count'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="33">
+<ul>
+<li>79.9% engine type in the data contain cylinder.</li>
+<li>Now let’s break down the engine type based on the number of words.</li>
+</ul>
+<div id="cell-56" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>df_copy <span class="op">=</span> df_train.copy()</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>df_copy[<span class="st">'engine_word_count'</span>] <span class="op">=</span> df_copy[<span class="st">'engine'</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.split().<span class="bu">str</span>.<span class="bu">len</span>()</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>df_copy[<span class="st">'engine_word_count'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
 <pre><code>array([7, 8, 5, 9, 6, 4, 1, 2, 3])</code></pre>
 </div>
 </div>
-<div id="cell-55" class="cell" data-outputid="c60a6d15-c301-45ce-e7fb-04c04d8829b3" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">1</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="38">
+<div id="cell-57" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>df_copy[<span class="st">'engine_word_count'</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="41">
+<pre><code>engine_word_count
+7    0.706890
+8    0.118632
+5    0.062833
+6    0.052882
+3    0.018877
+2    0.015774
+9    0.009346
+1    0.008900
+4    0.005866
+Name: proportion, dtype: float64</code></pre>
+</div>
+</div>
+<div id="cell-58" class="cell" data-outputid="c60a6d15-c301-45ce-e7fb-04c04d8829b3" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">1</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
 <pre><code>array(['Electric', '–', 'V6', '4.0L', 'I4', '2.5L', 'V8', '3.0L'],
       dtype=object)</code></pre>
 </div>
 </div>
-<div id="cell-56" class="cell" data-outputid="b40e7870-a127-4116-f3db-5abc7aedaed5" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">2</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="39">
+<div id="cell-59" class="cell" data-outputid="b40e7870-a127-4116-f3db-5abc7aedaed5" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">2</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="40">
 <pre><code>array(['2.0 Liter', '3.5 Liter', '5.6 Liter', '5.0 Liter', '3.6 Liter',
        '6.4 Liter', '3.0 Liter', '5.4 Liter', '2.5 Liter', '4.6 Liter',
        '2.4 Liter', '4.0 Liter', '4.4 Liter', '6.2 Liter', '5.7 Liter',
@@ -1797,8 +1470,8 @@ Name: count, dtype: int64</code></pre>
        '1.8 Liter'], dtype=object)</code></pre>
 </div>
 </div>
-<div id="cell-57" class="cell" data-outputid="37e77361-d686-441f-ee63-789c254fa8bc" data-execution_count="40">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">3</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-60" class="cell" data-outputid="37e77361-d686-441f-ee63-789c254fa8bc" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">3</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="40">
 <pre><code>array(['2.0 Liter Turbo', '3.0 Liter Turbo', '2.0 Liter TFSI',
        '3.6 Liter DOHC', '4.0 Liter TFSI', '3.5 Liter DOHC',
@@ -1809,8 +1482,8 @@ Name: count, dtype: int64</code></pre>
        '3.5 Liter GTDI'], dtype=object)</code></pre>
 </div>
 </div>
-<div id="cell-58" class="cell" data-outputid="b9d6d76d-64ec-4bd3-f3ba-64bab4777891" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">4</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-61" class="cell" data-outputid="b9d6d76d-64ec-4bd3-f3ba-64bab4777891" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">4</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="41">
 <pre><code>array(['Dual Motor - Standard', '2.0 Liter DOHC Turbo',
        '3.6 Liter SIDI DOHC', '4.0 Liter Twin Turbo',
@@ -1821,8 +1494,8 @@ Name: count, dtype: int64</code></pre>
        'Dual AC Electric Motors'], dtype=object)</code></pre>
 </div>
 </div>
-<div id="cell-59" class="cell" data-outputid="61ecf3fc-ce42-4b24-b659-47b10f52dceb" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">5</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-62" class="cell" data-outputid="61ecf3fc-ce42-4b24-b659-47b10f52dceb" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">5</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="42">
 <pre><code>array(['Electric Motor Electric Fuel System', '5.2L V10 40V PDI DOHC',
        '3.6L V6 24V GDI DOHC', '5.7L V8 16V MPFI OHV',
@@ -1852,8 +1525,8 @@ Name: count, dtype: int64</code></pre>
        '3.8L V6 12V MPFI OHV'], dtype=object)</code></pre>
 </div>
 </div>
-<div id="cell-60" class="cell" data-outputid="57dfb5b0-8903-457e-dfed-4ff1a9c36ac9" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">6</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-63" class="cell" data-outputid="57dfb5b0-8903-457e-dfed-4ff1a9c36ac9" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">6</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="43">
 <pre><code>array(['518.0HP Electric Motor Electric Fuel System',
        '835.0HP Electric Motor Electric Fuel System',
@@ -1927,8 +1600,8 @@ Name: count, dtype: int64</code></pre>
        '115.0HP Electric Motor Electric Fuel System'], dtype=object)</code></pre>
 </div>
 </div>
-<div id="cell-61" class="cell" data-outputid="afc599e6-1340-4de3-d4a1-fbc9e37ff710" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">7</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-64" class="cell" data-outputid="afc599e6-1340-4de3-d4a1-fbc9e37ff710" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">7</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="44">
 <pre><code>array(['172.0HP 1.6L 4 Cylinder Engine Gasoline Fuel',
        '252.0HP 3.9L 8 Cylinder Engine Gasoline Fuel',
@@ -2701,8 +2374,8 @@ Name: count, dtype: int64</code></pre>
       dtype=object)</code></pre>
 </div>
 </div>
-<div id="cell-62" class="cell" data-outputid="ec36ad5b-1063-4fe0-bae6-74c089856db8" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">8</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-65" class="cell" data-outputid="ec36ad5b-1063-4fe0-bae6-74c089856db8" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">8</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="45">
 <pre><code>array(['320.0HP 5.3L 8 Cylinder Engine Flex Fuel Capability',
        '355.0HP 5.3L 8 Cylinder Engine Flex Fuel Capability',
@@ -2857,8 +2530,8 @@ Name: count, dtype: int64</code></pre>
       dtype=object)</code></pre>
 </div>
 </div>
-<div id="cell-63" class="cell" data-outputid="59396277-4c8c-44cb-d39a-2ab09c02c99c" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">9</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-66" class="cell" data-outputid="59396277-4c8c-44cb-d39a-2ab09c02c99c" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>df_copy[df_copy[<span class="st">'engine_word_count'</span>]<span class="op">==</span><span class="dv">9</span>][<span class="st">'engine'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="46">
 <pre><code>array(['395.0HP 3.0L Straight 6 Cylinder Engine Gasoline/Mild Electric Hybrid',
        '382.0HP 3.0L Straight 6 Cylinder Engine Gasoline/Mild Electric Hybrid',
@@ -2872,24 +2545,24 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <ul>
-<li>Sebagian besar nilai-nilai pada kolom’engine’ dengan panjang kata yang sama, memiliki struktur penulisan yang sama.</li>
-<li>Variabel <code>engine</code> dapat diekstrak menjadi beberapa kolom:
+<li>Most values in the <code>engine</code> column with the same word length have the same writing structure.</li>
+<li>70% engine consist of 7 word.</li>
+<li>The <code>engine</code> variable can be extracted into several columns:
 <ul>
-<li><code>horsepower</code> : float64 # contoh: 369.0, 214.0, 482.0</li>
-<li><code>engine_size</code> : float64 # contoh: 3.0, 2.5, 4.4</li>
-<li><code>cylinder</code> : int64 # contoh: 4, 6, 8, 10, 12</li>
-<li><code>is_electric</code> : int64 # 0 = tidak, 1 = ya</li>
-<li><code>is_turbo</code> : int64 # 0 = tidak, 1 = ya</li>
-<li><code>fuel_system</code> : category # contoh: MPFI, GDI, PDI, DOHC, SOHC, dll</li>
+<li><code>horsepower</code> : float64 # example: 369.0, 214.0, 482.0</li>
+<li><code>engine_size</code> : float64 # example: 3.0, 2.5, 4.4</li>
+<li><code>cylinder</code> : int64 # example: 4, 6, 8, 10, 12</li>
+<li><code>is_electric</code> : int64 # 0 = no, 1 = yes</li>
+<li><code>is_turbo</code> : int64 # 0 = no, 1 = yes</li>
+<li><code>fuel_system</code> : category # examples: MPFI, GDI, PDI, DOHC, SOHC, etc.</li>
 </ul></li>
-<li>Tipe bahan bakar dapat diekstrak dari <code>engine</code> jika <code>fuel_type</code> bernilai nan, -, not supported, atau ’ ’.</li>
-<li>Tipe bahan bakar <code>hydrogen fuel</code> tidak muncul pada kolom<code>fuel_type</code>, tetapi muncul pada kolom<code>engine</code>.</li>
+<li>The fuel type can be extracted from <code>engine</code> if <code>fuel_type</code> is<code>nan</code>, <code>-</code>,<code>not supported</code>, or <code></code>.</li>
 </ul>
 </section>
-<section id="transmission" class="level3">
-<h3 class="anchored" data-anchor-id="transmission">Transmission</h3>
-<div id="cell-66" class="cell" data-outputid="e833e840-65fb-4867-f286-bdde23b198a2" data-execution_count="47">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'transmission'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="transmission" class="level4">
+<h4 class="anchored" data-anchor-id="transmission"><code>transmission</code></h4>
+<div id="cell-69" class="cell" data-outputid="e833e840-65fb-4867-f286-bdde23b198a2" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'transmission'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="47">
 <pre><code>transmission
 A/T                                                   49904
@@ -2947,8 +2620,14 @@ SCHEDULED FOR OR IN PRODUCTION                            6
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="cell-67" class="cell" data-outputid="b201115e-9741-4baf-d3ce-4f855f90a891" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'transmission'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-70" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'transmission'</span>].nunique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<pre><code>52</code></pre>
+</div>
+</div>
+<div id="cell-71" class="cell" data-outputid="b201115e-9741-4baf-d3ce-4f855f90a891" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'transmission'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="48">
 <pre><code>array(['A/T', 'Transmission w/Dual Shift Mode', '7-Speed A/T',
        '8-Speed A/T', '10-Speed Automatic', '1-Speed A/T', '6-Speed A/T',
@@ -2971,8 +2650,8 @@ Name: count, dtype: int64</code></pre>
       dtype=object)</code></pre>
 </div>
 </div>
-<div id="cell-68" class="cell" data-outputid="b9d182ae-d7dd-45d8-826c-92994fced667" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="op">~</span>df_train[<span class="st">'transmission'</span>].<span class="bu">str</span>.lower().<span class="bu">str</span>.contains(<span class="vs">r'\b(automatic|manual|a/t|m/t|at|mt)\b'</span>, na<span class="op">=</span><span class="va">False</span>)][<span class="st">'transmission'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-72" class="cell" data-outputid="b9d182ae-d7dd-45d8-826c-92994fced667" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="op">~</span>df_train[<span class="st">'transmission'</span>].<span class="bu">str</span>.lower().<span class="bu">str</span>.contains(<span class="vs">r'\b(automatic|manual|a/t|m/t|at|mt)\b'</span>, na<span class="op">=</span><span class="va">False</span>)][<span class="st">'transmission'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>C:\Users\daffa\AppData\Local\Temp\ipykernel_23156\3707552715.py:1: UserWarning: This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
   df_train[~df_train['transmission'].str.lower().str.contains(r'\b(automatic|manual|a/t|m/t|at|mt)\b', na=False)]['transmission'].unique()</code></pre>
@@ -2985,14 +2664,15 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <ul>
-<li>Variabel <code>transmission</code> dapat disederhanakan menjadi 4 kategori, yaitu <code>A/T</code>, <code>M/T</code>, <code>CVT</code>, dan <code>Unknown</code>.</li>
+<li>The <code>transmission</code> variable can be simplified into 4 categories, namely <code>A/T</code>, <code>M/T</code>, <code>CVT</code>, and <code>Unknown</code>.</li>
+<li>we can also extract the gear ratio from <code>transmission</code>.</li>
 </ul>
 </section>
-<section id="ext_col" class="level3">
-<h3 class="anchored" data-anchor-id="ext_col">ext_col</h3>
-<div id="cell-71" class="cell" data-outputid="a6df5d73-1d64-4f40-f4d5-cae0526f561b" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'ext_col'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="50">
+<section id="ext_col" class="level4">
+<h4 class="anchored" data-anchor-id="ext_col"><code>ext_col</code></h4>
+<div id="cell-75" class="cell" data-outputid="a6df5d73-1d64-4f40-f4d5-cae0526f561b" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'ext_col'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="43">
 <pre><code>ext_col
 Black                                 48658
 White                                 43815
@@ -3008,9 +2688,9 @@ Mango Tango Pearlcoat                     2
 Name: count, Length: 319, dtype: int64</code></pre>
 </div>
 </div>
-<div id="cell-72" class="cell" data-outputid="5b01fa2e-6acf-4f2a-db95-5ce95dc91e50" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'ext_col'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="51">
+<div id="cell-76" class="cell" data-outputid="5b01fa2e-6acf-4f2a-db95-5ce95dc91e50" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'ext_col'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="44">
 <pre><code>array(['Yellow', 'Silver', 'Blue', 'Black', 'White',
        'Snowflake White Pearl Metallic', 'Gray', 'Green',
        'Santorini Black Metallic', 'Purple', 'Ebony Twilight Metallic',
@@ -3130,9 +2810,9 @@ Name: count, Length: 319, dtype: int64</code></pre>
        'Ametrin Metallic', 'Jupiter Red', 'GT SILVER'], dtype=object)</code></pre>
 </div>
 </div>
-<div id="cell-73" class="cell" data-outputid="da61b535-a03a-4717-9a81-be2172e195eb" data-execution_count="52">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>ext_col_mask <span class="op">=</span> <span class="op">~</span>df_train[<span class="st">'ext_col'</span>].<span class="bu">str</span>.lower().<span class="bu">str</span>.contains(<span class="vs">r'\b(black|blue|gray|silver|green|red|tan|yellow|brown|white|grey|orange|purple|gold|blu|beige)\b'</span>, na<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>df_train[ext_col_mask][<span class="st">'ext_col'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-77" class="cell" data-outputid="da61b535-a03a-4717-9a81-be2172e195eb" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>ext_col_mask <span class="op">=</span> <span class="op">~</span>df_train[<span class="st">'ext_col'</span>].<span class="bu">str</span>.lower().<span class="bu">str</span>.contains(<span class="vs">r'\b(black|blue|gray|silver|green|red|tan|yellow|brown|white|grey|orange|purple|gold|blu|beige)\b'</span>, na<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>df_train[ext_col_mask][<span class="st">'ext_col'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>C:\Users\daffa\AppData\Local\Temp\ipykernel_23156\2183128968.py:1: UserWarning: This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
   ext_col_mask = ~df_train['ext_col'].str.lower().str.contains(r'\b(black|blue|gray|silver|green|red|tan|yellow|brown|white|grey|orange|purple|gold|blu|beige)\b', na=False)</code></pre>
@@ -3154,14 +2834,14 @@ Name: count, Length: 71, dtype: int64</code></pre>
 </div>
 </div>
 <ul>
-<li>Variabel <code>ext_col</code> dapat disederhanakan menjadi kategori warna dasar seperti blue, red, black, silver, white, gold, orange, purple, dan beige.</li>
-<li>Warna lain dapat disederhanakan menjadi <code>other</code> atau <code>unknown</code>.</li>
+<li>The <code>ext_col</code> variable can be simplified into basic color categories such as blue, red, black, silver, white, gold, orange, purple, and beige.</li>
+<li>Other colors can be simplified into <code>other</code> or <code>unknown</code>.</li>
 </ul>
 </section>
-<section id="int_col" class="level3">
-<h3 class="anchored" data-anchor-id="int_col">int_col</h3>
-<div id="cell-76" class="cell" data-outputid="60e704f9-2490-4e01-c1ac-4621761a8482" data-execution_count="53">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'int_col'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="int_col" class="level4">
+<h4 class="anchored" data-anchor-id="int_col"><code>int_col</code></h4>
+<div id="cell-80" class="cell" data-outputid="60e704f9-2490-4e01-c1ac-4621761a8482" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'int_col'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="53">
 <pre><code>int_col
 Black           107674
@@ -3178,10 +2858,10 @@ ORANGE               4
 Name: count, Length: 156, dtype: int64</code></pre>
 </div>
 </div>
-<div id="cell-77" class="cell" data-outputid="4e4be0c6-4b7e-4bcd-8445-33fe68cfddcb" data-execution_count="54">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>int_col_mask <span class="op">=</span> <span class="op">~</span>df_train[<span class="st">'ext_col'</span>].<span class="bu">str</span>.lower().<span class="bu">str</span>.contains(<span class="vs">r'\b(black|blue|gray|silver|green|red|tan|yellow|brown|white|grey|orange|purple|gold|blu|beige)\b'</span>, na<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>df_train[ext_col_mask][<span class="st">'ext_col'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-81" class="cell" data-outputid="4e4be0c6-4b7e-4bcd-8445-33fe68cfddcb" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>int_col_mask <span class="op">=</span> <span class="op">~</span>df_train[<span class="st">'ext_col'</span>].<span class="bu">str</span>.lower().<span class="bu">str</span>.contains(<span class="vs">r'\b(black|blue|gray|silver|green|red|tan|yellow|brown|white|grey|orange|purple|gold|blu|beige)\b'</span>, na<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>df_train[ext_col_mask][<span class="st">'ext_col'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>C:\Users\daffa\AppData\Local\Temp\ipykernel_23156\2779700307.py:1: UserWarning: This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
   int_col_mask = ~df_train['ext_col'].str.lower().str.contains(r'\b(black|blue|gray|silver|green|red|tan|yellow|brown|white|grey|orange|purple|gold|blu|beige)\b', na=False)</code></pre>
@@ -3203,13 +2883,13 @@ Name: count, Length: 71, dtype: int64</code></pre>
 </div>
 </div>
 <ul>
-<li>Sama seperti <code>ext_col</code>, variabel <code>ext_col</code> dapat disederhanakan menjadi warna dasarnya, ‘others’, dan ‘uknown’.</li>
+<li>Just like <code>ext_col</code>, the variable <code>ext_col</code> can be simplified into its base color, ‘others’, and ‘unknown’.</li>
 </ul>
 </section>
-<section id="accident" class="level3">
-<h3 class="anchored" data-anchor-id="accident">Accident</h3>
-<div id="cell-80" class="cell" data-outputid="48fd0001-2a41-4db1-fc9c-5ab437f592ae" data-execution_count="55">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'accident'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="accident" class="level4">
+<h4 class="anchored" data-anchor-id="accident"><code>accident</code></h4>
+<div id="cell-84" class="cell" data-outputid="48fd0001-2a41-4db1-fc9c-5ab437f592ae" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'accident'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="55">
 <pre><code>accident
 None reported                             144514
@@ -3217,58 +2897,57 @@ At least 1 accident or damage reported     41567
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="cell-81" class="cell" data-outputid="aaa8feaf-d2e5-4a08-c34f-b084147f75a4" data-execution_count="56">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_train[<span class="st">'accident'</span>].isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-85" class="cell" data-outputid="aaa8feaf-d2e5-4a08-c34f-b084147f75a4" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_train[<span class="st">'accident'</span>].isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>2452</code></pre>
 </div>
 </div>
 <ul>
-<li>Variabel <code>accident</code> memiliki missing value</li>
+<li>The variable <code>accident</code> have only 2 type of category with 2452 rows missing.</li>
 </ul>
 </section>
-<section id="clean_title" class="level3">
-<h3 class="anchored" data-anchor-id="clean_title">clean_title</h3>
-<div id="cell-84" class="cell" data-outputid="adbf6866-d7a1-41a9-91e1-d722e09c7101" data-execution_count="57">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'clean_title'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="clean_title" class="level4">
+<h4 class="anchored" data-anchor-id="clean_title"><code>clean_title</code></h4>
+<div id="cell-88" class="cell" data-outputid="adbf6866-d7a1-41a9-91e1-d722e09c7101" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">'clean_title'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="57">
 <pre><code>clean_title
 Yes    167114
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="cell-85" class="cell" data-outputid="3eed69fb-e024-4a4b-e533-08839b26a6cb" data-execution_count="58">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_train[<span class="st">'clean_title'</span>].isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-89" class="cell" data-outputid="3eed69fb-e024-4a4b-e533-08839b26a6cb" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_train[<span class="st">'clean_title'</span>].isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>21419</code></pre>
 </div>
 </div>
 <ul>
-<li>Untuk variabel <code>clean_title</code> terdapat 21419 data yang perlu dikategorikan ‘no’.</li>
+<li><code>clean_title</code> have only 1 category and there are 21,419 missing data points .</li>
 </ul>
 </section>
 </section>
-<section id="kesimpulan-eda" class="level2">
-<h2 class="anchored" data-anchor-id="kesimpulan-eda">Kesimpulan EDA</h2>
+<section id="eda-summary" class="level3">
+<h3 class="anchored" data-anchor-id="eda-summary">EDA Summary</h3>
 <ul>
-<li>Variabel <code>accident</code>, <code>clean_title</code>, dan <code>fuel_type</code> missing value yang harus ditangani.</li>
-<li>Variable <code>model_year</code>, <code>milage</code>, <code>price</code> memiliki outlier.</li>
-<li>Terdapat 1897 <code>model</code> mobil</li>
-<li>Variabel <code>fuel_type</code> memiliki missing value yang tersimpan sebagai <code>-</code>,<code>not supported</code> dan<code>nan</code> serta perlu ditambahkan kategori <code>hydrogen</code>.</li>
-<li>‘E85 flex fuel’ perlu diseragamkan menjadi ‘flex fuel’</li>
-<li>Variabel <code>engine</code> dapat diekstrak menjadi beberapa kolom agar lebih deskriptif seperti:
+<li>The variables <code>accident</code>, <code>clean_title</code>, and <code>fuel_type</code> have missing values that must be handled.</li>
+<li>The variables <code>model_year</code>, <code>mileage</code>, and <code>price</code> have outliers.</li>
+<li>There are 1897 car <code>models</code>.</li>
+<li>The variable <code>fuel_type</code> has missing values stored as <code>-</code>, <code>not supported</code>, and <code>nan</code>, and the category <code>hydrogen fuel</code> needs to be added.</li>
+<li>The <code>engine</code> variable can be extracted into several columns to be more descriptive, such as:
 <ul>
-<li><code>horsepower</code> : float64 # contoh: 369.0, 214.0, 482.0</li>
-<li><code>engine_size</code> : float64 # contoh: 3.0, 2.5, 4.4</li>
-<li><code>cylinder</code> : int64 # contoh: 4, 6, 8, 10, 12</li>
-<li><code>is_electric</code> : int64 # 0 = tidak, 1 = ya</li>
-<li><code>is_turbo</code> : int64 # 0 = tidak, 1 = ya</li>
-<li><code>fuel_system</code> : category # contoh: MPFI, GDI, PDI, DOHC, SOHC, dll</li>
+<li><code>horsepower</code> : float64 # example: 369.0, 214.0, 482.0</li>
+<li><code>engine_size</code> : float64 # example: 3.0, 2.5, 4.4</li>
+<li><code>cylinder</code> : int64 # example: 4, 6, 8, 10, 12</li>
+<li><code>is_electric</code> : int64 # 0 = no, 1 = yes</li>
+<li><code>is_turbo</code> : int64 # 0 = no, 1 = yes</li>
+<li><code>fuel_system</code> : category # example: MPFI, GDI, PDI, DOHC, SOHC, etc.</li>
 </ul></li>
-<li>Tipe bahan bakar dapat diekstrak dari <code>engine</code> jika <code>fuel_type</code> bernilai nan, - , ’ ’, atau <code>not supported</code>.</li>
-<li>Variabel <code>transmission</code> dapat disederhanakan menjadi 4 kategori, yaitu <code>A/T</code>, <code>M/T</code>, dan <code>Unknown</code>.</li>
-<li>Variabel <code>ext_col</code> dan <code>int_col</code> dapat disederhanakan menjadi kategori warna dasar seperti blue, red, black, silver, white, gold, orange, purple, dan beige sedangkan warna lain dapat disederhanakan menjadi <code>other</code> atau <code>unknown</code>.</li>
-<li>Untuk variabel <code>clean_title</code> terdapat 21419 data yang perlu dikategorikan ‘Unknown’.</li>
+<li>Fuel type can be extracted from <code>engine</code> if <code>fuel_type</code> is nan, -, ‘ ’, or <code>not supported</code>.</li>
+<li>The <code>transmission</code> variable can be simplified into 4 categories, namely <code>A/T</code>, <code>M/T</code>, and <code>Unknown</code>.</li>
+<li>The <code>ext_col</code> and <code>int_col</code> variables can be simplified into basic color categories such as blue, red, black, silver, white, gold, orange, purple, and beige, while other colors can be simplified into <code>other</code> or <code>unknown</code>.</li>
+<li>The variable <code>accident</code> have only 2 type of category with 2452 rows missing.</li>
 </ul>
 
 

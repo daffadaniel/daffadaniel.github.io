@@ -136,16 +136,24 @@
     "EDA-Data Cleaning.out.html": "5dfa6b17"
   },
   "Project-Folders/01-Usedcar Price Prediction/notebooks/data_preparation.ipynb": {
-    "data_preparation.html": "c26e3536"
+    "data_preparation.html": "c26e3536",
+    "data_preparation.out.ipynb": "5b251dae",
+    "data_preparation-preview.html": "f9c88a1b"
   },
   "Project-Folders/01-Usedcar Price Prediction/notebooks/data_preprocessing.ipynb": {
-    "data_preprocessing.html": "cdb8eb31"
+    "data_preprocessing.html": "cdb8eb31",
+    "data_preprocessing.out.ipynb": "d48cd9ba",
+    "data_preprocessing-preview.html": "af8aa88f"
   },
   "Project-Folders/01-Usedcar Price Prediction/notebooks/EDA.ipynb": {
-    "EDA.html": "8a5753f3"
+    "EDA.html": "8a5753f3",
+    "EDA.out.ipynb": "c26b4264",
+    "EDA-preview.html": "110a3f51"
   },
   "Project-Folders/01-Usedcar Price Prediction/notebooks/modelling.ipynb": {
-    "modelling.html": "c60d7bc6"
+    "modelling.html": "c60d7bc6",
+    "modelling.out.ipynb": "75db86e1",
+    "modelling-preview.html": "5fcbe579"
   },
   "Project-Folders/05-Churn Modelling/notebooks/churn-prediction.ipynb": {
     "churn-prediction.html": "3b9bb42b"
@@ -178,5 +186,17 @@
   },
   "post.qmd": {
     "post.html": "192d5513"
+  },
+  "docs/Project-Folders/01-Usedcar Price Prediction/notebooks/data_preparation.out.ipynb": {
+    "data_preparation.out.html": "2f38ebfa"
+  },
+  "docs/Project-Folders/01-Usedcar Price Prediction/notebooks/data_preprocessing.out.ipynb": {
+    "data_preprocessing.out.html": "026c048d"
+  },
+  "docs/Project-Folders/01-Usedcar Price Prediction/notebooks/EDA.out.ipynb": {
+    "EDA.out.html": "1073dcc4"
+  },
+  "docs/Project-Folders/01-Usedcar Price Prediction/notebooks/modelling.out.ipynb": {
+    "modelling.out.html": "783c2bcf"
   }
 }
