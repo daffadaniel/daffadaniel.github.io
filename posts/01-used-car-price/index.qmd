@@ -4,7 +4,7 @@ date: "2025-10-1"
 categories: [Regression, Portofolio, ML Deployments]
 image: "images/01car.jpg"
 image-alt: "image of used cars"
-description: "Predicting the price of used cars based on various attributes and evaluating with RMSE"
+description: "An end-to-end machine learning project to predict used car prices based on features like brand, model, year, mileage, fuel type, transmission, etc. Includes data cleaning, EDA, feature engineering, model training (XGBoost, LightGBM, etc.), and evaluation."
 website:
   repo-url: https://github.com/quarto-dev/quarto-demo
 ---
