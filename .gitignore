@@ -10,6 +10,6 @@ __pycache__/
 # Jupyter hidden checkpoints
 .ipynb_checkpoints/
 
-# Quarto publish artifacts
-_site/
+# # Quarto publish artifacts
+# _site/
 
