@@ -119,11 +119,46 @@
     "text": "Fresh Mathematics graduate from Universitas Indonesia (2025) actively looking for Data Science or Analytics roles. I turn raw data into predictive models and actionable dashboards using Python, SQL, and modern ML tools. Ready to contribute real impact from day one.\n\n\nCheckout My Post →"
   },
   {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Daffa Daniel Rivaldi",
+    "section": "",
+    "text": "Highly motivated and detail-oriented student with interest in data analysis, statistical modeling, and data science. Proficient in utilizing tools such as Python, Git, PostgreSQL, and Tableau to solve complex problems and deliver actionable insights. Strong foundation in mathematics with a proven abilty to collaborate and execute projects effectively. Currently focused on improving data analysis skill, mastering machine learning, and improving databases management skills."
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "Daffa Daniel Rivaldi",
+    "section": "Education",
+    "text": "Education\n\nUniversitas Indonesia\nBachelor’s degree, Mathematics | Aug 2021 – Sept 2025\nSMA Negeri 1 Tangerang\nMathematics and Natural Science | Jul 2017 – May 2020"
+  },
+  {
+    "objectID": "about.html#certifications-training",
+    "href": "about.html#certifications-training",
+    "title": "Daffa Daniel Rivaldi",
+    "section": "Certifications & Training",
+    "text": "Certifications & Training\n\nMachine Learning APIs & Machine Learning Deployments\nPacmann Academy | Issued August 2025\n Credential  \nCustomer, Marketing, Product Analytics & Experimentation\nPacmann Academy | Issued April 2025\n Credential  \nBasic & Advanced Machine Learning Algorithm\nPacmann Academy | Issued January 2025\n Credential  \nSQL & Relational Database\nPacmann Academy | Issued November 2024\n Credential  \nData Visualization & Wrangling\nPacmann Academy | Issued September 2024\n Credential  \nBasic Python Programming & Python for Software Engineering\nPacmann Academy | Issued July 2024\n Credential"
+  },
+  {
+    "objectID": "about.html#language",
+    "href": "about.html#language",
+    "title": "Daffa Daniel Rivaldi",
+    "section": "Language",
+    "text": "Language\n\nIndonesian (Native)\nEnglish\nDuolingo English Test | Issued Jan 2024 – Expires Jan 2026\n Credential"
+  },
+  {
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "Daffa Daniel Rivaldi",
+    "section": "",
+    "text": "this is where the cv will be"
+  },
+  {
     "objectID": "post.html",
     "href": "post.html",
     "title": "Daffa Daniel Rivaldi",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nChurn Prediction: 12-week Observation window with 1-Week Gap\n\n\nBuilt a customer churn prediction model using RFM-T feature as predictors that is extracted from the past 12-week observation windows with a 1-week gap. Achieved realistic…\n\n\n\nNov 26, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCustomer Retention Cohort Analysis\n\n\nAnalyzing Customer Cohorts to Improve Retention & Value\n\n\n\nNov 17, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nDesigning and Creating Relational Database for Doctor-Patient Appointments\n\n\nIn this post, I will design a simple database system for hospital app to manage patient medical records and doctor appointments using postgresql. Through this project, I…\n\n\n\nNov 12, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCustomer Segmentation using RFM Analysis and K-Means Clustering\n\n\nSegmented xx customers into x actionable groups using RFM + K-Means, unlocking clear retention and re-engagement strategies.\n\n\n\nOct 15, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUsed Car Price Prediction – End-to-End Machine Learning Project\n\n\nPredicting the price of used cars based on various attributes and evaluating with RMSE\n\n\n\nOct 1, 2025\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nChurn Prediction: 12-week Observation window with 1-Week Gap\n\n\nBuilt a customer churn prediction model using RFM-T feature as predictors that is extracted from the past 12-week observation windows with a 1-week gap. Achieved realistic…\n\n\n\nNov 26, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCustomer Retention Cohort Analysis\n\n\nAnalyzing Customer Cohorts to Improve Retention & Value\n\n\n\nNov 17, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nDesigning and Creating Relational Database for Doctor-Patient Appointments\n\n\nIn this post, I will design a simple database system for hospital app to manage patient medical records and doctor appointments using postgresql. Through this project, I…\n\n\n\nNov 12, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCustomer Segmentation using RFM Analysis and K-Means Clustering\n\n\nSegmented xx customers into x actionable groups using RFM + K-Means, unlocking clear retention and re-engagement strategies.\n\n\n\nOct 15, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUsed Car Price Prediction – End-to-End Machine Learning Project\n\n\nAn end-to-end machine learning project to predict used car prices based on features like brand, model, year, mileage, fuel type, transmission, etc. Includes data cleaning…\n\n\n\nOct 1, 2025\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/02-RFM-analysis/index.html",
@@ -334,12 +369,5 @@
     "title": "Daffa Daniel Rivaldi",
     "section": "Summary",
     "text": "Summary\n\ny_pred_all = [y_pred_test, y_pred_test_xgb, y_pred_test_lgbm, y_pred_test_cat]\ny_prob_all = [y_prob_test, y_prob_test_xgb, y_prob_test_lgbm, y_prob_test_cat]\n\n\nsummary = {\n    \"Model\": [\"LogisticRegression\", \"XGBClassifier\",\"LGBMClassifier\",\"CatBoostClassifier\"],\n    \"ROC-AUC\": [roc_auc_score(y_test, y_prob) for y_prob in y_prob_all],\n    \"F1-Score\": [f1_score(y_test, y_pred) for y_pred in y_pred_all],\n    \"Recall\": [recall_score(y_test, y_pred) for y_pred in y_pred_all],\n    \"Precision\":[precision_score(y_test, y_pred) for y_pred in y_pred_all],\n    \"Accuracy\": [accuracy_score(y_test, y_pred) for y_pred in y_pred_all]\n        }\nsummary = pd.DataFrame(summary)\nsummary.set_index(\"Model\", inplace=True)\nsummary\n\n\n\n\n\n\n\n\nROC-AUC\nF1-Score\nRecall\nPrecision\nAccuracy\n\n\nModel\n\n\n\n\n\n\n\n\n\nLogisticRegression\n0.565838\n0.760904\n0.973060\n0.624701\n0.635624\n\n\nXGBClassifier\n0.614380\n0.754367\n0.931012\n0.634063\n0.638734\n\n\nLGBMClassifier\n0.623042\n0.759227\n0.940997\n0.636312\n0.644375\n\n\nCatBoostClassifier\n0.620017\n0.756317\n0.938274\n0.633470\n0.639739\n\n\n\n\n\n\n\nLGBMClassifier got the best ROC-AUC score."
-  },
-  {
-    "objectID": "docs/Project-Folders/03-Database Design/notebook/Populating_the_Database.out.html",
-    "href": "docs/Project-Folders/03-Database Design/notebook/Populating_the_Database.out.html",
-    "title": "",
-    "section": "",
-    "text": "!pip install faker\n\nRequirement already satisfied: faker in /usr/local/lib/python3.12/dist-packages (37.12.0)\nRequirement already satisfied: tzdata in /usr/local/lib/python3.12/dist-packages (from faker) (2025.2)\n\n\n\nfrom faker import Faker\nimport random\nimport pandas as pd\nfrom datetime import datetime, timedelta, time\n\n\nfake = Faker('id_ID')\n\n\ndef create_hospital_data(seed = 123):\n  fake.seed_instance(seed)\n  nama_rs = []\n  for i in range (2):\n    nama = fake.last_name()\n    nama_rs.append('RS ' +fake.last_name())\n\n  address_rs =[]\n  for i in range (2):\n    address = fake.address()\n    address_rs.append(fake.address().replace(\"\\n\", \", \"))\n\n  hospital_dict = {'hospital_name':nama_rs, 'hospital_address': address_rs}\n  data = pd.DataFrame(data=hospital_dict)\n\n  return data\n\n\nhospitals = create_hospital_data()\nhospitals"
   }
 ]
