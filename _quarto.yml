@@ -30,8 +30,7 @@ format:
     theme: darkly
     css: styles.css
     toc: true
-    relative-resources: true
-    embed-resources: false
+    embed-resources: true
 
 execute:
   eval: false

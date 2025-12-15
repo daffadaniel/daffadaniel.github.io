@@ -3,6 +3,7 @@ title: "Designing and Creating Relational Database for Doctor-Patient Appointmen
 date: "2025-11-12"
 categories: [Database, PostgreSQL]
 description: "In this post, I will design a simple database system for hospital app to manage patient medical records and doctor appointments using postgresql. Through this project, I intend to demonstrate practical database design principles, data normalization, and SQL query implementation."
+image: /posts/03-Database%20Design/images/ERD-hospital_app.png
 ---
 # **Project Overview**
 This project showcases my capabilities in relational database design, data modeling, and SQL schema implementation. The primary goal was to design an **efficient, consistent, and scalable** database schema to support the operations of a hospital management system.
@@ -21,7 +22,7 @@ Github: [Link]()
 * **Data Population (Dummy Data):** Generation of realistic and relevant dummy data using the Faker library in Python to populate the tables, ensuring the schema is thoroughly tested with substantial, simulated data.
 
 ## Entity Relationship Diagram
-![hospital appointment system erd](images/ERD-hospital_app.png)
+![hospital appointment system erd](/posts/03-Database%20Design/images/ERD-hospital_app.png)
 
 # Full Code & Details
  Here's walkthrough  on how I design the database system for doctor appointment.
@@ -140,7 +141,7 @@ So, the relation of hospital table to doctor table is `one-mandatory` to `many-o
 
 Using similar logic and method, we do this for all connected tables and here is the result:
 
-![hospital appointment system erd](images/ERD-hospital_app.png)
+![hospital appointment system erd](/posts/03-Database%20Design/images/ERD-hospital_app.png)
 
 ### Determine Business Rules
 
@@ -330,7 +331,7 @@ LEFT JOIN specializations
 	ON doctors.specialization_id = specializations.specialization_id
 ```
 `Output`:
-![1](../../Project-Folders/03-Database%20Design/images/sample-queries/1.png) 
+![1](/Project-Folders/03-Database%20Design/images/sample-queries/1.png) 
 
 ### 2. Patient's scheduled appointment
 
@@ -369,7 +370,7 @@ FROM full_appointments
 ```
 
 `Output`:
-![202](../../Project-Folders/03-Database%20Design/images/sample-queries/202.png)
+![202](/Project-Folders/03-Database%20Design/images/sample-queries/202.png)
 
 ```sql
 SELECT *
@@ -378,7 +379,7 @@ WHERE appointment_status = 'Scheduled'
 ```
 
 `Output`:
-![2](../../Project-Folders/03-Database%20Design/images/sample-queries/2.png)
+![2](/Project-Folders/03-Database%20Design/images/sample-queries/2.png)
 
 ### 3. Patient's Medical Records
 
@@ -392,7 +393,7 @@ JOIN patients
 ```
 
 `Output`:
-![3](../../Project-Folders/03-Database%20Design/images/sample-queries/3.png)
+![3](/Project-Folders/03-Database%20Design/images/sample-queries/3.png)
 
 ### 4. Creating new appointment
 ```sql
@@ -413,7 +414,7 @@ ORDER BY appoinment_count DESC
 LIMIT 5
 ```
 `Output`:
-![5](../../Project-Folders/03-Database%20Design/images/sample-queries/5.png)
+![5](/Project-Folders/03-Database%20Design/images/sample-queries/5.png)
 
 ### 6. Doctors with the most 'completed' appointment
 ```sql
@@ -428,7 +429,7 @@ ORDER BY appoinment_count DESC
 LIMIT 5
 ```
 `Output`:
-![6](../../Project-Folders/03-Database%20Design/images/sample-queries/6.png)
+![6](/Project-Folders/03-Database%20Design/images/sample-queries/6.png)
 
 
 
@@ -445,7 +446,7 @@ ORDER BY spec_count DESC
 LIMIT 5
 ```
 `Output`:
-![7](../../Project-Folders/03-Database%20Design/images/sample-queries/7.png)
+![7](/Project-Folders/03-Database%20Design/images/sample-queries/7.png)
 
 
 ### 8. Specializations with the most patients
@@ -459,7 +460,7 @@ ORDER BY patient_count DESC
 LIMIT 5
 ```
 `Output`:
-![8](../../Project-Folders/03-Database%20Design/images/sample-queries/8.png)
+![8](/Project-Folders/03-Database%20Design/images/sample-queries/8.png)
 
 ### 9. Number of Specialist in each hospital
 ```sql
@@ -476,4 +477,4 @@ GROUP BY hospital_name, specialization_name
 ORDER BY hospital_name, specialization_name, spec_count
 ```
 `Output`:
-![9](../../Project-Folders/03-Database%20Design/images/sample-queries/9.png)
+![9](/Project-Folders/03-Database%20Design/images/sample-queries/9.png)

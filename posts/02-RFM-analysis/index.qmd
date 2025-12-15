@@ -24,8 +24,8 @@ Transform raw transaction data into actionable customer segments for targeted ma
 - Optimal number of clusters: **6**  
 - Clear, business-friendly segment profiles identified  
 
-![RFM 3D Scatter Plot with Clusters](images/rfm_3d_clusters.png)
-![Segment Characteristics Heatmap](images/rfm_heatmap.png)
+<!-- ![RFM 3D Scatter Plot with Clusters](images/rfm_3d_clusters.png)
+![Segment Characteristics Heatmap](images/rfm_heatmap.png) -->
 
 ## Customer Segments
 
