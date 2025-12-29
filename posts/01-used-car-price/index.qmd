@@ -1,0 +1,154 @@
+---
+title: "Used Car Price Prediction – End-to-End Machine Learning Project"
+date: "2025-10-1"
+categories: [Regression, Portofolio, ML Deployments]
+image: "images/01car.jpg"
+image-alt: "image of used cars"
+description: "An end-to-end machine learning project to predict used car prices based on features like brand, model, year, mileage, fuel type, transmission, etc. Includes data cleaning, EDA, feature engineering, model training (XGBoost, LightGBM, etc.), and evaluation."
+website:
+  repo-url: https://github.com/quarto-dev/quarto-demo
+---
+
+## Project Overview
+This is a complete end-to-end machine learning project that predicts used car prices based on a finished Kaggle competition dataset (Used Car Price Dataset ~188k rows).
+The goal of this repository is to showcase a production-ready ML workflow from raw data to a deployed web app:
+
+- Exploratory Data Analysis (EDA)
+- Preprocessing & feature engineering
+- Model selection & hyperparameter tuning
+- Final model training with proper train/validation split
+- Simple deployment using Streamlit
+
+### Dataset
+Source:  Kaggle Playground Competition Series 4, Episode 9 (competition has ended)  
+Original name: **Regression of Used Car Prices**  
+~188,000 rows of used car listings with features such as brand, model, year, mileage, fuel type, transmission, etc.
+
+Link to original competition (for reference):
+[Kaggle competition](https://www.kaggle.com/competitions/playground-series-s4e9)
+
+### Project Structure
+```{{bash}}
+├───data
+│   ├───processed
+│   │   └───
+│   └───raw
+│       └───test.csv
+│       └───sample_submission.csv
+│       └───train.csv
+│       └───X_train.pkl
+│       └───X_valid.pkl
+│       └───y_train.pkl
+│       └───y_valid.pkl
+├───models
+│   └───imputer.pkl
+│   └───lgb_rand.pkl
+│   └───OHencoder.pkl
+│   └───scaler.pkl
+├───notebooks
+│       └───data_preparation.ipynb
+│       └───EDA.ipynb
+│       └───data_preprocessing.ipynb
+│       └───modelling.ipynb
+├───src
+│   └───modelling.py
+│   └───preprocessing.pkl    
+│   └───utils.pkl 
+└───requirements.txt
+```
+
+### Key Findings from EDA
+
+- The variables `accident`, `clean_title`, and `fuel_type` have missing values that must be handled.
+- The variables `model_year`, `mileage`, and `price` have outliers.
+- There are 1897 car `models`.
+- The variable `fuel_type` has missing values stored as `-`, `not supported`, and `nan`, and the category `hydrogen fuel` needs to be added.
+- The `engine` variable can be extracted into several columns to be more descriptive, such as:
+  - `horsepower`     : float64     # example: 369.0, 214.0, 482.0
+  - `engine_size`    : float64     # example: 3.0, 2.5, 4.4
+  - `cylinder`       : int64       # example: 4, 6, 8, 10, 12
+  - `is_electric`    : int64       # 0 = no, 1 = yes
+  - `is_turbo`       : int64       # 0 = no, 1 = yes
+  - `fuel_system`    : category    # example: MPFI, GDI, PDI, DOHC, SOHC, etc.
+-  Fuel type can be extracted from `engine` if `fuel_type` is nan, -, ‘ ’, or `not supported`.
+- The `transmission` variable can be simplified into 4 categories, namely `A/T`, `M/T`, and `Unknown`.
+- The `ext_col` and `int_col` variables can be simplified into basic color categories such as blue, red, black, silver, white, gold, orange, purple, and beige, while other colors can be simplified into `other` or `unknown`.
+- The variable `accident` have only 2 type of category with 2452 rows missing.
+
+### Preprocessing & Feature Engineering
+
+- **Consistent handling of missing/inconsistent categorical values**  
+Replaced ambiguous entries in fuel_type and transmission with standardized categories (Unknown, a/t, m/t) using regex-based cleaning.
+
+- **Parsing of the free-text engine column**  
+Used regular expressions for robust extraction even from highly inconsistent formats. Extracted structured features:
+  - Horsepower (HP)
+  - Engine displacement (Liters)  
+  - Number of cylinders  
+  - Turbocharged / supercharged flag  
+  - Electric motor flag  
+  - Fuel system type  
+
+
+- **Recovery of fuel_type**  
+  Filled missing/unknown fuel_type values using information parsed from the engine string (e.g., “Electric Motor”, “Hybrid”, “Diesel”).
+
+- **Context-aware imputation**
+  - Applied median imputation for horsepower, engine size, and cylinders only on non-electric vehicles
+  - Set horsepower = 0 and cylinders = 0 for confirmed electric vehicles
+  - Filled accident and clean_title with an explicit “Unknown” category.
+
+- **Color simplification**  
+  Reduced hundreds of unique exterior & interior colors into 11 meaningful groups (blue, red, black, silver, white, gold, orange, purple, beige, other, unknown) to reduce cardinality and noise.
+
+- **Robust numerical scaling**   
+  Applied StandardScaler to: model_year, milage, horsepower, engine_size, cylinder.
+
+- **Categorical encoding**  
+  Used One-Hot Encoding on cleaned categorical columns: brand, fuel_type, transmission, ext_col, int_col, accident, clean_title, fuel_system.
+
+- **Dropped redundant/high-cardinality raw columns**  
+  Removed original engine and model columns after successful feature extraction.
+
+- **Modular & reusable pipeline**  
+Entire workflow wrapped into a single preprocessing_pipeline() function that accepts pre-fitted imputer, scaler, and encoder → ensures zero data leakage between train/validation/test sets.
+
+All steps were carefully designed to handle the highly messy real-world nature of the used-car dataset while maintaining reproducibility and production-readiness.
+
+### Modeling
+Several models were evaluated using 5-fold CV and a hold-out validation set:
+
+|Model|RMSE(Validation)|
+|---|---|
+|LGBM_rand|68090|
+|CatBoost_rand|68257|
+|LGBM	|68344|
+|XGBoost|68352|
+|CatBoost|68356|
+
+LightGBM achieved the lowest RMSE of 68090 on the validation set and was therefore selected as the final model.
+
+
+### Deployment
+
+::: {.iframe-container}
+<iframe src="https://usedcarpredapp-bhwgx6h2tvu5cf48ue4pu3.streamlit.app//?embed=true" 
+        width="100%" 
+        height="700" 
+        frameborder="0">
+</iframe>
+
+:::
+
+## Full Code & Notebooks
+
+All notebooks (from data preparation to modelling) are available in the GitHub repository:
+
+**GitHub Repository**: [link](https://github.com/daffadaniel/daffadaniel.github.io/tree/master/Project-Folders/01-Usedcar%20Price%20Prediction) 
+
+Or You can explore the notebooks directly:
+
+1. [Data Preparation]("../../../../Project-Folders/01-Usedcar%20Price%20Prediction/notebooks/data_preparation.ipynb")  
+2. [EDA Notebook]("../../../../Project-Folders/01-Usedcar%20Price%20Prediction/notebooks/EDA.ipynb")  
+3. [Data Preprocessing & feature engineering Notebook]("../../../../Project-Folders/01-Usedcar%20Price%20Prediction/notebooks/data_preprocessing.ipynb")  
+4. [Modelling Notebook]("../../../../Project-Folders/01-Usedcar%20Price%20Prediction/notebooks/modelling.ipynb")

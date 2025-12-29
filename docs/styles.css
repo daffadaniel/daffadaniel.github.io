@@ -1,0 +1,41 @@
+/* css styles */
+
+h2 {
+  color: #C0F2F3;   
+}
+
+h3 {
+  position: relative;
+  padding-bottom: 0.3rem;
+  margin-bottom: 1.2rem;
+  margin-top: 2rem;
+}
+h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 60px;            /* lebih pendek dari H2 */
+  height: 3px;
+  background: #00a15e;
+  border-radius: 2px;
+}
+
+/* H4 – garis paling pendek */
+h4 {
+  position: relative;
+  padding-bottom: 0.2rem;
+  margin-bottom: 1rem;
+  margin-top: 1.8rem;
+  color: #e0e0e0;
+}
+h4::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 30px;            /* paling pendek */
+  height: 2px;
+  background: #ac500e99; /* sedikit transparan biar beda level */
+  border-radius: 2px;
+}

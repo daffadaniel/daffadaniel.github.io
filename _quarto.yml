@@ -1,0 +1,53 @@
+project:
+  type: website
+  output-dir: docs 
+  resources:
+    - images/
+  
+website:
+  title: "Daffa Daniel Rivaldi"
+  site-url: https://daffadanielr.github.io/
+ 
+  navbar:
+    background: dark
+    search: true
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: post.qmd
+        text: "Posts"
+    right:
+      - icon: github
+        href: https://github.com/daffadaniel
+      - icon: linkedin
+        href: https://www.linkedin.com/in/daffadr/
+      - icon: medium
+        href: medium.com
+        
+
+page-footer:
+    right: "This blog is built with [Quarto](https://quarto.org/)."
+
+format:
+  html:
+    theme: darkly
+    mainfont: "Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+    fontsize: "1.05em"
+    backgroundcolor: rgb(26, 25, 24)
+    fontcolor: white
+    page-layout: article
+    toc: true
+    toc-location: right
+    css: styles.css
+    highlight-style: monokai
+    linkcolor: "#10a162"
+    grid:
+      sidebar-width: 300px
+      body-width: 768px
+      margin-width: 300px
+      gutter-width: 1.5rem
+execute:
+  eval: false
+  freeze: true

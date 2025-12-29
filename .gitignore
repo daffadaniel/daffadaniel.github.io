@@ -1,0 +1,14 @@
+/.quarto/
+/_site/
+/site_libs/
+/_freeze/
+
+# Python environment
+.venv/ 
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Jupyter hidden checkpoints
+.ipynb_checkpoints/

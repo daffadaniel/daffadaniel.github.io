@@ -1,0 +1,41 @@
+---
+title: "Customer Segmentation using RFM Analysis and K-Means Clustering"
+date: "2025-10-15"
+categories: [Machine Learning, Portofolio]
+image: sil-plot.png
+description: Segmented xx customers into x actionable groups using RFM + K-Means, unlocking clear retention and re-engagement strategies.
+---
+
+::: {.callout-important}
+The Project 100% completed and fully functional but the
+detailed case study and walkthrough on this Quarto site are being finalized — coming in the next 1–2 days.
+:::
+
+## Objective
+Transform raw transaction data into actionable customer segments for targeted marketing campaigns.
+
+## Methodology
+- Calculated **Recency, Frequency, Monetary (RFM)** scores  
+- Applied log transformation + standardization to handle skewness  
+- Determined optimal number of clusters using **Elbow Method** and **Silhouette Score**  
+- Trained K-Means and interpreted resulting segments
+
+## Results
+- Optimal number of clusters: **6**  
+- Clear, business-friendly segment profiles identified  
+
+<!-- ![RFM 3D Scatter Plot with Clusters](images/rfm_3d_clusters.png)
+![Segment Characteristics Heatmap](images/rfm_heatmap.png) -->
+
+## Customer Segments
+
+| Segment          | % of Customers | Key Traits                          | Recommended Action             |
+|------------------|----------------|-------------------------------------|--------------------------------|
+| Champions        | 8 %            | Recent, frequent, high spend        | Reward, cross-sell             |
+| Loyal Customers  | 22 %           | Frequent, medium-high spend         | Upsell, loyalty program        |
+| At-Risk          | 15 %           | High past spend, long time inactive | Win-back campaign              |
+| Hibernating      | 30 %           | Low frequency & monetary            | Re-engagement offers           |
+| New Customers    | 12 %           | Very recent, low frequency          | Onboarding, education          |
+| Lost             | 13 %           | Very long inactive, low spend       | Minimal effort or ignore       |
+
+**Tech Stack:** Python • Pandas • Scikit-learn • Seaborn • Plotly

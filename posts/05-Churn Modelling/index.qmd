@@ -1,0 +1,84 @@
+---
+title: "Churn Prediction: 12-week Observation window with 1-Week Gap"
+date: "2025-11-26"
+categories: [Machine Learning, Portofolio]
+description: " Built a customer churn prediction model using RFM-T feature as predictors that is extracted from the past 12-week observation windows with a 1-week gap. Achieved realistic AUC of 0.623 and 75.9% F1-score on time-based test set."
+image: "cm.png"
+format:
+  html:
+    max-width: 1700px
+    echo: fenced  
+    code-fold: false
+    notebook-links: false
+---
+
+
+## Project Overview
+
+This project predicts whether a customer will churn (stop transacting) in the next 6 weeks based on their past behavior. I used the past 12-week as the observation window and a 1-week gap between observation and prediction windows.
+
+The model is designed to simulate real production conditions — no future information is ever used during training.
+
+Dataset: [Online Retail II](https://archive.ics.uci.edu/dataset/502/online+retail+ii)  
+This Project Github: [link]()
+
+### Key Design Decisions
+
+
+| Component               | Choice                                 | Reason                                      |
+|-------------------------|----------------------------------------|-----------------------------------------------------------|
+| Data generation         | Sliding window across the entire timeline         |  |
+| Observation Window      | 12 weeks                               | ~2 median purchase cycles                                |
+| Gap                     | 1 full week (strictly excluded)       | Current week is incomplete → cannot be used in features   |
+| Prediction Window       | Next 6 weeks after gap                 |          median purchase cycles              |
+| Label                   | 0 transactions in PW → churn = 1      | Business definition                                       |
+| Train-test split           | Strict time-based (latest period held out as test) | No Overlapping period|
+
+### Features Used (RFM-based)
+- Recency (weeks since last transaction)  
+- Frequency (number of transactions in 12 weeks)  
+- Monetary value  
+- Average Order Value (AOV)  
+- Customer tenure (weeks since first transaction)
+
+### Model
+- Logistic Regression
+- Xgboost
+- LightGBM
+- Catboost
+
+### Threshold Selection
+To determine the threshold, I evaluate multiple criteria:
+
+- **F1-maximizing threshold** — balances precision and recall (most commonly used in retention campaigns)  
+- **Closest point to (0,1)** on the ROC curve — geometrically nearest to perfect classification 
+- The optimal threshold selected by prioritizing catching more churners (recall) rather than how clean the predictions (precision).
+
+Most of the model final threshold uses the F1-maximizing threshold. This threshold was then fixed and evaluated on a **time-based test set** (the most recent period, no overlap with training data)
+
+### Model Comparison (Time-based Test Set)
+
+| Model               | AUC    | F1     | Recall | Precision | 
+|---------------------|--------|--------|--------|-----------|
+| Logistic Regression | 0.565  | 0.760 | 0.973  | 0.635    | 
+| XGBoost             | 0.614 | 0.754  | 0.931  |0.6338    |
+| CatBoost            | 0.620  | 0.756  | 0.938  | 0.633     | 
+| **LightGBM**        | **0.623** | **0.759** | **0.940** | **0.636** |
+
+
+
+### Tech Stack
+- Python  
+- Pandas  
+- Scikit-learn  
+- Matplotlib / Seaborn 
+- LGBM
+- XGBoost
+- CatBoost 
+- Quarto (for documentation)
+
+## Full Code & Details
+Complete notebook below.
+
+### Data Cleaning & EDA Notebook
+I use the same data cleaning and EDA for this project and the [cohort analysis project](../04-Cohort%20Analysis/index.qmd) as it uses the same dataset. 

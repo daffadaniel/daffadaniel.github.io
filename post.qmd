@@ -1,0 +1,50 @@
+---
+listing:
+  type: grid
+  sort: "date desc"
+  sort-ui: true      
+  filter-ui: true
+  categories: true
+  image-placeholder: "images/image-placeholder.png"
+  fields: [image, date, title, description]
+  contents:
+    # Project 1: Used Car Prediction
+    - title: "Used Car Price Prediction"
+      description: "An end-to-end machine learning project to predict used car prices based on features like brand, model, year, mileage, fuel type, transmission, etc. Includes data cleaning, EDA, feature engineering, model training (XGBoost, LightGBM, etc.), and evaluation."
+      path: "https://daffadaniel.github.io/01-UsedCarPrediction/"
+      image: "images/01-thumbnail.jpg"
+      date: "2025-10-1"
+      categories: [Machine Learning, Python]
+
+    # Project 2: RFM Analysis
+    - title: "Customer Segmentation using RFM Analysis and K-Means Clustering"
+      description: Segmented xx customers into x actionable groups using RFM + K-Means, unlocking clear retention and re-engagement strategies.
+      path: "https://daffadaniel.github.io/02-RFMAnalysis/"
+      image: "images/02-thumbnail.png" 
+      date: "2025-10-15"
+      categories: [Data Analysis, Marketing, Machine Learning, Portofolio]
+
+    # Project 3: Database Design
+    - title: "Designing and Creating Relational Database for Doctor-Patient Appointments"
+      description: "In this post, I will design a simple database system for hospital app to manage patient medical records and doctor appointments using postgresql. Through this project, I intend to demonstrate practical database design principles, data normalization, and SQL query implementation."
+      path: "https://daffadaniel.github.io/03-DatabaseDesign/"
+      image: "images/03-thumbnail.png" 
+      date: "2025-11-12"
+      categories: [PostgreSQL, Database]
+
+    # Project 4:
+    - title: "Customer Retention Cohort Analysis"
+      description: "Analyzing Customer Cohorts to Improve Retention & Value"
+      image: "images/04-thumbnail.png"
+      date: "2025-11-17"
+      categories: [Data Analytics, Marketing]
+    
+    # Project 5:
+    - title: "Churn Prediction: 12-week Observation window with 1-Week Gap"
+      description: " Built a customer churn prediction model using RFM-T feature as predictors that is extracted from the past 12-week observation windows with a 1-week gap. Achieved realistic AUC of 0.623 and 75.9% F1-score on time-based test set."
+      image: "images/05-thumbnail.png"
+      date: "2025-11-26"
+      categories: [Machine Learning, Portofolio]
+
+page-layout: full
+---

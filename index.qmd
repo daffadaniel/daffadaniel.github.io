@@ -1,0 +1,30 @@
+---
+title: "Daffa Daniel Rivaldi"
+about:
+  id: hero-heading
+  template: jolla
+  image: 'Daffa Daniel Rivaldi_Histogram.png'
+  image-shape: round
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/daffadr/
+    - icon: github
+      text: Github
+      href: https://github.com/daffadaniel
+    - icon: medium
+      text: Medium
+      href: https://medium.com/@daffadaniel16
+---
+
+ Fresh Mathematics graduate from Universitas Indonesia (2025) actively looking for Data Science or Analytics roles. I turn raw data into predictive models and actionable dashboards using Python, SQL, and modern ML tools. Ready to contribute real impact from day one.
+
+
+[Checkout My Post →](post.qmd)
+
+
+
+
+
+
+

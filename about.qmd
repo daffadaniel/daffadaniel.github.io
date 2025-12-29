@@ -1,0 +1,78 @@
+---
+title: "Daffa Daniel Rivaldi"
+about:
+  id: hero-heading
+  template: solana
+  image: 'Daffa Daniel Rivaldi_Histogram.png'
+  image-shape: round
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/daffadr/
+    - icon: github
+      text: Github
+      href: https://github.com/daffadaniel
+    - icon: medium
+      text: Medium
+      href: https://medium.com/@daffadaniel16
+---
+
+
+Highly motivated and detail-oriented student with interest in data analysis, statistical modeling, and data science. Proficient in utilizing tools such as Python, Git, PostgreSQL, and Tableau to solve complex problems and deliver 
+actionable insights. Strong foundation in mathematics with a proven abilty to collaborate and execute projects effectively.
+Currently focused on improving data analysis skill, mastering machine learning, and improving databases management skills.
+
+## Education
+- **Universitas Indonesia**   
+Bachelor's degree, Mathematics | Aug 2021 -- Sept 2025
+
+-  **SMA Negeri 1 Tangerang**   
+Mathematics and Natural Science | Jul 2017 -- May 2020
+
+
+## Certifications & Training
+- **Machine Learning APIs & Machine Learning Deployments**  
+Pacmann Academy | Issued August 2025  
+<a href="https://sertifikat.pacmann.ai/GTkjy5cSsh1C6kj" style="text-decoration: none;">
+ Credential <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; vertical-align: middle;"></i> 
+</a>
+
+-  **Customer, Marketing, Product Analytics & Experimentation**  
+Pacmann Academy | Issued April 2025  
+<a href="https://sertifikat.pacmann.ai/9nsLonSnORdLs78" style="text-decoration: none;">
+ Credential <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; vertical-align: middle;"></i> 
+</a>
+- **Basic & Advanced Machine Learning Algorithm**  
+Pacmann Academy | Issued January 2025  
+<a href="https://sertifikat.pacmann.ai/GjzLZYElj6EVtQg" style="text-decoration: none;">
+ Credential <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; vertical-align: middle;"></i> 
+</a>
+
+- **SQL & Relational Database**  
+Pacmann Academy | Issued November 2024  
+<a href="https://sertifikat.pacmann.ai/3Ug0yzxDi4ckMRc" style="text-decoration: none;">
+ Credential <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; vertical-align: middle;"></i> 
+</a>
+
+- **Data Visualization & Wrangling**  
+Pacmann Academy | Issued September 2024  
+<a href="https://sertifikat.pacmann.ai/YodhlXoXm9u06zc" style="text-decoration: none;">
+ Credential <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; vertical-align: middle;"></i> 
+</a>
+
+- **Basic Python Programming & Python for Software Engineering**  
+Pacmann Academy | Issued July 2024  
+<a href="https://sertifikat.pacmann.ai/Bvcu7xU41qZHd0x" style="text-decoration: none;">
+ Credential <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; vertical-align: middle;"></i> 
+</a>
+
+
+## Language
+- **Indonesian** (Native)
+
+-  **English**  
+Duolingo English Test | Issued Jan 2024 -- Expires Jan 2026  
+<a href="https://certs.duolingo.com/d6b44791c6555007900d2d951368ab5e" style="text-decoration: none;">
+ Credential <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; vertical-align: middle;"></i> 
+</a>
+
