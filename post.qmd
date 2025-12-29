@@ -35,6 +35,7 @@ listing:
     # Project 4:
     - title: "Customer Retention Cohort Analysis"
       description: "Analyzing Customer Cohorts to Improve Retention & Value"
+      path: "https://daffadaniel.github.io/04-CohortAnalysis/"
       image: "images/04-thumbnail.png"
       date: "2025-11-17"
       categories: [Data Analytics, Marketing]
@@ -42,6 +43,7 @@ listing:
     # Project 5:
     - title: "Churn Prediction: 12-week Observation window with 1-Week Gap"
       description: " Built a customer churn prediction model using RFM-T feature as predictors that is extracted from the past 12-week observation windows with a 1-week gap. Achieved realistic AUC of 0.623 and 75.9% F1-score on time-based test set."
+      path: "https://daffadaniel.github.io/05-ChurnModelling/"
       image: "images/05-thumbnail.png"
       date: "2025-11-26"
       categories: [Machine Learning, Portofolio]
