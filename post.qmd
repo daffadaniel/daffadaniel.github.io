@@ -47,6 +47,14 @@ listing:
       image: "images/05-thumbnail.png"
       date: "2025-11-26"
       categories: [Machine Learning, Portofolio]
+    
+    # Project 6:
+    - title: "Robust Credit Scoring Model with Monotonic WoE Binning"
+      description: "Developing a robust credit risk scorecard using Logistic Regression and monotonic Weight of Evidence (WoE) transformation to ensure predictable and interpretable default risk assessment."
+      path: "https://daffadaniel.github.io/06-CreditScoring/"
+      image: "images/06-thumbnail.png"
+      date: "2025-12-21"
+      categories: [Linear Regression, Credit Scoring, Machine Learning]
 
 page-layout: full
 ---
